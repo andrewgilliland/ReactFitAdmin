@@ -1,5 +1,5 @@
 "use client";
-import { Exercise } from "@/lib/types/Exercises";
+import { Exercise } from "@/types/Exercises";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 

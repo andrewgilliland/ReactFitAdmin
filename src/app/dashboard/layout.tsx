@@ -1,19 +1,26 @@
+"use client";
+import { FC, ReactNode, useEffect } from "react";
 import Link from "next/link";
-import { FC, ReactNode } from "react";
+import { usePathname } from "next/navigation";
 
 type DashboardLayoutProps = {
   children: ReactNode;
 };
 
 const DashboardLayout: FC<DashboardLayoutProps> = ({ children }) => {
+  const pathname = usePathname();
   const routes = [
     { name: "exercises" },
     { name: "workouts" },
     { name: "programs" },
   ];
 
+  useEffect(() => {
+    console.log("pathname: ", pathname);
+  }, [pathname]);
+
   return (
-    <div className="px-10 py-12 bg-black text-white min-h-screen">
+    <div className="px-10 py-12">
       <div className="flex gap-2">
         {routes.map(({ name }, index) => (
           <Link

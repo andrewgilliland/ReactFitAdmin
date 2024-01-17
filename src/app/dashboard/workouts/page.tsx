@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 const Workouts = () => (
-  <main className="flex min-h-screen flex-col p-32 bg-black text-white">
+  <main className="flex flex-col">
     <div className="flex flex-row justify-between">
       <h1 className="font-semibold text-xl">Workouts</h1>
       <Link
