@@ -34,16 +34,8 @@ const Exercises = () => {
 
   return (
     <main className="flex min-h-screen flex-col p-32 bg-black text-white">
-      <div className="flex flex-row justify-between">
+      <div className="flex flex-row justify-between items-center">
         <h1 className="font-semibold text-xl">Exercises</h1>
-        <Link
-          className="text-pink-500 border border-pink-500 px-4 py-2 rounded-md transition hover:bg-pink-500 hover:text-black"
-          href="/dashboard"
-        >
-          Dashboard
-        </Link>
-      </div>
-      <div className="mt-8">
         <Link
           className="text-pink-500 border border-pink-500 px-4 py-2 rounded-md transition hover:bg-pink-500 hover:text-black"
           href="/dashboard/exercises/create"
@@ -51,6 +43,7 @@ const Exercises = () => {
           Create Exercise
         </Link>
       </div>
+      <div className="mt-8"></div>
       <div className="border border-white rounded-md mt-12">
         {exercises.map(({ id, name, equipment, targetMuscleGroup }, index) => (
           <div
