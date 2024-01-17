@@ -13,7 +13,7 @@ const DashboardLayout: FC<DashboardLayoutProps> = ({ children }) => {
   ];
 
   return (
-    <div className="px-10 py-12">
+    <div className="px-10 py-12 bg-black text-white min-h-screen">
       <div className="flex gap-2">
         {routes.map(({ name }, index) => (
           <Link
@@ -25,7 +25,9 @@ const DashboardLayout: FC<DashboardLayoutProps> = ({ children }) => {
           </Link>
         ))}
       </div>
-      <div className="border-2 border-pink-400 rounded mt-4">{children}</div>
+      <div className="border-2 border-pink-400 rounded mt-4 px-12 py-10">
+        {children}
+      </div>
     </div>
   );
 };
