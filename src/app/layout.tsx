@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "@/styles/globals.css";
+import { FC, ReactNode } from "react";
+import Header from "@/components/Header";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -9,16 +11,17 @@ export const metadata: Metadata = {
   description: "Build your own workout programs with ReactFit.",
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  return (
-    <html lang="en">
-      <body className={`${inter.className} bg-black text-white min-h-screen`}>
-        {children}
-      </body>
-    </html>
-  );
-}
+type RootLayoutProps = {
+  children: ReactNode;
+};
+
+const RootLayout: FC<RootLayoutProps> = ({ children }) => (
+  <html lang="en">
+    <body className={`${inter.className} bg-black text-white min-h-screen`}>
+      <Header />
+      {children}
+    </body>
+  </html>
+);
+
+export default RootLayout;
