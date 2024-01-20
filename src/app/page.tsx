@@ -9,7 +9,7 @@ const Home = () => (
         className="flex flex-col border-2 border-pink-400 rounded p-6"
         action=""
       >
-        <Input name="username" />
+        <Input name="username" value="Biff" onChange={() => {}} />
         <label htmlFor="">Password</label>
         <input type="text" name="" id="" />
         <Link href="/dashboard">
