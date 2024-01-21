@@ -11,6 +11,7 @@ import {
   mechanics,
   muscleGroup,
 } from "@/types/Exercises";
+import FieldSet from "./FieldSet";
 
 const CreateExerciseForm = () => {
   const [formData, setFormData] = useState<Exercise>({
@@ -94,6 +95,7 @@ const CreateExerciseForm = () => {
         onChange={handleChange}
         className="mt-3"
       />
+      <FieldSet name="secondaryMucles" options={muscleGroup} className="mt-3" />
       <button
         type="submit"
         className="text-pink-500 border border-pink-500 mt-8 px-4 py-2 rounded-md transition hover:bg-pink-500 hover:text-black"
