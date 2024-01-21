@@ -18,6 +18,9 @@ export const muscleGroup = [
   "upperBack",
   "lowerBack",
 ] as const;
+const MuscleGroup = z.enum(muscleGroup);
+export type MuscleGroup = z.infer<typeof MuscleGroup>;
+
 export const difficulty = ["beginner", "intermediate", "advanced"] as const;
 export const equipment = [
   "bodyweight",

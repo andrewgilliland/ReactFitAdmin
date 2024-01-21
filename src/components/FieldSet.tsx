@@ -1,19 +1,19 @@
-"use client";
-import { ChangeEvent, FC, use, useEffect, useState } from "react";
+// "use client";
+import { ChangeEvent, FC } from "react";
 
 type FieldSetProps = {
   name: string;
   options: readonly string[];
+  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
   className?: string;
 };
 
-const FieldSet: FC<FieldSetProps> = ({ name, options, className }) => {
-  const [checked, setChecked] = useState<string[]>([]);
-
-  useEffect(() => {
-    console.log(checked), [checked];
-  });
-
+const FieldSet: FC<FieldSetProps> = ({
+  name,
+  options,
+  onChange,
+  className,
+}) => {
   return (
     <fieldset
       className={`border-2 border-pink-400 rounded px-4 py-1 ${className}`}
@@ -30,13 +30,7 @@ const FieldSet: FC<FieldSetProps> = ({ name, options, className }) => {
             >
               {option}
               <input
-                onChange={(e: ChangeEvent<HTMLInputElement>) => {
-                  e.target.checked
-                    ? setChecked([...checked, e.target.name])
-                    : setChecked(
-                        checked.filter((item) => item !== e.target.name)
-                      );
-                }}
+                onChange={onChange}
                 type="checkbox"
                 name={option}
                 className="ml-2"

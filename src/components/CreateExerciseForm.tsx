@@ -1,9 +1,10 @@
 "use client";
-import { ChangeEvent, FormEvent, useState } from "react";
+import { ChangeEvent, FormEvent, use, useEffect, useState } from "react";
 import Input from "@/components/Input";
 import Select from "@/components/Select";
 import {
   Exercise,
+  MuscleGroup,
   difficulty,
   equipment,
   exerciseType,
@@ -30,6 +31,23 @@ const CreateExerciseForm = () => {
       ...formData,
       [e.target.name]: e.target.value,
     });
+
+  const handleFieldSetChange = (e: ChangeEvent<HTMLInputElement>) => {
+    e.target.checked
+      ? setFormData({
+          ...formData,
+          secondaryMuscles: [
+            ...formData.secondaryMuscles,
+            e.target.name as MuscleGroup,
+          ],
+        })
+      : setFormData({
+          ...formData,
+          secondaryMuscles: formData.secondaryMuscles.filter(
+            (item) => item !== e.target.name
+          ),
+        });
+  };
 
   const createExercise = async (e: FormEvent) => {
     e.preventDefault();
@@ -95,7 +113,12 @@ const CreateExerciseForm = () => {
         onChange={handleChange}
         className="mt-3"
       />
-      <FieldSet name="secondaryMucles" options={muscleGroup} className="mt-3" />
+      <FieldSet
+        name="secondaryMucles"
+        options={muscleGroup}
+        className="mt-3"
+        onChange={handleFieldSetChange}
+      />
       <button
         type="submit"
         className="text-pink-500 border border-pink-500 mt-8 px-4 py-2 rounded-md transition hover:bg-pink-500 hover:text-black"
