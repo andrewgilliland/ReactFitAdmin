@@ -1,4 +1,5 @@
-import { FC } from "react";
+"use client";
+import { ChangeEvent, FC, use, useEffect, useState } from "react";
 
 type FieldSetProps = {
   name: string;
@@ -7,6 +8,12 @@ type FieldSetProps = {
 };
 
 const FieldSet: FC<FieldSetProps> = ({ name, options, className }) => {
+  const [checked, setChecked] = useState<string[]>([]);
+
+  useEffect(() => {
+    console.log(checked), [checked];
+  });
+
   return (
     <fieldset
       className={`border-2 border-pink-400 rounded px-4 py-1 ${className}`}
@@ -22,7 +29,18 @@ const FieldSet: FC<FieldSetProps> = ({ name, options, className }) => {
               className="flex capitalize text-sm text-white mt-1"
             >
               {option}
-              <input type="checkbox" name={option} className="ml-2" />
+              <input
+                onChange={(e: ChangeEvent<HTMLInputElement>) => {
+                  e.target.checked
+                    ? setChecked([...checked, e.target.name])
+                    : setChecked(
+                        checked.filter((item) => item !== e.target.name)
+                      );
+                }}
+                type="checkbox"
+                name={option}
+                className="ml-2"
+              />
             </label>
           );
         })}
