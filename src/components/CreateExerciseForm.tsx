@@ -1,5 +1,5 @@
 "use client";
-import { ChangeEvent, FormEvent, use, useEffect, useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 import Input from "@/components/Input";
 import Select from "@/components/Select";
 import {
@@ -11,7 +11,7 @@ import {
   forceType,
   mechanics,
   muscleGroup,
-} from "@/types/Exercises";
+} from "@/types";
 import FieldSet from "./FieldSet";
 
 const CreateExerciseForm = () => {

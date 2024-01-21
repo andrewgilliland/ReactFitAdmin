@@ -1,38 +1,8 @@
 import { z } from "zod";
+import { difficulty } from "./Difficulty";
+import { muscleGroup } from "./MuscleGroup";
+import { equipment } from "./Equipment";
 
-export const muscleGroup = [
-  "lats",
-  "chest",
-  "shoulders",
-  "traps",
-  "glutes",
-  "quads",
-  "hamstrings",
-  "hipFlexors",
-  "adductors",
-  "calves",
-  "abs",
-  "biceps",
-  "triceps",
-  "forearms",
-  "upperBack",
-  "lowerBack",
-] as const;
-const MuscleGroup = z.enum(muscleGroup);
-export type MuscleGroup = z.infer<typeof MuscleGroup>;
-
-export const difficulty = ["beginner", "intermediate", "advanced"] as const;
-export const equipment = [
-  "bodyweight",
-  "dumbbell",
-  "barbell",
-  "cables",
-  "machine",
-  "ezBar",
-  "kettlebell",
-  "trx",
-  "other",
-] as const;
 export const exerciseType = ["strength"] as const;
 export const forceType = ["push", "pull", "hinge", "static"] as const;
 export const mechanics = ["compound", "isolation", "isometric"] as const;
