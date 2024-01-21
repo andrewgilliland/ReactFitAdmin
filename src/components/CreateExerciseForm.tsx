@@ -1,6 +1,8 @@
 "use client";
 import { ChangeEvent, FormEvent, useState } from "react";
 import Input from "@/components/Input";
+import Select from "@/components/Select";
+import { difficulty } from "@/types/Exercises";
 
 const CreateExerciseForm = () => {
   const [formData, setFormData] = useState({
@@ -42,6 +44,7 @@ const CreateExerciseForm = () => {
         onChange={handleChange}
         className="mt-3"
       />
+      <Select name="difficulty" options={difficulty} className="mt-3" />
       <Input
         name="targetMuscleGroup"
         value={formData.targetMuscleGroup}

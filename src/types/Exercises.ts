@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-const muscleGroup = [
+export const muscleGroup = [
   "lats",
   "chest",
   "shoulders",
@@ -18,8 +18,8 @@ const muscleGroup = [
   "upperBack",
   "lowerBack",
 ] as const;
-const difficulty = ["beginner", "intermediate", "advanced"] as const;
-const equipment = [
+export const difficulty = ["beginner", "intermediate", "advanced"] as const;
+export const equipment = [
   "bodyweight",
   "dumbbell",
   "barbell",
@@ -30,9 +30,9 @@ const equipment = [
   "trx",
   "other",
 ] as const;
-const exerciseType = ["strength"] as const;
-const forceType = ["push", "pull", "hinge", "static"] as const;
-const mechanics = ["compound", "isolation", "isometric"] as const;
+export const exerciseType = ["strength"] as const;
+export const forceType = ["push", "pull", "hinge", "static"] as const;
+export const mechanics = ["compound", "isolation", "isometric"] as const;
 
 const Exercise = z.object({
   id: z.string(),
