@@ -1,5 +1,6 @@
 "use client";
 import { ChangeEvent, FormEvent, useState } from "react";
+import { useFormState } from "react-dom";
 import Input from "@/components/Input";
 import Select from "@/components/Select";
 import {
@@ -13,8 +14,12 @@ import {
   muscleGroup,
 } from "@/types";
 import FieldSet from "./FieldSet";
+import { createExerciseThing } from "@/lib/actions/createExercise";
 
 const CreateExerciseForm = () => {
+  const initialState = { message: null };
+  const [state, formAction] = useFormState(createExerciseThing, initialState);
+
   const [formData, setFormData] = useState<Exercise>({
     name: "",
     difficulty: "beginner",
@@ -49,8 +54,10 @@ const CreateExerciseForm = () => {
         });
   };
 
-  const createExercise = async (e: FormEvent) => {
-    e.preventDefault();
+  const createExercise = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    // const formData = new FormData(event.currentTarget);
+
     console.log(formData);
 
     // const response = await fetch("http://[::1]:8080/exercise", {
@@ -69,7 +76,11 @@ const CreateExerciseForm = () => {
   };
 
   return (
-    <form className="flex flex-col" action="">
+    <form
+      action={formAction}
+      //   onSubmit={createExercise}
+      className="flex flex-col"
+    >
       <Input name="name" value={formData.name} onChange={handleChange} />
       <Select
         name="difficulty"
@@ -122,7 +133,6 @@ const CreateExerciseForm = () => {
       <button
         type="submit"
         className="text-pink-500 border border-pink-500 mt-8 px-4 py-2 rounded-md transition hover:bg-pink-500 hover:text-black"
-        onClick={createExercise}
       >
         Create
       </button>
