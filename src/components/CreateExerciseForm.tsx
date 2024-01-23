@@ -1,6 +1,6 @@
 "use client";
 import { ChangeEvent, FormEvent, useState } from "react";
-import { useFormState } from "react-dom";
+// import { useFormState } from "react-dom";
 import Input from "@/components/Input";
 import Select from "@/components/Select";
 import {
@@ -14,11 +14,11 @@ import {
   muscleGroup,
 } from "@/types";
 import FieldSet from "./FieldSet";
-import { createExerciseThing } from "@/lib/actions/createExercise";
+// import { createExerciseThing } from "@/lib/actions/createExercise";
 
 const CreateExerciseForm = () => {
-  const initialState = { message: null };
-  const [state, formAction] = useFormState(createExerciseThing, initialState);
+  //   const initialState = { message: null };
+  //   const [state, formAction] = useFormState(createExerciseThing, initialState);
 
   const [formData, setFormData] = useState<Exercise>({
     name: "",
@@ -60,25 +60,21 @@ const CreateExerciseForm = () => {
 
     console.log(formData);
 
-    // const response = await fetch("http://[::1]:8080/exercise", {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: JSON.stringify({
-    //     name: "Bench Press",
-    //     equipment: "Barbell",
-    //     targetMuscleGroup: "Chest",
-    //   }),
-    // });
-    // const data = await response.json();
-    // console.log(data);
+    const response = await fetch("http://[::1]:8080/exercise", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    });
+    const data = await response.json();
+    console.log(data);
   };
 
   return (
     <form
-      action={formAction}
-      //   onSubmit={createExercise}
+      //   action={formAction} Next.js form action - need to figure out FieldSet form values
+      onSubmit={createExercise}
       className="flex flex-col"
     >
       <Input name="name" value={formData.name} onChange={handleChange} />
