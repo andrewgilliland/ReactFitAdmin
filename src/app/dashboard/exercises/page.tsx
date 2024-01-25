@@ -1,4 +1,5 @@
 "use client";
+import ExerciseCard from "@/components/ExerciseCard";
 import { Exercise } from "@/types/Exercise";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -27,16 +28,17 @@ const Exercises = () => {
           Create Exercise
         </Link>
       </div>
-      <div className="border border-white rounded-md mt-10">
-        {exercises.map(({ id, name, equipment, targetMuscleGroup }, index) => (
-          <div
-            key={id}
-            className={`flex ${index ? "border-t border-white" : ""}`}
-          >
-            <div className="flex-1 text-sm">{name}</div>
-            <div className="flex-1 text-sm">{equipment}</div>
-            <div className="flex-1 text-sm">{targetMuscleGroup}</div>
-          </div>
+      <div className="bg-black grid grid-cols-3 gap-20 border-2 border-cyan-500 rounded mt-10 p-12">
+        {exercises.map((exercise, index) => (
+          <ExerciseCard key={`${exercise.name}-${index}`} exercise={exercise} />
+          // <div
+          //   key={id}
+          //   className={`flex flex-col border-2 border-cyan-500 rounded bg-black gap-8`}
+          // >
+          //   <div className="flex-1 text-sm">{name}</div>
+          //   <div className="flex-1 text-sm">{equipment}</div>
+          //   <div className="flex-1 text-sm">{targetMuscleGroup}</div>
+          // </div>
         ))}
       </div>
     </div>
