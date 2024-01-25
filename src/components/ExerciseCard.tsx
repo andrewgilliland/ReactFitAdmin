@@ -20,10 +20,10 @@ const ExerciseCard: FC<ExerciseCardProps> = ({ exercise, onClick }) => {
   return (
     <div
       onClick={() => onClick && onClick()}
-      className="flex flex-col w-64 h-64 bg-white rounded-lg shadow-md"
+      className="flex flex-col w-64 h-64 bg-black border-2 border-cyan-500 rounded-lg"
     >
-      <div className="flex flex-col items-center justify-center flex-1 p-6">
-        <h2 className="text-xl font-bold">{name}</h2>
+      <div className="flex flex-col items-starts justify-start flex-1 p-6">
+        <h2 className="text-xl text-pink-500 font-bold">{name}</h2>
         <p className="text-gray-600">{difficulty}</p>
         <p className="text-gray-600">{equipment}</p>
         <p className="text-gray-600">{exerciseType}</p>
@@ -31,9 +31,6 @@ const ExerciseCard: FC<ExerciseCardProps> = ({ exercise, onClick }) => {
         <p className="text-gray-600">{mechanics}</p>
         <p className="text-gray-600">{targetMuscleGroup}</p>
       </div>
-      <button className="flex items-center justify-center px-6 py-3 text-white bg-blue-600 rounded-b-lg">
-        View
-      </button>
     </div>
   );
 };
