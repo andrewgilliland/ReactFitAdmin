@@ -2,15 +2,9 @@
 import ExerciseCard from "@/components/ExerciseCard";
 import { Exercise } from "@/types/Exercise";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
 const Exercises = () => {
-  // const router = useRouter();
-  const pathname = usePathname();
-  console.log(pathname);
-  // const { slug } = router.query;
   const [exercises, setExercises] = useState<Exercise[]>([]);
 
   const getAllExercises = async () => {
@@ -22,8 +16,6 @@ const Exercises = () => {
   useEffect(() => {
     getAllExercises();
   }, []);
-
-  // console.log(slug);
 
   return (
     <div className="bg-black grid gap-y-10 grid-cols-1 lg:grid-cols-2 xl:grid-cols-3">
