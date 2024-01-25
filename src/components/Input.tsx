@@ -1,6 +1,8 @@
-import { ChangeEvent, FC } from "react";
+"use client";
 
+import { ChangeEvent, FC, use, useEffect, useState } from "react";
 import EditButton from "./EditButton";
+import { set } from "zod";
 
 type InputProps = {
   name: string;
@@ -17,23 +19,34 @@ const Input: FC<InputProps> = ({
   className,
   isEditable = false,
 }) => {
+  const [disabled, setDisabled] = useState(false);
+
+  useEffect(() => {
+    console.log(disabled);
+  }, [disabled]);
+
   return (
     <label
       className={`relative flex flex-col capitalize text-sm text-gray-500 ${className}`}
     >
       {name}
       <input
-        className="bg-black border-2 border-pink-400 text-white rounded mt-1 px-2 py-1"
+        className={`bg-black border-2 rounded mt-1 px-2 py-1 ${
+          disabled
+            ? "border-gray-400 text-gray-400"
+            : "border-pink-400 text-white"
+        }`}
         type="text"
         name={name}
         value={value}
         onChange={onChange}
+        disabled={disabled}
       />
       {isEditable && (
-        // <button className="absolute flex justify-center items-center border-2 border-pink-400 rounded-full h-6 w-6 bottom-1 right-2 group transition hover:bg-pink-400">
-        //   <PencilIcon className="text-pink-400 h-3 w-3 transition group-hover:text-black" />
-        // </button>
-        <EditButton onClick={() => console.log("edit field")} />
+        <EditButton
+          onClick={() => setDisabled(!disabled)}
+          className="absolute bottom-1 right-2"
+        />
       )}
     </label>
   );
