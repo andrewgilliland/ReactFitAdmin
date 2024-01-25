@@ -2,9 +2,15 @@
 import ExerciseCard from "@/components/ExerciseCard";
 import { Exercise } from "@/types/Exercise";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
 const Exercises = () => {
+  // const router = useRouter();
+  const pathname = usePathname();
+  console.log(pathname);
+  // const { slug } = router.query;
   const [exercises, setExercises] = useState<Exercise[]>([]);
 
   const getAllExercises = async () => {
@@ -16,6 +22,8 @@ const Exercises = () => {
   useEffect(() => {
     getAllExercises();
   }, []);
+
+  // console.log(slug);
 
   return (
     <div className="flex flex-col">
@@ -30,15 +38,20 @@ const Exercises = () => {
       </div>
       <div className="bg-black grid grid-cols-3 gap-20 border-2 border-cyan-500 rounded mt-10 p-12">
         {exercises.map((exercise, index) => (
-          <ExerciseCard key={`${exercise.name}-${index}`} exercise={exercise} />
-          // <div
-          //   key={id}
-          //   className={`flex flex-col border-2 border-cyan-500 rounded bg-black gap-8`}
-          // >
-          //   <div className="flex-1 text-sm">{name}</div>
-          //   <div className="flex-1 text-sm">{equipment}</div>
-          //   <div className="flex-1 text-sm">{targetMuscleGroup}</div>
-          // </div>
+          <Link
+            href={`/dashboard/exercises/${exercise.name
+              .replace(/\s/g, "-")
+              .toLocaleLowerCase()}`}
+            as={`/dashboard/exercises/${exercise.name
+              .replace(/\s/g, "-")
+              .toLocaleLowerCase()}`}
+            key={`${exercise.name}-${index}`}
+          >
+            <ExerciseCard
+              key={`${exercise.name}-${index}`}
+              exercise={exercise}
+            />
+          </Link>
         ))}
       </div>
     </div>
