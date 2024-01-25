@@ -26,35 +26,19 @@ const Exercises = () => {
   // console.log(slug);
 
   return (
-    <div className="flex flex-col">
-      <div className="flex flex-row justify-between items-center">
-        <h1 className="font-semibold text-xl">Exercises</h1>
+    <>
+      {exercises.map((exercise, index) => (
         <Link
-          className="text-pink-500 border border-pink-500 px-4 py-2 rounded-md transition hover:bg-pink-500 hover:text-black"
-          href="/dashboard/exercises/create"
+          href={`/dashboard/exercises/${exercise.id}`}
+          as={`/dashboard/exercises/${exercise.name
+            .replace(/\s/g, "-")
+            .toLocaleLowerCase()}`}
+          key={`${exercise.name}-${index}`}
         >
-          Create Exercise
+          <ExerciseCard key={`${exercise.name}-${index}`} exercise={exercise} />
         </Link>
-      </div>
-      <div className="bg-black grid grid-cols-3 gap-20 border-2 border-cyan-500 rounded mt-10 p-12">
-        {exercises.map((exercise, index) => (
-          <Link
-            href={`/dashboard/exercises/${exercise.name
-              .replace(/\s/g, "-")
-              .toLocaleLowerCase()}`}
-            as={`/dashboard/exercises/${exercise.name
-              .replace(/\s/g, "-")
-              .toLocaleLowerCase()}`}
-            key={`${exercise.name}-${index}`}
-          >
-            <ExerciseCard
-              key={`${exercise.name}-${index}`}
-              exercise={exercise}
-            />
-          </Link>
-        ))}
-      </div>
-    </div>
+      ))}
+    </>
   );
 };
 
