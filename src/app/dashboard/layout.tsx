@@ -16,12 +16,12 @@ const DashboardLayout: FC<DashboardLayoutProps> = ({ children }) => {
   ];
 
   return (
-    <div className="px-10 py-12">
-      <div className="flex gap-2">
+    <div className="">
+      <div className="flex flex-col md:flex-row gap-2">
         {routes.map(({ name }, index) => (
           <Link
             key={`${name}-${index}`}
-            className={`capitalize font-semibold  border-t-2 border-x-2 border-cyan-400 px-4 py-2 rounded-t-md transition hover:bg-cyan-400 hover:text-black ${
+            className={`capitalize font-semibold border-2 md:border-t-2 border-x-2 border-cyan-400 px-4 py-2 rounded-md md:rounded-t-md md:rounded-b-none transition hover:bg-cyan-400 hover:text-black ${
               pathname.includes(name)
                 ? "bg-cyan-400 text-black"
                 : "bg-black text-cyan-400"
@@ -32,7 +32,7 @@ const DashboardLayout: FC<DashboardLayoutProps> = ({ children }) => {
           </Link>
         ))}
       </div>
-      <div className="border-2 border-cyan-400 rounded-tr rounded-b px-12 py-10">
+      <div className="border-2 border-cyan-400 rounded-tl-md md:rounded-tl-none rounded-tr-md rounded-b-md px-2 md:px-12 py-10 mt-4 md:mt-0">
         {children}
       </div>
     </div>

@@ -18,7 +18,7 @@ const Exercises = () => {
 
   return (
     <div className="grid min-h-screen place-items-center">
-      <div className="flex flex-wrap justify-center w-full max-w-6xl border border-red-500 gap-6">
+      <div className="flex flex-wrap justify-center w-full max-w-6xl gap-6">
         {exercises.map((exercise, index) => (
           <ExerciseCard key={`${exercise.name}-${index}`} exercise={exercise} />
         ))}

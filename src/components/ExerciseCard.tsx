@@ -21,10 +21,9 @@ const ExerciseCard: FC<ExerciseCardProps> = ({ exercise, onClick }) => {
   return (
     <div
       onClick={() => onClick && onClick()}
-      className="relative flex flex-col h-80 bg-black border-2 border-cyan-500 rounded-lg group flex-1 hover:grow-[1.2] transition-all duration-500 min-w-48"
+      className="relative flex flex-col h-80 bg-black border-2 border-cyan-500 rounded-lg group flex-1 hover:grow-[1.2] transition-all duration-500 min-w-48 max-w-60"
     >
       <Link
-        className="border border-purple-500 h-full"
         href={`/dashboard/exercises/${exercise.id}`}
         as={`/dashboard/exercises/${exercise.id}`}
         key={`${exercise.name}-${1}`}
