@@ -1,8 +1,7 @@
 "use client";
 
-import { ChangeEvent, FC, use, useEffect, useState } from "react";
+import { ChangeEvent, FC, useEffect, useState } from "react";
 import EditButton from "./EditButton";
-import { set } from "zod";
 
 type InputProps = {
   name: string;
