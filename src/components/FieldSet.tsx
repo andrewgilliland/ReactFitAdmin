@@ -20,23 +20,23 @@ const FieldSet: FC<FieldSetProps> = ({
       <legend className="flex flex-col capitalize text-sm text-gray-500">
         {name}
       </legend>
-      <div>
-        {options.map((option, index) => {
-          return (
-            <label
-              key={`${option}-${index}`}
-              className="flex capitalize text-sm text-white mt-1"
-            >
-              {option}
-              <input
-                onChange={onChange}
-                type="checkbox"
-                name={option}
-                className="ml-2"
-              />
-            </label>
-          );
-        })}
+      <div className="flex flex-wrap">
+        {options.map((option, index) => (
+          <label
+            key={`${option}-${index}`}
+            className={`flex capitalize text-sm text-white mt-1 ${
+              index !== options.length - 1 ? "mr-6" : ""
+            }`}
+          >
+            {option}
+            <input
+              onChange={onChange}
+              type="checkbox"
+              name={option}
+              className="ml-2"
+            />
+          </label>
+        ))}
       </div>
     </fieldset>
   );

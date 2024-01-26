@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { difficulty } from "./Difficulty";
-import { muscleGroup } from "./MuscleGroup";
+import { muscleGroups } from "./MuscleGroup";
 import { equipment } from "./Equipment";
 
 export const exerciseType = ["strength"] as const;
@@ -15,8 +15,8 @@ const Exercise = z.object({
   forceType: z.enum(forceType),
   mechanics: z.enum(mechanics),
   name: z.string(),
-  secondaryMuscles: z.enum(muscleGroup).array(),
-  targetMuscleGroup: z.enum(muscleGroup),
+  secondaryMuscles: z.enum(muscleGroups).array(),
+  targetMuscleGroup: z.enum(muscleGroups),
 });
 
 export type Exercise = z.infer<typeof Exercise>;

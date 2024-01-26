@@ -11,7 +11,7 @@ import {
   exerciseType,
   forceType,
   mechanics,
-  muscleGroup,
+  muscleGroups,
 } from "@/types";
 import FieldSet from "../FieldSet";
 // import { createExerciseThing } from "@/lib/actions/createExercise";
@@ -115,14 +115,14 @@ const CreateExerciseForm = () => {
       />
       <Select
         name="targetMuscleGroup"
-        options={muscleGroup}
+        options={muscleGroups}
         value={formData.targetMuscleGroup}
         onChange={handleChange}
         className="mt-3"
       />
       <FieldSet
-        name="secondaryMucles"
-        options={muscleGroup}
+        name="secondaryMuscles"
+        options={muscleGroups}
         className="mt-3"
         onChange={handleFieldSetChange}
       />
