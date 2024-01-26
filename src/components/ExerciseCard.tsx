@@ -33,7 +33,7 @@ const ExerciseCard: FC<ExerciseCardProps> = ({ exercise, onClick }) => {
             {name}
           </h2>
           <div className="grid grid-rows-[0fr] group-hover:grid-rows-[1fr] transition-all duration-500">
-            <div className="overflow-hidden mt-2 opacity-0 group-hover:opacity-100 transition duration-700">
+            <div className="overflow-hidden mt-2 opacity-0 group-hover:opacity-100 transition duration-1000">
               <p className="text-gray-600">{difficulty}</p>
               <p className="text-gray-600">{equipment}</p>
               <p className="text-gray-600">{exerciseType}</p>

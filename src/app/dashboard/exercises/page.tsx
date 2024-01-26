@@ -33,21 +33,30 @@ const Exercises = () => {
   }, [filterOptions]);
 
   return (
-    <div className="grid min-h-screen">
+    <div>
       <div>
         <h2 className="border-b-2 border-cyan-400">Filter</h2>
 
         <FieldSet
-          name="Primary Muscle Group"
+          name="Target Muscle Group"
           options={muscleGroups}
           onChange={handleFieldSetChange}
           className="mt-2"
         />
       </div>
-      <div className="flex flex-wrap justify-center w-full max-w-6xl gap-6 mt-4">
-        {exercises.map((exercise, index) => (
-          <ExerciseCard key={`${exercise.name}-${index}`} exercise={exercise} />
-        ))}
+      <div className="grid min-h-screen">
+        <div className="flex flex-wrap justify-center w-full max-w-6xl gap-6 mt-4">
+          {exercises
+            .filter((exercise) =>
+              filterOptions.includes(exercise.targetMuscleGroup)
+            )
+            .map((exercise, index) => (
+              <ExerciseCard
+                key={`${exercise.name}-${index}`}
+                exercise={exercise}
+              />
+            ))}
+        </div>
       </div>
     </div>
   );
