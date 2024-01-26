@@ -26,7 +26,7 @@ const ExerciseLayout: FC<ExerciseLayoutProps> = ({ children }) => {
           Create Exercise
         </Link>
       </div>
-      <div className="bg-black border-2 border-cyan-500 rounded mt-10 p-12">
+      <div className="bg-black border-2 border-cyan-500 rounded mt-10 p-4 md:p-12">
         {children}
       </div>
     </div>
