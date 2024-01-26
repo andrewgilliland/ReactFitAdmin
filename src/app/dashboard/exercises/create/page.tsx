@@ -1,4 +1,4 @@
-import CreateExerciseForm from "@/components/CreateExerciseForm";
+import CreateExerciseForm from "@/components/forms/CreateExerciseForm";
 import Link from "next/link";
 
 const CreateExercise = () => {

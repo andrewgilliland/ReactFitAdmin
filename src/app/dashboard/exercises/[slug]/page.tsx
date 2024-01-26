@@ -1,15 +1,11 @@
 "use client";
 
-import Input from "@/components/Input";
+import EditExerciseForm from "@/components/forms/EditExerciseForm";
 import { Exercise } from "@/types";
 import Link from "next/link";
-// import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export default function ExercisePage({ params }: { params: { slug: string } }) {
-  // const pathname = usePathname();
-  // Fetch exercise data based on the slug here
-
   const [exercise, setExercise] = useState<Exercise>();
 
   const getExerciseById = async (id: string) => {
@@ -24,7 +20,6 @@ export default function ExercisePage({ params }: { params: { slug: string } }) {
   }, [params.slug]);
 
   return (
-    // Render your page component here
     <div className="">
       <div className="flex justify-between items-center">
         <p>{exercise?.name}</p>
@@ -35,16 +30,7 @@ export default function ExercisePage({ params }: { params: { slug: string } }) {
           Go Back
         </Link>
       </div>
-      {exercise && (
-        <div>
-          <Input
-            name="name"
-            value={exercise?.name}
-            onChange={() => console.log("Changed")}
-            isEditable
-          />
-        </div>
-      )}
+      {exercise && <EditExerciseForm exercise={exercise} />}
     </div>
   );
 }

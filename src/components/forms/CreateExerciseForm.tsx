@@ -13,7 +13,7 @@ import {
   mechanics,
   muscleGroup,
 } from "@/types";
-import FieldSet from "./FieldSet";
+import FieldSet from "../FieldSet";
 // import { createExerciseThing } from "@/lib/actions/createExercise";
 
 const CreateExerciseForm = () => {

@@ -1,6 +1,6 @@
 "use client";
 
-import { ChangeEvent, FC, useEffect, useState } from "react";
+import { ChangeEvent, FC, useState } from "react";
 import EditButton from "./EditButton";
 
 type InputProps = {
@@ -19,10 +19,6 @@ const Input: FC<InputProps> = ({
   isEditable = false,
 }) => {
   const [disabled, setDisabled] = useState(isEditable);
-
-  useEffect(() => {
-    console.log(disabled);
-  }, [disabled]);
 
   return (
     <label
