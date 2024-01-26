@@ -19,7 +19,7 @@ const Input: FC<InputProps> = ({
   className,
   isEditable = false,
 }) => {
-  const [disabled, setDisabled] = useState(false);
+  const [disabled, setDisabled] = useState(isEditable);
 
   useEffect(() => {
     console.log(disabled);
@@ -44,8 +44,8 @@ const Input: FC<InputProps> = ({
       />
       {isEditable && (
         <EditButton
+          className="absolute bottom-1 right-1"
           onClick={() => setDisabled(!disabled)}
-          className="absolute bottom-1 right-2"
         />
       )}
     </label>
