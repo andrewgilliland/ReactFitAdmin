@@ -1,21 +1,14 @@
-"use client";
-
-import EditExerciseForm from "@/components/forms/EditExerciseForm";
+import { FC } from "react";
 import { Exercise } from "@/types";
-import { useEffect, useState } from "react";
+import EditExerciseForm from "@/components/forms/EditExerciseForm";
 
-export default function ExercisePage({ params }: { params: { slug: string } }) {
-  const [exercise, setExercise] = useState<Exercise>();
+type ExercisePageProps = {
+  params: { slug: string };
+};
 
-  const getExerciseById = async (id: string) => {
-    const response = await fetch(`http://[::1]:8080/exercises/${id}`);
-    const data: Exercise = await response.json();
-    setExercise(data);
-  };
-
-  useEffect(() => {
-    getExerciseById(params.slug);
-  }, [params.slug]);
+const ExercisePage: FC<ExercisePageProps> = async ({ params }) => {
+  const response = await fetch(`http://[::1]:8080/exercises/${params.slug}`);
+  const exercise: Exercise = await response.json();
 
   return (
     <div className="min-h-96">
@@ -25,4 +18,6 @@ export default function ExercisePage({ params }: { params: { slug: string } }) {
       {exercise && <EditExerciseForm exercise={exercise} />}
     </div>
   );
-}
+};
+
+export default ExercisePage;

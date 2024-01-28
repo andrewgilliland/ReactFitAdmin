@@ -1,6 +1,6 @@
 import CreateExerciseForm from "@/components/forms/CreateExerciseForm";
 
-const CreateExercise = () => {
+const CreateExercisePage = () => {
   return (
     <div className="flex flex-col">
       <div className="flex flex-row justify-between items-center">
@@ -11,4 +11,4 @@ const CreateExercise = () => {
   );
 };
 
-export default CreateExercise;
+export default CreateExercisePage;

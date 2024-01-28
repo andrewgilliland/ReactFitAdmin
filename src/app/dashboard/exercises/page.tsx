@@ -1,7 +1,7 @@
 import ExerciseCard from "@/components/ExerciseCard";
 import { Exercise } from "@/types/Exercise";
 
-const Exercises = async () => {
+const ExercisesPage = async () => {
   const response = await fetch("http://[::1]:8080/exercises");
   const exercises: Exercise[] = await response.json();
 
@@ -21,4 +21,4 @@ const Exercises = async () => {
   );
 };
 
-export default Exercises;
+export default ExercisesPage;
