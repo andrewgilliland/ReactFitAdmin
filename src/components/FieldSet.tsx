@@ -1,8 +1,10 @@
+import { MuscleGroup } from "@/types";
 import { ChangeEvent, FC } from "react";
 
 type FieldSetProps = {
   name: string;
-  options: readonly string[];
+  options: readonly MuscleGroup[]; // Make this a generic type value has to be the same type
+  value: MuscleGroup[];
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
   className?: string;
 };
@@ -10,9 +12,12 @@ type FieldSetProps = {
 const FieldSet: FC<FieldSetProps> = ({
   name,
   options,
+  value,
   onChange,
   className,
 }) => {
+  console.log(value);
+
   return (
     <fieldset
       className={`border-2 border-pink-400 rounded px-4 py-1 ${className}`}
@@ -32,6 +37,7 @@ const FieldSet: FC<FieldSetProps> = ({
             <input
               onChange={onChange}
               type="checkbox"
+              checked={value.includes(option)}
               name={option}
               className="ml-2"
             />

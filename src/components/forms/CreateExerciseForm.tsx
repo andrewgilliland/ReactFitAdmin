@@ -123,6 +123,7 @@ const CreateExerciseForm = () => {
       <FieldSet
         name="secondaryMuscles"
         options={muscleGroups}
+        value={formData.secondaryMuscles}
         className="mt-3"
         onChange={handleFieldSetChange}
       />

@@ -22,9 +22,9 @@ type EditExerciseFormProps = {
 const EditExerciseForm: FC<EditExerciseFormProps> = ({ exercise }) => {
   const [formData, setFormData] = useState<Exercise>(exercise);
 
-  useEffect(() => {
-    console.log(exercise);
-  }, [exercise]);
+  // useEffect(() => {
+  //   console.log(exercise);
+  // }, [exercise]);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) =>
     setFormData({
@@ -126,6 +126,7 @@ const EditExerciseForm: FC<EditExerciseFormProps> = ({ exercise }) => {
       <FieldSet
         name="secondaryMuscles"
         options={muscleGroups}
+        value={formData.secondaryMuscles}
         className="mt-3"
         onChange={handleFieldSetChange}
       />
