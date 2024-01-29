@@ -8,15 +8,15 @@ export const muscleGroups = [
   "glutes",
   "quads",
   "hamstrings",
-  "hipFlexors",
+  "hip flexors",
   "adductors",
   "calves",
   "abs",
   "biceps",
   "triceps",
   "forearms",
-  "upperBack",
-  "lowerBack",
+  "upper back",
+  "lower back",
 ] as const;
 const MuscleGroup = z.enum(muscleGroups);
 export type MuscleGroup = z.infer<typeof MuscleGroup>;
