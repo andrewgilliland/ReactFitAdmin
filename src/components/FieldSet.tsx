@@ -1,5 +1,7 @@
+"use client";
 import { MuscleGroup } from "@/types";
-import { ChangeEvent, FC } from "react";
+import { ChangeEvent, FC, useState } from "react";
+import EditButton from "./EditButton";
 
 type FieldSetProps = {
   name: string;
@@ -7,6 +9,7 @@ type FieldSetProps = {
   value: MuscleGroup[];
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
   className?: string;
+  isDisabled?: boolean;
 };
 
 const FieldSet: FC<FieldSetProps> = ({
@@ -15,12 +18,15 @@ const FieldSet: FC<FieldSetProps> = ({
   value,
   onChange,
   className,
+  isDisabled = false,
 }) => {
-  console.log(value);
+  const [disabled, setDisabled] = useState(isDisabled);
 
   return (
     <fieldset
-      className={`border-2 border-pink-400 rounded px-4 py-1 ${className}`}
+      className={`border-2 border-${
+        isDisabled ? "gray-500" : "pink-400"
+      } rounded px-4 py-1 ${className}`}
     >
       <legend className="flex flex-col capitalize text-sm text-gray-500">
         {name}
@@ -36,11 +42,12 @@ const FieldSet: FC<FieldSetProps> = ({
               <div className="flex ml-2">
                 <input
                   type="checkbox"
-                  className="before:content[''] peer relative h-5 w-5 cursor-pointer appearance-none rounded-md border border--gray-200 transition-all before:absolute before:top-2/4 before:left-2/4 before:block before:h-12 before:w-12 before:-translate-y-2/4 before:-translate-x-2/4 before:rounded-full before:bg-blue-gray-500 before:opacity-0 before:transition-opacity checked:border-pink-500 checked:bg-pink-500 checked:before:bg-pink-400 hover:before:opacity-10"
+                  className={`before:content[''] peer relative h-5 w-5 cursor-pointer appearance-none rounded-md border border-gray-200 transition-all before:absolute before:top-2/4 before:left-2/4 before:block before:h-12 before:w-12 before:-translate-y-2/4 before:-translate-x-2/4 before:rounded-full before:bg-gray-500 before:opacity-0 before:transition-opacity checked:border-pink-400 checked:bg-pink-400 checked:before:bg-pink-400 hover:before:opacity-10`}
                   id="pink"
                   checked={value.includes(option)}
                   onChange={onChange}
                   name={option}
+                  disabled={disabled}
                 />
                 <span className="absolute text-black transition-opacity opacity-0 pointer-events-none top-2/4 right-3.5 -translate-y-2/4 peer-checked:opacity-100">
                   <svg
@@ -63,6 +70,12 @@ const FieldSet: FC<FieldSetProps> = ({
           </div>
         ))}
       </div>
+      {isDisabled && (
+        <EditButton
+          className="absolute bottom-1 right-1"
+          onClick={() => setDisabled(!disabled)}
+        />
+      )}
     </fieldset>
   );
 };

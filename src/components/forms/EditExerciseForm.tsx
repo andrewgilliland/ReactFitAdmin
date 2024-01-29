@@ -129,6 +129,7 @@ const EditExerciseForm: FC<EditExerciseFormProps> = ({ exercise }) => {
         value={formData.secondaryMuscles}
         className="mt-3"
         onChange={handleFieldSetChange}
+        isDisabled
       />
       <Button className="mt-8" type="submit">
         Edit
