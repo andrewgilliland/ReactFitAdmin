@@ -22,10 +22,6 @@ type EditExerciseFormProps = {
 const EditExerciseForm: FC<EditExerciseFormProps> = ({ exercise }) => {
   const [formData, setFormData] = useState<Exercise>(exercise);
 
-  // useEffect(() => {
-  //   console.log(exercise);
-  // }, [exercise]);
-
   const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) =>
     setFormData({
       ...formData,
@@ -68,19 +64,13 @@ const EditExerciseForm: FC<EditExerciseFormProps> = ({ exercise }) => {
 
   return (
     <form onSubmit={editExercise} className="flex flex-col">
-      <Input
-        name="name"
-        value={formData.name}
-        onChange={handleChange}
-        isDisabled
-      />
+      <Input name="name" value={formData.name} onChange={handleChange} />
       <Select
         name="difficulty"
         options={difficulty}
         value={exercise.difficulty}
         onChange={handleChange}
         className="mt-3"
-        isDisabled
       />
       <Select
         name="equipment"
@@ -88,7 +78,6 @@ const EditExerciseForm: FC<EditExerciseFormProps> = ({ exercise }) => {
         value={formData.equipment}
         onChange={handleChange}
         className="mt-3"
-        isDisabled
       />
       <Select
         name="exerciseType"
@@ -96,7 +85,6 @@ const EditExerciseForm: FC<EditExerciseFormProps> = ({ exercise }) => {
         value={formData.exerciseType}
         onChange={handleChange}
         className="mt-3"
-        isDisabled
       />
 
       <Select
@@ -105,7 +93,6 @@ const EditExerciseForm: FC<EditExerciseFormProps> = ({ exercise }) => {
         value={formData.forceType}
         onChange={handleChange}
         className="mt-3"
-        isDisabled
       />
       <Select
         name="mechanics"
@@ -113,7 +100,6 @@ const EditExerciseForm: FC<EditExerciseFormProps> = ({ exercise }) => {
         value={formData.mechanics}
         onChange={handleChange}
         className="mt-3"
-        isDisabled
       />
       <Select
         name="targetMuscleGroup"
@@ -121,7 +107,6 @@ const EditExerciseForm: FC<EditExerciseFormProps> = ({ exercise }) => {
         value={formData.targetMuscleGroup}
         onChange={handleChange}
         className="mt-3"
-        isDisabled
       />
       <FieldSet
         name="secondaryMuscles"
@@ -129,7 +114,6 @@ const EditExerciseForm: FC<EditExerciseFormProps> = ({ exercise }) => {
         value={formData.secondaryMuscles}
         className="mt-3"
         onChange={handleFieldSetChange}
-        isDisabled
       />
       <Button className="mt-8" type="submit">
         Edit
