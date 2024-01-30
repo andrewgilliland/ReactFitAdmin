@@ -1,9 +1,10 @@
 "use client";
-import { ChangeEvent, FC, useState } from "react";
+import { ChangeEvent, FC, InputHTMLAttributes, useState } from "react";
 import EditButton from "./EditButton";
 
 type InputProps = {
   name: string;
+  type?: InputHTMLAttributes<HTMLInputElement>["type"];
   value: string;
   onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
   className?: string;
@@ -12,6 +13,7 @@ type InputProps = {
 
 const Input: FC<InputProps> = ({
   name,
+  type = "text",
   value,
   onChange,
   className,
@@ -30,7 +32,7 @@ const Input: FC<InputProps> = ({
             ? "border-gray-500 text-gray-500"
             : "border-pink-400 text-white"
         }`}
-        type="text"
+        type={type}
         name={name}
         value={value}
         onChange={onChange}
