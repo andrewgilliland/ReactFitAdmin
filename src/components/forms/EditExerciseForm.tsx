@@ -62,63 +62,86 @@ const EditExerciseForm: FC<EditExerciseFormProps> = ({ exercise }) => {
     // console.log(data);
   };
 
-  return (
-    <form onSubmit={editExercise} className="flex flex-col">
-      <Input name="name" value={formData.name} onChange={handleChange} />
-      <Select
-        name="difficulty"
-        options={difficulty}
-        value={exercise.difficulty}
-        onChange={handleChange}
-        className="mt-3"
-      />
-      <Select
-        name="equipment"
-        options={equipment}
-        value={formData.equipment}
-        onChange={handleChange}
-        className="mt-3"
-      />
-      <Select
-        name="exerciseType"
-        options={exerciseType}
-        value={formData.exerciseType}
-        onChange={handleChange}
-        className="mt-3"
-      />
+  const deleteExercise = async (id: string) => {
+    const response = await fetch(`http://[::1]:8080/exercises/${id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    });
 
-      <Select
-        name="forceType"
-        options={forceType}
-        value={formData.forceType}
-        onChange={handleChange}
-        className="mt-3"
-      />
-      <Select
-        name="mechanics"
-        options={mechanics}
-        value={formData.mechanics}
-        onChange={handleChange}
-        className="mt-3"
-      />
-      <Select
-        name="targetMuscleGroup"
-        options={muscleGroups}
-        value={formData.targetMuscleGroup}
-        onChange={handleChange}
-        className="mt-3"
-      />
-      <FieldSet
-        name="secondaryMuscles"
-        options={muscleGroups}
-        value={formData.secondaryMuscles}
-        className="mt-3"
-        onChange={handleFieldSetChange}
-      />
-      <Button className="mt-8" type="submit">
-        Edit
+    const data = await response.json();
+    console.log(data);
+  };
+
+  return (
+    <div>
+      <form onSubmit={editExercise} className="flex flex-col">
+        <Input name="name" value={formData.name} onChange={handleChange} />
+        <Select
+          name="difficulty"
+          options={difficulty}
+          value={exercise.difficulty}
+          onChange={handleChange}
+          className="mt-3"
+        />
+        <Select
+          name="equipment"
+          options={equipment}
+          value={formData.equipment}
+          onChange={handleChange}
+          className="mt-3"
+        />
+        <Select
+          name="exerciseType"
+          options={exerciseType}
+          value={formData.exerciseType}
+          onChange={handleChange}
+          className="mt-3"
+        />
+
+        <Select
+          name="forceType"
+          options={forceType}
+          value={formData.forceType}
+          onChange={handleChange}
+          className="mt-3"
+        />
+        <Select
+          name="mechanics"
+          options={mechanics}
+          value={formData.mechanics}
+          onChange={handleChange}
+          className="mt-3"
+        />
+        <Select
+          name="targetMuscleGroup"
+          options={muscleGroups}
+          value={formData.targetMuscleGroup}
+          onChange={handleChange}
+          className="mt-3"
+        />
+        <FieldSet
+          name="secondaryMuscles"
+          options={muscleGroups}
+          value={formData.secondaryMuscles}
+          className="mt-3"
+          onChange={handleFieldSetChange}
+        />
+        <Button className="mt-8" type="submit">
+          Edit
+        </Button>
+      </form>
+      <Button
+        className="mt-8 text-red-400 border-red-400 hover:bg-red-400"
+        onClick={() => {
+          deleteExercise(formData.id as string);
+        }}
+      >
+        Delete Exercise
       </Button>
-    </form>
+    </div>
   );
 };
 

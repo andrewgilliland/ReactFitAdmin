@@ -58,8 +58,6 @@ const CreateExerciseForm = () => {
     event.preventDefault();
     // const formData = new FormData(event.currentTarget);
 
-    console.log(formData);
-
     const response = await fetch("http://[::1]:8080/exercise", {
       method: "POST",
       headers: {
