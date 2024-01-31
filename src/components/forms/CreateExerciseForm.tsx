@@ -14,6 +14,7 @@ import {
   muscleGroups,
 } from "@/types";
 import FieldSet from "../FieldSet";
+import { useRouter } from "next/navigation";
 // import { createExerciseThing } from "@/lib/actions/createExercise";
 
 const CreateExerciseForm = () => {
@@ -30,6 +31,7 @@ const CreateExerciseForm = () => {
     secondaryMuscles: [],
     targetMuscleGroup: "lats",
   });
+  const router = useRouter();
 
   const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) =>
     setFormData({
@@ -67,6 +69,7 @@ const CreateExerciseForm = () => {
     });
     const data = await response.json();
     console.log(data);
+    router.push("/dashboard/exercises");
   };
 
   return (

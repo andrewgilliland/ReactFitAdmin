@@ -3,7 +3,7 @@ import { Exercise } from "@/types/Exercise";
 
 const ExercisesPage = async () => {
   const response = await fetch("http://[::1]:8080/exercises", {
-    cache: "no-cache",
+    cache: "no-store",
   });
   const exercises: Exercise[] = await response.json();
 

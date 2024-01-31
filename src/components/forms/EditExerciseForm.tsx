@@ -14,6 +14,7 @@ import Input from "../Input";
 import Select from "../Select";
 import FieldSet from "../FieldSet";
 import Button from "../Button";
+import { useRouter } from "next/navigation";
 
 type EditExerciseFormProps = {
   exercise: Exercise;
@@ -21,6 +22,7 @@ type EditExerciseFormProps = {
 
 const EditExerciseForm: FC<EditExerciseFormProps> = ({ exercise }) => {
   const [formData, setFormData] = useState<Exercise>(exercise);
+  const router = useRouter();
 
   const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) =>
     setFormData({
@@ -73,6 +75,7 @@ const EditExerciseForm: FC<EditExerciseFormProps> = ({ exercise }) => {
 
     const data = await response.json();
     console.log(data);
+    router.push("/dashboard/exercises");
   };
 
   return (

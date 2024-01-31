@@ -16,14 +16,16 @@ const ExercisesSection: FC<ExercisesSectionSearch> = ({ exercises }) => {
   const onSearch = (event: ChangeEvent<HTMLInputElement>) => {
     setSearchValue(event.target.value);
     setFilteredExercises(
-      exercises.filter((exercise) =>
-        exercise.name.toLowerCase().includes(searchValue.toLowerCase())
-      )
+      event.target.value
+        ? exercises.filter((exercise) =>
+            exercise.name.toLowerCase().includes(searchValue.toLowerCase())
+          )
+        : exercises
     );
   };
 
   return (
-    <section className="grid min-h-screen">
+    <section className=" min-h-screen">
       <Input
         name="search"
         type="search"
