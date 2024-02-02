@@ -1,12 +1,11 @@
-"use client";
 import { MuscleGroup } from "@/types";
-import { ChangeEvent, FC, useEffect, useState } from "react";
+import { ChangeEvent, FC } from "react";
 
 type FieldSetProps = {
   name: string;
   options: readonly MuscleGroup[]; // Make this a generic type value has to be the same type
-  value: MuscleGroup[];
-  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  value?: MuscleGroup[];
+  onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
   className?: string;
   isDisabled?: boolean;
 };
@@ -14,15 +13,12 @@ type FieldSetProps = {
 const FieldSet: FC<FieldSetProps> = ({
   name,
   options,
-  value,
-  onChange,
   className,
   isDisabled = false,
 }) => {
-  const [disabled, setDisabled] = useState(isDisabled);
-
   return (
     <fieldset
+      name={name}
       className={`relative border-2 border-${
         isDisabled ? "gray-500" : "pink-400"
       } rounded px-4 py-1 ${className}`}
@@ -39,10 +35,9 @@ const FieldSet: FC<FieldSetProps> = ({
                 <input
                   type="checkbox"
                   className={`before:content[''] peer relative h-5 w-5 cursor-pointer appearance-none rounded-md border border-gray-400 transition-all before:absolute before:top-2/4 before:left-2/4 before:block before:h-12 before:w-12 before:-translate-y-2/4 before:-translate-x-2/4 before:rounded-full before:bg-gray-500 before:opacity-0 before:transition-opacity checked:border-pink-400 checked:bg-pink-400 checked:before:bg-pink-400 hover:before:opacity-10`}
-                  checked={value.includes(option)}
-                  onChange={onChange}
+                  // checked={value.includes(option)}
                   name={option}
-                  disabled={disabled}
+                  disabled={isDisabled}
                 />
                 <span className="absolute text-black transition-opacity opacity-0 pointer-events-none top-2/4 right-3.5 -translate-y-2/4 peer-checked:opacity-100">
                   <svg
@@ -65,12 +60,6 @@ const FieldSet: FC<FieldSetProps> = ({
           </div>
         ))}
       </div>
-      {/* {isDisabled && (
-        <EditButton
-          className="absolute bottom-1 right-1"
-          onClick={() => setDisabled(!disabled)}
-        />
-      )} */}
     </fieldset>
   );
 };

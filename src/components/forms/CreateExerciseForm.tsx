@@ -89,13 +89,12 @@ const CreateExerciseForm = () => {
         options={muscleGroups}
         className="mt-3"
       />
-      {/* <FieldSet
+      <FieldSet
         name="secondaryMuscles"
         options={muscleGroups}
-        value={formData.secondaryMuscles}
+        // value={formData.secondaryMuscles}
         className="mt-3"
-        onChange={handleFieldSetChange}
-      /> */}
+      />
       <button
         type="submit"
         className="text-pink-500 border border-pink-500 mt-8 px-4 py-2 rounded-md transition hover:bg-pink-500 hover:text-black"
