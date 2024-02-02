@@ -1,11 +1,10 @@
-"use client";
+// "use client";
 import { ChangeEvent, FC, useState } from "react";
-import EditButton from "./EditButton";
 
 type SelectProps = {
   name: string;
   options: readonly string[];
-  value: string;
+  value?: string;
   onChange?: (e: ChangeEvent<HTMLSelectElement>) => void;
   className?: string;
   isDisabled?: boolean;
@@ -19,7 +18,7 @@ const Select: FC<SelectProps> = ({
   className,
   isDisabled = false,
 }) => {
-  const [disabled, setDisabled] = useState(isDisabled);
+  // const [disabled, setDisabled] = useState(isDisabled);
 
   return (
     <label
@@ -28,14 +27,14 @@ const Select: FC<SelectProps> = ({
       {name}
       <select
         className={`bg-black border-2 ${
-          disabled
+          isDisabled
             ? "border-gray-400 text-gray-400"
             : "border-pink-400 text-white"
         } rounded mt-1 px-2 py-1`}
         name={name}
-        value={value}
+        // value={value}
         onChange={onChange}
-        disabled={disabled}
+        disabled={isDisabled}
       >
         {options.map((option, index) => (
           <option
@@ -47,12 +46,6 @@ const Select: FC<SelectProps> = ({
           </option>
         ))}
       </select>
-      {isDisabled && (
-        <EditButton
-          className="absolute bottom-1 right-5"
-          onClick={() => setDisabled(!disabled)}
-        />
-      )}
     </label>
   );
 };

@@ -78,51 +78,18 @@ const CreateExerciseForm = () => {
       action={createExerciseAction}
       className="flex flex-col"
     >
-      <input type="text" name="name" />
-      {/* <Input name="name" value={formData.name} onChange={handleChange} />
-      <Select
-        name="difficulty"
-        options={difficulty}
-        value={formData.difficulty}
-        onChange={handleChange}
-        className="mt-3"
-      />
-      <Select
-        name="equipment"
-        options={equipment}
-        value={formData.equipment}
-        onChange={handleChange}
-        className="mt-3"
-      />
-      <Select
-        name="exerciseType"
-        options={exerciseType}
-        value={formData.exerciseType}
-        onChange={handleChange}
-        className="mt-3"
-      />
-      <Select
-        name="forceType"
-        options={forceType}
-        value={formData.forceType}
-        onChange={handleChange}
-        className="mt-3"
-      />
-      <Select
-        name="mechanics"
-        options={mechanics}
-        value={formData.mechanics}
-        onChange={handleChange}
-        className="mt-3"
-      />
+      <Input name="name" />
+      <Select name="difficulty" options={difficulty} className="mt-3" />
+      <Select name="equipment" options={equipment} className="mt-3" />
+      <Select name="exerciseType" options={exerciseType} className="mt-3" />
+      <Select name="forceType" options={forceType} className="mt-3" />
+      <Select name="mechanics" options={mechanics} className="mt-3" />
       <Select
         name="targetMuscleGroup"
         options={muscleGroups}
-        value={formData.targetMuscleGroup}
-        onChange={handleChange}
         className="mt-3"
       />
-      <FieldSet
+      {/* <FieldSet
         name="secondaryMuscles"
         options={muscleGroups}
         value={formData.secondaryMuscles}

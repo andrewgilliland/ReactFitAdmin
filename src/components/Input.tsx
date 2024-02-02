@@ -1,11 +1,10 @@
-"use client";
-import { ChangeEvent, FC, InputHTMLAttributes, useState } from "react";
-import EditButton from "./EditButton";
+// "use client";
+import { ChangeEvent, FC, InputHTMLAttributes } from "react";
 
 type InputProps = {
   name: string;
   type?: InputHTMLAttributes<HTMLInputElement>["type"];
-  value: string;
+  value?: string;
   onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
   className?: string;
   isDisabled?: boolean;
@@ -19,7 +18,7 @@ const Input: FC<InputProps> = ({
   className,
   isDisabled = false,
 }) => {
-  const [disabled, setDisabled] = useState(isDisabled);
+  // const [disabled, setDisabled] = useState(isDisabled);
 
   return (
     <label
@@ -28,23 +27,17 @@ const Input: FC<InputProps> = ({
       {name}
       <input
         className={`bg-black border-2 rounded mt-1 px-2 py-1 ${
-          disabled
+          isDisabled
             ? "border-gray-500 text-gray-500"
             : "border-pink-400 text-white"
         }`}
         type={type}
         name={name}
-        value={value}
-        onChange={onChange}
-        disabled={disabled}
         autoComplete="on"
+        // value={value}
+        // onChange={onChange}
+        // disabled={disabled}
       />
-      {/* {isDisabled && (
-        <EditButton
-          className="absolute bottom-1 right-1"
-          onClick={() => setDisabled(!disabled)}
-        />
-      )} */}
     </label>
   );
 };
