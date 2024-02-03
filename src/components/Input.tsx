@@ -8,6 +8,7 @@ import {
   useEffect,
   useState,
 } from "react";
+import { useDebounce } from "use-debounce";
 
 type InputProps = {
   name: string;
@@ -25,12 +26,13 @@ const Input: FC<InputProps> = ({
   isDisabled = false,
 }) => {
   const [value, setValue] = useState("");
+  const [searchQuery] = useDebounce(value, 500);
   const router = useRouter();
   const isSearchInput = type === "search";
 
   useEffect(() => {
-    router.push(`/dashboard/exercises?search=${value}`);
-  }, [value, router]);
+    router.push(`/dashboard/exercises?search=${searchQuery}`);
+  }, [searchQuery, router]);
 
   return (
     <label
