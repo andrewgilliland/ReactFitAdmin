@@ -1,5 +1,16 @@
 "use server";
+import { Exercise } from "@/types";
 import { revalidatePath, revalidateTag } from "next/cache";
+
+const apiEndpoint = "http://[::1]:8080/exercises";
+
+const getExercises = async (searchQuery?: string): Promise<Exercise[]> => {
+  const response = await fetch(
+    searchQuery ? `${apiEndpoint}/${searchQuery}` : apiEndpoint
+  );
+  const exercises: Exercise[] = await response.json();
+  return exercises;
+};
 
 export async function createExerciseAction(formData: FormData) {
   console.log(formData);
@@ -33,3 +44,5 @@ export async function searchExercises(formData: FormData) {
   // search mongoDB exercises for exercises that contain the string in the form field of search
   // return results
 }
+
+export default getExercises;

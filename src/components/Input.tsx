@@ -1,13 +1,7 @@
 "use client";
 import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
 import { useRouter } from "next/navigation";
-import {
-  // ChangeEvent,
-  FC,
-  InputHTMLAttributes,
-  useEffect,
-  useState,
-} from "react";
+import { FC, InputHTMLAttributes, useEffect, useState } from "react";
 import { useDebounce } from "use-debounce";
 
 type InputProps = {
@@ -31,7 +25,11 @@ const Input: FC<InputProps> = ({
   const isSearchInput = type === "search";
 
   useEffect(() => {
-    router.push(`/dashboard/exercises?search=${searchQuery}`);
+    router.push(
+      searchQuery
+        ? `/dashboard/exercises?search=${searchQuery}`
+        : "/dashboard/exercises"
+    );
   }, [searchQuery, router]);
 
   return (

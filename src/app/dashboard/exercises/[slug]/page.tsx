@@ -7,7 +7,7 @@ type ExercisePageProps = {
 };
 
 const ExercisePage: FC<ExercisePageProps> = async ({ params }) => {
-  const response = await fetch(`http://[::1]:8080/exercises/${params.slug}`);
+  const response = await fetch(`http://[::1]:8080/exercise/${params.slug}`);
   const exercise: Exercise = await response.json();
 
   return (

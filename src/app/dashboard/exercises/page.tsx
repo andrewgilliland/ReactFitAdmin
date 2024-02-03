@@ -1,9 +1,16 @@
 import ExercisesSection from "@/components/ExercisesSection";
-import { Exercise } from "@/types/Exercise";
+import getExercises from "@/lib/actions/exercises";
+import { FC } from "react";
 
-const ExercisesPage = async ({}) => {
-  const response = await fetch("http://[::1]:8080/exercises");
-  const exercises: Exercise[] = await response.json();
+type ExecisesPageProps = {
+  searchParams: { [key: string]: string | string[] | undefined };
+};
+
+const ExercisesPage: FC<ExecisesPageProps> = async ({ searchParams }) => {
+  const search =
+    typeof searchParams.search === "string" ? searchParams.search : undefined;
+
+  const exercises = await getExercises(search);
 
   return <ExercisesSection exercises={exercises} />;
 };
