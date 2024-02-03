@@ -1,42 +1,59 @@
-// "use client";
-import { ChangeEvent, FC, InputHTMLAttributes } from "react";
+"use client";
+import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
+import { useRouter } from "next/navigation";
+import {
+  // ChangeEvent,
+  FC,
+  InputHTMLAttributes,
+  useEffect,
+  useState,
+} from "react";
 
 type InputProps = {
   name: string;
   type?: InputHTMLAttributes<HTMLInputElement>["type"];
-  value?: string;
-  onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
   className?: string;
   isDisabled?: boolean;
+  // value?: string;
+  // onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
 };
 
 const Input: FC<InputProps> = ({
   name,
   type = "text",
-  value,
-  onChange,
   className,
   isDisabled = false,
 }) => {
-  // const [disabled, setDisabled] = useState(isDisabled);
+  const [value, setValue] = useState("");
+  const router = useRouter();
+  const isSearchInput = type === "search";
+
+  useEffect(() => {
+    router.push(`/dashboard/exercises?search=${value}`);
+  }, [value, router]);
 
   return (
     <label
-      className={`flex flex-col capitalize text-sm text-gray-500 ${className}`}
+      className={`flex items-center capitalize text-sm text-gray-500 ${className}`}
     >
-      {name}
+      {isSearchInput ? (
+        <MagnifyingGlassIcon className="h-6 w-6 fill-pink-400 mr-3" />
+      ) : (
+        <span className="mr-3">{name}</span>
+      )}
       <input
-        className={`bg-black border-2 rounded mt-1 px-2 py-1 ${
+        className={`bg-black border-2 rounded mt-1 px-2 py-1 placeholder:text-gray-600 ${
           isDisabled
             ? "border-gray-500 text-gray-500"
             : "border-pink-400 text-white"
-        }`}
+        } ${isSearchInput && "border-0 focus:outline-none"}`}
         type={type}
         name={name}
         autoComplete="on"
-        // value={value}
-        // onChange={onChange}
-        // disabled={disabled}
+        disabled={isDisabled}
+        placeholder={isSearchInput ? `Search all ${name}...` : ""}
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
       />
     </label>
   );
