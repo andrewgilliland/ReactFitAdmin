@@ -3,6 +3,7 @@ import { FC, InputHTMLAttributes, useState } from "react";
 
 type InputProps = {
   name: string;
+  value?: string;
   type?: InputHTMLAttributes<HTMLInputElement>["type"];
   className?: string;
   isDisabled?: boolean;
@@ -10,11 +11,12 @@ type InputProps = {
 
 const Input: FC<InputProps> = ({
   name,
+  value = "",
   type = "text",
   className,
   isDisabled = false,
 }) => {
-  const [value, setValue] = useState("");
+  const [valueState, setValueState] = useState(value);
 
   return (
     <label
@@ -32,8 +34,8 @@ const Input: FC<InputProps> = ({
         name={name}
         autoComplete="on"
         disabled={isDisabled}
-        value={value}
-        onChange={(e) => setValue(e.target.value)}
+        value={valueState}
+        onChange={(e) => setValueState(e.target.value)}
       />
     </label>
   );

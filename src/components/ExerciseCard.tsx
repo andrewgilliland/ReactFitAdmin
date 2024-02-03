@@ -10,6 +10,7 @@ type ExerciseCardProps = {
 
 const ExerciseCard: FC<ExerciseCardProps> = ({ exercise, onClick }) => {
   const {
+    id,
     name,
     difficulty,
     equipment,
@@ -25,22 +26,25 @@ const ExerciseCard: FC<ExerciseCardProps> = ({ exercise, onClick }) => {
       className="relative flex flex-col h-80 bg-black border-2 border-cyan-500 rounded-lg group flex-1 hover:grow-[1.2] transition-all duration-500 min-w-48 max-w-64"
     >
       <Link
-        href={`/dashboard/exercises/${exercise.id}`}
-        as={`/dashboard/exercises/${exercise.id}`}
-        key={`${exercise.name}-${1}`}
+        href={`/dashboard/exercises/${id}`}
+        as={`/dashboard/exercises/${id}`}
+        key={`${name}-${id}`}
       >
-        <div className="absolute inset-x-0 bottom-0 flex flex-col items-starts justify-start flex-1 max-w-48 p-6">
-          <h2 className="text-xl text-pink-500 font-bold leading-tight">
-            {name}
-          </h2>
-          <div className="grid grid-rows-[0fr] group-hover:grid-rows-[1fr] transition-all duration-500">
-            <div className="overflow-hidden mt-2 opacity-0 group-hover:opacity-100 transition duration-1000">
-              <p className="text-gray-600">{difficulty}</p>
-              <p className="text-gray-600">{equipment}</p>
-              <p className="text-gray-600">{exerciseType}</p>
-              <p className="text-gray-600">{forceType}</p>
-              <p className="text-gray-600">{mechanics}</p>
-              <p className="text-gray-600">{targetMuscleGroup}</p>
+        {/* h-80 (320px) - border-2-y (4px) = 316px */}
+        <div className="h-[316px]">
+          <div className="absolute inset-x-0 bottom-0 flex flex-col items-starts justify-start flex-1 max-w-48 p-6">
+            <h2 className="text-xl text-pink-500 font-bold leading-tight">
+              {name}
+            </h2>
+            <div className="grid grid-rows-[0fr] group-hover:grid-rows-[1fr] transition-all duration-500">
+              <div className="overflow-hidden mt-2 opacity-0 group-hover:opacity-100 transition duration-1000">
+                <p className="text-gray-600">{difficulty}</p>
+                <p className="text-gray-600">{equipment}</p>
+                <p className="text-gray-600">{exerciseType}</p>
+                <p className="text-gray-600">{forceType}</p>
+                <p className="text-gray-600">{mechanics}</p>
+                <p className="text-gray-600">{targetMuscleGroup}</p>
+              </div>
             </div>
           </div>
         </div>

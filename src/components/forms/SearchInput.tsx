@@ -17,10 +17,10 @@ const SearchInput: FC<SearchInputProps> = ({ name, className }) => {
   useEffect(() => {
     router.push(
       searchQuery
-        ? `/dashboard/exercises?search=${searchQuery}`
-        : "/dashboard/exercises"
+        ? `/dashboard/${name}?search=${searchQuery}`
+        : `/dashboard/${name}`
     );
-  }, [searchQuery, router]);
+  }, [searchQuery, router, name]);
 
   return (
     <label
