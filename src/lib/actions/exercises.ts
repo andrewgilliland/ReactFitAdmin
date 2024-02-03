@@ -26,3 +26,10 @@ export async function createExerciseAction(formData: FormData) {
 export async function updateExerciseAction(formData: FormData) {
   console.log("updateExerciseAction");
 }
+
+export async function searchExercises(formData: FormData) {
+  console.log(formData);
+
+  // search mongoDB exercises for exercises that contain the string in the form field of search
+  // return results
+}

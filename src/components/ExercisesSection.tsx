@@ -3,6 +3,7 @@ import { ChangeEvent, FC, useState } from "react";
 import Input from "./Input";
 import { Exercise } from "@/types";
 import ExerciseCard from "./ExerciseCard";
+import { searchExercises } from "@/lib/actions/exercises";
 
 type ExercisesSectionSearch = {
   exercises: Exercise[];
@@ -26,17 +27,22 @@ const ExercisesSection: FC<ExercisesSectionSearch> = ({ exercises }) => {
 
   return (
     <section className=" min-h-screen">
-      <Input
-        name="search"
-        type="search"
-        value={searchValue}
-        onChange={onSearch}
-      />
-      <div className="flex flex-wrap w-full max-w-6xl gap-6 mt-4">
-        {filteredExercises.map((exercise, index) => (
-          <ExerciseCard key={`${exercise.name}-${index}`} exercise={exercise} />
-        ))}
-      </div>
+      <form action={searchExercises}>
+        <Input
+          name="search"
+          type="search"
+          value={searchValue}
+          onChange={onSearch}
+        />
+        <div className="flex flex-wrap w-full max-w-6xl gap-6 mt-4">
+          {filteredExercises.map((exercise, index) => (
+            <ExerciseCard
+              key={`${exercise.name}-${index}`}
+              exercise={exercise}
+            />
+          ))}
+        </div>
+      </form>
     </section>
   );
 };
