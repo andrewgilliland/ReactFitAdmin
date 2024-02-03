@@ -9,6 +9,7 @@ const getExercises = async (searchQuery?: string): Promise<Exercise[]> => {
     searchQuery ? `${apiEndpoint}/${searchQuery}` : apiEndpoint
   );
   const exercises: Exercise[] = await response.json();
+  revalidatePath("/dashboard/exercises");
   return exercises;
 };
 
