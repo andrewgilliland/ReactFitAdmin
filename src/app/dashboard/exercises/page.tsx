@@ -15,7 +15,12 @@ const ExercisesPage: FC<ExecisesPageProps> = async ({ searchParams }) => {
 
   return (
     <section className="min-h-screen">
-      <SearchInput className="mb-10" name="exercises" />
+      <div className="flex justify-between">
+        <SearchInput className="mb-10" name="exercises" />
+        <div className="text-gray-400 font-semibold">
+          {exercises.length} Exercises
+        </div>
+      </div>
       <div className="flex flex-wrap w-full max-w-6xl gap-6 mt-4">
         {exercises.map((exercise, index) => (
           <ExerciseCard key={`${exercise.name}-${index}`} exercise={exercise} />
