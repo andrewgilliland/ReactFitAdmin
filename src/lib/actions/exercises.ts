@@ -10,6 +10,7 @@ import {
   exerciseSchema,
 } from "@/types";
 import { revalidatePath, revalidateTag } from "next/cache";
+import { ZodError } from "zod";
 
 const apiEndpoint = "http://[::1]:8080/exercises";
 
@@ -35,9 +36,12 @@ const getSecondaryMuscles = (formData: FormData): MuscleGroup[] => {
   return secondaryMuscles;
 };
 
-export async function createExerciseAction(formData: FormData) {
-  const secondaryMuscles = getSecondaryMuscles(formData);
+type FormState = { success: boolean; message: string; errors: any | undefined };
 
+export async function createExercise(
+  prevState: FormState,
+  formData: FormData
+): Promise<FormState> {
   const newExercise: Exercise = {
     name: (formData.get("name") as string)?.toString().toLocaleLowerCase(),
     difficulty: formData.get("difficulty") as Difficulty,
@@ -46,32 +50,38 @@ export async function createExerciseAction(formData: FormData) {
     forceType: formData.get("forceType") as ForceType,
     mechanics: formData.get("mechanics") as Mechanics,
     targetMuscleGroup: formData.get("targetMuscleGroup") as MuscleGroup,
-    secondaryMuscles: secondaryMuscles,
+    secondaryMuscles: getSecondaryMuscles(formData),
   };
 
-  const validatedFields = exerciseSchema.safeParse(newExercise);
+  try {
+    exerciseSchema.parse(newExercise);
+    console.log("exercise: ", newExercise);
+    // const response = await fetch("http://[::1]:8080/exercise", {
+    //     method: "POST",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //     body: JSON.stringify(newExercise),
+    //   });
 
-  if (!validatedFields.success) {
-    console.log(
-      "validatedFields.error: ",
-      validatedFields.error.flatten().fieldErrors
-    );
-    // Todo: send errors back to client
+    revalidatePath("/dashboard/exercises");
+    return {
+      success: true,
+      message: `${newExercise.name} created!`,
+      errors: undefined,
+    };
+  } catch (error) {
+    const zodError = error as ZodError;
+    const errorMap = zodError.flatten().fieldErrors;
+
+    console.log("errorMap: ", errorMap);
+
+    return {
+      success: false,
+      message: "error",
+      errors: { name: errorMap["name"]?.[0] ?? "" },
+    };
   }
-
-  console.log("exercise: ", newExercise);
-
-  // const response = await fetch("http://[::1]:8080/exercise", {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify(formData),
-  //   });
-
-  revalidatePath("/dashboard/exercises");
-  // revalidateTag("exercises");
-  return { message: "Exercise created!" };
 }
 
 export async function updateExerciseAction(formData: FormData) {

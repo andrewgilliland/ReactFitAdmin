@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const exerciseType = ["strength"] as const;
+export const exerciseType = ["strength", "cardio"] as const;
 
 export const exerciseTypeSchema = z.enum(exerciseType);
 

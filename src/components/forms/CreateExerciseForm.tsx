@@ -1,11 +1,9 @@
-// "use client";
-import { ChangeEvent, FormEvent, useState } from "react";
-import { useFormState } from "react-dom";
+"use client";
+import { useEffect } from "react";
+import { useFormState, useFormStatus } from "react-dom";
 import Input from "@/components/Input";
 import Select from "@/components/Select";
 import {
-  Exercise,
-  MuscleGroup,
   difficulty,
   equipment,
   exerciseType,
@@ -14,70 +12,24 @@ import {
   muscleGroups,
 } from "@/types";
 import FieldSet from "../FieldSet";
-import { useRouter } from "next/navigation";
 import { createExerciseAction } from "@/lib/actions";
 
 const CreateExerciseForm = () => {
-  const initialState = { message: null };
-  // const [state, formAction] = useFormState(createExerciseAction, initialState);
+  const initialState = { success: false, message: "", errors: undefined };
+  const [formState, formAction] = useFormState(
+    createExerciseAction,
+    initialState
+  );
+  const { pending } = useFormStatus();
 
-  // const [formData, setFormData] = useState<Exercise>({
-  //   name: "",
-  //   difficulty: "beginner",
-  //   equipment: "bodyweight",
-  //   exerciseType: "strength",
-  //   forceType: "push",
-  //   mechanics: "compound",
-  //   secondaryMuscles: [],
-  //   targetMuscleGroup: "lats",
-  // });
-  // const router = useRouter();
+  console.log("formState: ", formState);
 
-  // const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) =>
-  //   setFormData({
-  //     ...formData,
-  //     [e.target.name]: e.target.value,
-  //   });
-
-  // const handleFieldSetChange = (e: ChangeEvent<HTMLInputElement>) => {
-  //   e.target.checked
-  //     ? setFormData({
-  //         ...formData,
-  //         secondaryMuscles: [
-  //           ...formData.secondaryMuscles,
-  //           e.target.name as MuscleGroup,
-  //         ],
-  //       })
-  //     : setFormData({
-  //         ...formData,
-  //         secondaryMuscles: formData.secondaryMuscles.filter(
-  //           (item) => item !== e.target.name
-  //         ),
-  //       });
-  // };
-
-  // const createExercise = async (event: FormEvent<HTMLFormElement>) => {
-  //   event.preventDefault();
-  //   // const formData = new FormData(event.currentTarget);
-
-  //   const response = await fetch("http://[::1]:8080/exercise", {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify(formData),
-  //   });
-  //   const data = await response.json();
-  //   console.log(data);
-  //   router.push("/dashboard/exercises");
-  // };
+  useEffect(() => {
+    console.log(pending);
+  }, [pending]);
 
   return (
-    <form
-      // onSubmit={createExercise}
-      action={createExerciseAction}
-      className="flex flex-col"
-    >
+    <form action={formAction} className="flex flex-col">
       <Input name="name" />
       <Select name="difficulty" options={difficulty} className="mt-3" />
       <Select name="equipment" options={equipment} className="mt-3" />
@@ -92,15 +44,23 @@ const CreateExerciseForm = () => {
       <FieldSet
         name="secondaryMuscles"
         options={muscleGroups}
-        // value={formData.secondaryMuscles}
         className="mt-3"
       />
       <button
         type="submit"
         className="text-pink-500 border border-pink-500 mt-8 px-4 py-2 rounded-md transition hover:bg-pink-500 hover:text-black"
       >
-        Create
+        {pending ? "Submitting..." : "Create"}
       </button>
+      {formState.success ? (
+        <div className="flex justify-center text-emerald-400 border-2 border-emerald-400 rounded mt-4 p-6">
+          <div className="capitalize">{formState.message}</div>
+        </div>
+      ) : (
+        <div className="flex justify-center text-red-400 border-2 border-red-400 rounded mt-4 p-6">
+          <div className="capitalize">{formState.errors}</div>
+        </div>
+      )}
     </form>
   );
 };
