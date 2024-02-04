@@ -1,5 +1,5 @@
 "use server";
-import { Exercise } from "@/types";
+import { Exercise, MuscleGroup } from "@/types";
 import { revalidatePath, revalidateTag } from "next/cache";
 
 const apiEndpoint = "http://[::1]:8080/exercises";
@@ -13,14 +13,35 @@ const getExercises = async (searchQuery?: string): Promise<Exercise[]> => {
   return exercises;
 };
 
+const getSecondaryMuscles = (formData: FormData): MuscleGroup[] => {
+  const secondaryMuscles: MuscleGroup[] = [];
+
+  for (const [key, value] of formData.entries()) {
+    if (key.startsWith("secondaryMuscles-") && value) {
+      const muscle = key.split("-")[1] as MuscleGroup;
+      console.log("muscle: ", muscle);
+      secondaryMuscles.push(muscle);
+    }
+  }
+
+  return secondaryMuscles;
+};
+
 export async function createExerciseAction(formData: FormData) {
-  console.log(formData);
-  console.log("name", formData.get("name"));
-  console.log("difficulty", formData.get("difficulty"));
-  console.log("equipmentType", formData.get("equipmentType"));
-  console.log("forceType", formData.get("forceType"));
-  console.log("mechanics", formData.get("mechanics"));
-  console.log("targetMuscleGroup", formData.get("targetMuscleGroup"));
+  const secondaryMuscles = getSecondaryMuscles(formData);
+
+  // const newExercise: Partial<Exercise> = {
+  const newExercise = {
+    name: formData.get("name")?.toString().toLocaleLowerCase(),
+    difficulty: formData.get("difficulty"),
+    equipment: formData.get("equipment"),
+    forceType: formData.get("forceType"),
+    mechanics: formData.get("mechanics"),
+    targetMuscleGroup: formData.get("targetMuscleGroup"),
+    secondaryMuscles: secondaryMuscles,
+  };
+
+  console.log("exercise: ", newExercise);
 
   // const response = await fetch("http://[::1]:8080/exercise", {
   //     method: "POST",
