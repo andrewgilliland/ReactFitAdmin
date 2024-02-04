@@ -46,13 +46,15 @@ export async function createExercise(
 
   try {
     exerciseSchema.parse(newExercise);
-    // const response = await fetch("http://[::1]:8080/exercise", {
-    //     method: "POST",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //     body: JSON.stringify(newExercise),
-    //   });
+    const response = await fetch("http://[::1]:8080/exercise", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newExercise),
+    });
+
+    // Todo: use response to validate if exercise was created of not
 
     revalidatePath("/dashboard/exercises");
     return {

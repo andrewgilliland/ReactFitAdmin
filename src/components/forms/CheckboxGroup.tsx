@@ -3,7 +3,7 @@ import { ChangeEvent, FC } from "react";
 
 type CheckboxGroupProps = {
   name: string;
-  options: readonly MuscleGroup[]; // Make this a generic type value has to be the same type
+  options: readonly MuscleGroup[]; // Todo: Make this a generic type value has to be the same type
   value?: MuscleGroup[];
   onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
   className?: string;

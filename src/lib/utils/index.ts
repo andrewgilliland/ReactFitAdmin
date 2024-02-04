@@ -10,7 +10,7 @@ export const getSelectedCheckboxesFromFormData = (
   formData: FormData,
   name: string
 ): MuscleGroup[] => {
-  const selectedCheckboxes: MuscleGroup[] = [];
+  const selectedCheckboxes: MuscleGroup[] = []; // Todo: Make this a generic type
 
   for (const [key, value] of formData.entries()) {
     if (key.startsWith(`${name}-`) && value) {

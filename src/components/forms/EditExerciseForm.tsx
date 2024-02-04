@@ -65,12 +65,12 @@ const EditExerciseForm: FC<EditExerciseFormProps> = ({ exercise }) => {
   };
 
   const deleteExercise = async (id: string) => {
-    const response = await fetch(`http://[::1]:8080/exercises/${id}`, {
+    const response = await fetch(`http://[::1]:8080/exercise/${id}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(formData),
+      // body: JSON.stringify(formData),
     });
 
     const data = await response.json();
