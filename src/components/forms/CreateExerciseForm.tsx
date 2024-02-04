@@ -26,6 +26,9 @@ const CreateExerciseForm = () => {
     initialFormState
   );
 
+  // Todo: Clear form with success state
+  // Todo: Better UI for success and error state
+
   return (
     <form action={formAction} className="flex flex-col">
       <Input name="name" />

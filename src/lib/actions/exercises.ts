@@ -25,17 +25,17 @@ const getExercises = async (searchQuery?: string): Promise<Exercise[]> => {
   return exercises;
 };
 
-const getSecondaryMuscles = (formData: FormData): MuscleGroup[] => {
-  const secondaryMuscles: MuscleGroup[] = [];
+const getSelectedCheckboxes = (formData: FormData): MuscleGroup[] => {
+  const selectedCheckboxes: MuscleGroup[] = [];
 
   for (const [key, value] of formData.entries()) {
     if (key.startsWith("secondaryMuscles-") && value) {
       const muscle = key.split("-")[1] as MuscleGroup;
-      secondaryMuscles.push(muscle);
+      selectedCheckboxes.push(muscle);
     }
   }
 
-  return secondaryMuscles;
+  return selectedCheckboxes;
 };
 
 export async function createExercise(
@@ -50,7 +50,7 @@ export async function createExercise(
     forceType: formData.get("forceType") as ForceType,
     mechanics: formData.get("mechanics") as Mechanics,
     targetMuscleGroup: formData.get("targetMuscleGroup") as MuscleGroup,
-    secondaryMuscles: getSecondaryMuscles(formData),
+    secondaryMuscles: getSelectedCheckboxes(formData),
   };
 
   try {
