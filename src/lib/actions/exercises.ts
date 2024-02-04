@@ -1,5 +1,14 @@
 "use server";
-import { Exercise, MuscleGroup } from "@/types";
+import {
+  Difficulty,
+  Equipment,
+  Exercise,
+  ExerciseType,
+  ForceType,
+  Mechanics,
+  MuscleGroup,
+  exerciseSchema,
+} from "@/types";
 import { revalidatePath, revalidateTag } from "next/cache";
 
 const apiEndpoint = "http://[::1]:8080/exercises";
@@ -19,7 +28,6 @@ const getSecondaryMuscles = (formData: FormData): MuscleGroup[] => {
   for (const [key, value] of formData.entries()) {
     if (key.startsWith("secondaryMuscles-") && value) {
       const muscle = key.split("-")[1] as MuscleGroup;
-      console.log("muscle: ", muscle);
       secondaryMuscles.push(muscle);
     }
   }
@@ -30,16 +38,26 @@ const getSecondaryMuscles = (formData: FormData): MuscleGroup[] => {
 export async function createExerciseAction(formData: FormData) {
   const secondaryMuscles = getSecondaryMuscles(formData);
 
-  // const newExercise: Partial<Exercise> = {
-  const newExercise = {
-    name: formData.get("name")?.toString().toLocaleLowerCase(),
-    difficulty: formData.get("difficulty"),
-    equipment: formData.get("equipment"),
-    forceType: formData.get("forceType"),
-    mechanics: formData.get("mechanics"),
-    targetMuscleGroup: formData.get("targetMuscleGroup"),
+  const newExercise: Exercise = {
+    name: (formData.get("name") as string)?.toString().toLocaleLowerCase(),
+    difficulty: formData.get("difficulty") as Difficulty,
+    equipment: formData.get("equipment") as Equipment,
+    exerciseType: formData.get("exerciseType") as ExerciseType,
+    forceType: formData.get("forceType") as ForceType,
+    mechanics: formData.get("mechanics") as Mechanics,
+    targetMuscleGroup: formData.get("targetMuscleGroup") as MuscleGroup,
     secondaryMuscles: secondaryMuscles,
   };
+
+  const validatedFields = exerciseSchema.safeParse(newExercise);
+
+  if (!validatedFields.success) {
+    console.log(
+      "validatedFields.error: ",
+      validatedFields.error.flatten().fieldErrors
+    );
+    // Todo: send errors back to client
+  }
 
   console.log("exercise: ", newExercise);
 

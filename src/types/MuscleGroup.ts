@@ -18,5 +18,7 @@ export const muscleGroups = [
   "upper back",
   "lower back",
 ] as const;
-const MuscleGroup = z.enum(muscleGroups);
-export type MuscleGroup = z.infer<typeof MuscleGroup>;
+
+export const muscleGroupSchema = z.enum(muscleGroups);
+
+export type MuscleGroup = z.infer<typeof muscleGroupSchema>;

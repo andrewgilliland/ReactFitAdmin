@@ -4,10 +4,9 @@ import { FC } from "react";
 
 type ExerciseCardProps = {
   exercise: Exercise;
-  onClick?: () => void;
 };
 
-const ExerciseCard: FC<ExerciseCardProps> = ({ exercise, onClick }) => {
+const ExerciseCard: FC<ExerciseCardProps> = ({ exercise }) => {
   const {
     id,
     name,
@@ -20,10 +19,7 @@ const ExerciseCard: FC<ExerciseCardProps> = ({ exercise, onClick }) => {
   } = exercise;
 
   return (
-    <div
-      onClick={() => onClick && onClick()}
-      className="relative flex flex-col h-80 bg-black border-2 border-cyan-500 rounded-lg group flex-1 hover:grow-[1.2] transition-all duration-500 min-w-48 max-w-64"
-    >
+    <div className="relative flex flex-col h-80 bg-black border-2 border-cyan-500 rounded-lg group flex-1 hover:grow-[1.2] transition-all duration-500 min-w-48 max-w-64">
       <Link
         href={`/dashboard/exercises/${id}`}
         as={`/dashboard/exercises/${id}`}
