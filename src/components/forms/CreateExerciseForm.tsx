@@ -1,8 +1,5 @@
 "use client";
-import { useEffect } from "react";
-import { useFormState, useFormStatus } from "react-dom";
-import Input from "@/components/Input";
-import Select from "@/components/Select";
+import { useFormState } from "react-dom";
 import {
   FormState,
   difficulty,
@@ -12,8 +9,11 @@ import {
   mechanics,
   muscleGroups,
 } from "@/types";
+import Input from "@/components/Input";
+import Select from "@/components/Select";
 import FieldSet from "../FieldSet";
 import { createExerciseAction } from "@/lib/actions";
+import SubmitButton from "./SubmitButton";
 
 const CreateExerciseForm = () => {
   const initialFormState = {
@@ -25,11 +25,6 @@ const CreateExerciseForm = () => {
     createExerciseAction,
     initialFormState
   );
-  const { pending } = useFormStatus();
-
-  useEffect(() => {
-    // console.log(pending);
-  }, [pending]);
 
   return (
     <form action={formAction} className="flex flex-col">
@@ -49,12 +44,7 @@ const CreateExerciseForm = () => {
         options={muscleGroups}
         className="mt-3"
       />
-      <button
-        type="submit"
-        className="text-pink-500 border border-pink-500 mt-8 px-4 py-2 rounded-md transition hover:bg-pink-500 hover:text-black"
-      >
-        {pending ? "Submitting..." : "Create"}
-      </button>
+      <SubmitButton />
       {formState.success && (
         <div className="flex justify-center text-emerald-400 border-2 border-emerald-400 rounded mt-4 p-6">
           <div className="capitalize">{formState.message}</div>
