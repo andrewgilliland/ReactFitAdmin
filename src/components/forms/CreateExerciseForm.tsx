@@ -4,6 +4,7 @@ import { useFormState, useFormStatus } from "react-dom";
 import Input from "@/components/Input";
 import Select from "@/components/Select";
 import {
+  FormState,
   difficulty,
   equipment,
   exerciseType,
@@ -15,17 +16,19 @@ import FieldSet from "../FieldSet";
 import { createExerciseAction } from "@/lib/actions";
 
 const CreateExerciseForm = () => {
-  const initialState = { success: false, message: "", errors: undefined };
+  const initialFormState = {
+    success: false,
+    message: "",
+    errors: undefined,
+  } as FormState;
   const [formState, formAction] = useFormState(
     createExerciseAction,
-    initialState
+    initialFormState
   );
   const { pending } = useFormStatus();
 
-  console.log("formState: ", formState);
-
   useEffect(() => {
-    console.log(pending);
+    // console.log(pending);
   }, [pending]);
 
   return (
@@ -52,13 +55,14 @@ const CreateExerciseForm = () => {
       >
         {pending ? "Submitting..." : "Create"}
       </button>
-      {formState.success ? (
+      {formState.success && (
         <div className="flex justify-center text-emerald-400 border-2 border-emerald-400 rounded mt-4 p-6">
           <div className="capitalize">{formState.message}</div>
         </div>
-      ) : (
+      )}
+      {!formState.success && formState.errors && (
         <div className="flex justify-center text-red-400 border-2 border-red-400 rounded mt-4 p-6">
-          <div className="capitalize">{formState.errors}</div>
+          <div className="capitalize">{formState.errors.name}</div>
         </div>
       )}
     </form>

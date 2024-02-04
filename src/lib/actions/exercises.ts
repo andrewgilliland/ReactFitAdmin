@@ -4,11 +4,13 @@ import {
   Equipment,
   Exercise,
   ExerciseType,
+  FormState,
   ForceType,
   Mechanics,
   MuscleGroup,
   exerciseSchema,
 } from "@/types";
+
 import { revalidatePath, revalidateTag } from "next/cache";
 import { ZodError } from "zod";
 
@@ -36,8 +38,6 @@ const getSecondaryMuscles = (formData: FormData): MuscleGroup[] => {
   return secondaryMuscles;
 };
 
-type FormState = { success: boolean; message: string; errors: any | undefined };
-
 export async function createExercise(
   prevState: FormState,
   formData: FormData
@@ -55,7 +55,6 @@ export async function createExercise(
 
   try {
     exerciseSchema.parse(newExercise);
-    console.log("exercise: ", newExercise);
     // const response = await fetch("http://[::1]:8080/exercise", {
     //     method: "POST",
     //     headers: {
@@ -73,8 +72,6 @@ export async function createExercise(
   } catch (error) {
     const zodError = error as ZodError;
     const errorMap = zodError.flatten().fieldErrors;
-
-    console.log("errorMap: ", errorMap);
 
     return {
       success: false,
