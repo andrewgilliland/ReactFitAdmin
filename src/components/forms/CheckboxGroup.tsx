@@ -1,7 +1,7 @@
 import { MuscleGroup } from "@/types";
 import { ChangeEvent, FC } from "react";
 
-type FieldSetProps = {
+type CheckboxGroupProps = {
   name: string;
   options: readonly MuscleGroup[]; // Make this a generic type value has to be the same type
   value?: MuscleGroup[];
@@ -10,7 +10,7 @@ type FieldSetProps = {
   isDisabled?: boolean;
 };
 
-const FieldSet: FC<FieldSetProps> = ({
+const CheckboxGroup: FC<CheckboxGroupProps> = ({
   name,
   options,
   className,
@@ -68,4 +68,4 @@ const FieldSet: FC<FieldSetProps> = ({
   );
 };
 
-export default FieldSet;
+export default CheckboxGroup;

@@ -13,6 +13,7 @@ import {
 
 import { revalidatePath, revalidateTag } from "next/cache";
 import { ZodError } from "zod";
+import { getSelectedCheckboxesFromFormData } from "../utils";
 
 const apiEndpoint = "http://[::1]:8080/exercises";
 
@@ -23,19 +24,6 @@ const getExercises = async (searchQuery?: string): Promise<Exercise[]> => {
   const exercises: Exercise[] = await response.json();
   revalidatePath("/dashboard/exercises");
   return exercises;
-};
-
-const getSelectedCheckboxes = (formData: FormData): MuscleGroup[] => {
-  const selectedCheckboxes: MuscleGroup[] = [];
-
-  for (const [key, value] of formData.entries()) {
-    if (key.startsWith("secondaryMuscles-") && value) {
-      const muscle = key.split("-")[1] as MuscleGroup;
-      selectedCheckboxes.push(muscle);
-    }
-  }
-
-  return selectedCheckboxes;
 };
 
 export async function createExercise(
@@ -50,7 +38,10 @@ export async function createExercise(
     forceType: formData.get("forceType") as ForceType,
     mechanics: formData.get("mechanics") as Mechanics,
     targetMuscleGroup: formData.get("targetMuscleGroup") as MuscleGroup,
-    secondaryMuscles: getSelectedCheckboxes(formData),
+    secondaryMuscles: getSelectedCheckboxesFromFormData(
+      formData,
+      "secondaryMuscles"
+    ),
   };
 
   try {

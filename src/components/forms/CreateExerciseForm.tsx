@@ -11,7 +11,7 @@ import {
 } from "@/types";
 import Input from "@/components/Input";
 import Select from "@/components/Select";
-import FieldSet from "../FieldSet";
+import CheckboxGroup from "./CheckboxGroup";
 import { createExerciseAction } from "@/lib/actions";
 import SubmitButton from "./SubmitButton";
 
@@ -42,7 +42,7 @@ const CreateExerciseForm = () => {
         options={muscleGroups}
         className="mt-3"
       />
-      <FieldSet
+      <CheckboxGroup
         name="secondaryMuscles"
         options={muscleGroups}
         className="mt-3"

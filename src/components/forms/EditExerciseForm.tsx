@@ -1,5 +1,5 @@
 "use client";
-import { ChangeEvent, FC, FormEvent, useEffect, useState } from "react";
+import { ChangeEvent, FC, FormEvent, useState } from "react";
 import {
   Exercise,
   MuscleGroup,
@@ -12,7 +12,7 @@ import {
 } from "@/types";
 import Input from "../Input";
 import Select from "../Select";
-import FieldSet from "../FieldSet";
+import CheckboxGroup from "./CheckboxGroup";
 import Button from "../Button";
 import { useRouter } from "next/navigation";
 
@@ -125,7 +125,7 @@ const EditExerciseForm: FC<EditExerciseFormProps> = ({ exercise }) => {
           onChange={handleChange}
           className="mt-3"
         />
-        <FieldSet
+        <CheckboxGroup
           name="secondaryMuscles"
           options={muscleGroups}
           value={formData.secondaryMuscles}
