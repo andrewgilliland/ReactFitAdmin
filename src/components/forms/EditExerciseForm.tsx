@@ -81,7 +81,7 @@ const EditExerciseForm: FC<EditExerciseFormProps> = ({ exercise }) => {
   return (
     <div>
       <form onSubmit={editExercise} className="flex flex-col">
-        <Input name="name" value={formData.name} onChange={handleChange} />
+        <Input name="name" value={formData.name} />
         <Select
           name="difficulty"
           options={difficulty}

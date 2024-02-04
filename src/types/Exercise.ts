@@ -7,7 +7,7 @@ export const exerciseType = ["strength"] as const;
 export const forceType = ["push", "pull", "hinge", "static"] as const;
 export const mechanics = ["compound", "isolation", "isometric"] as const;
 
-const Exercise = z.object({
+const ExerciseSchema = z.object({
   id: z.string().optional(),
   difficulty: z.enum(difficulty),
   equipment: z.enum(equipment),
@@ -19,4 +19,4 @@ const Exercise = z.object({
   targetMuscleGroup: z.enum(muscleGroups),
 });
 
-export type Exercise = z.infer<typeof Exercise>;
+export type Exercise = z.infer<typeof ExerciseSchema>;

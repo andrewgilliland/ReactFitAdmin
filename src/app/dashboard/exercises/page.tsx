@@ -1,4 +1,5 @@
-import ExercisesSection from "@/components/ExercisesSection";
+import ExerciseCard from "@/components/ExerciseCard";
+import SearchInput from "@/components/forms/SearchInput";
 import getExercises from "@/lib/actions/exercises";
 import { FC } from "react";
 
@@ -12,7 +13,16 @@ const ExercisesPage: FC<ExecisesPageProps> = async ({ searchParams }) => {
 
   const exercises = await getExercises(search);
 
-  return <ExercisesSection exercises={exercises} />;
+  return (
+    <section className="min-h-screen">
+      <SearchInput className="mb-10" name="exercises" />
+      <div className="flex flex-wrap w-full max-w-6xl gap-6 mt-4">
+        {exercises.map((exercise, index) => (
+          <ExerciseCard key={`${exercise.name}-${index}`} exercise={exercise} />
+        ))}
+      </div>
+    </section>
+  );
 };
 
 export default ExercisesPage;

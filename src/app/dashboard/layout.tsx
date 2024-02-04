@@ -1,5 +1,5 @@
 "use client";
-import { FC, ReactNode, useEffect } from "react";
+import { FC, ReactNode } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 

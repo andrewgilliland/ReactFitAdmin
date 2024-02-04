@@ -1,13 +1,4 @@
-"use client";
-import Link from "next/link";
-
 const Dashboard = () => {
-  const routes = [
-    { name: "exercises" },
-    { name: "workouts" },
-    { name: "programs" },
-  ];
-
   return (
     <main className="flex">
       <div className="flex flex-row justify-between">
