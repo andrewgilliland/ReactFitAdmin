@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { Exercise } from "@/types";
-import EditExerciseForm from "@/components/forms/EditExerciseForm";
+import UpdateExerciseForm from "@/components/forms/UpdateExerciseForm";
 
 type ExercisePageProps = {
   params: { slug: string };
@@ -15,7 +15,7 @@ const ExercisePage: FC<ExercisePageProps> = async ({ params }) => {
       <div className="flex justify-between items-center">
         <h1 className="font-semibold text-xl">{exercise?.name}</h1>
       </div>
-      {exercise && <EditExerciseForm exercise={exercise} />}
+      {exercise && <UpdateExerciseForm exercise={exercise} />}
     </div>
   );
 };

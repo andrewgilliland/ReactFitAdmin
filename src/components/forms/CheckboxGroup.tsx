@@ -1,5 +1,6 @@
+"use client";
+import { ChangeEvent, FC, use, useEffect, useState } from "react";
 import { MuscleGroup } from "@/types";
-import { ChangeEvent, FC } from "react";
 
 type CheckboxGroupProps = {
   name: string;
@@ -13,9 +14,17 @@ type CheckboxGroupProps = {
 const CheckboxGroup: FC<CheckboxGroupProps> = ({
   name,
   options,
+  value = [],
   className,
   isDisabled = false,
 }) => {
+  const [valueState, setValueState] = useState(value);
+
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) =>
+    event.target.checked
+      ? setValueState([event.target.id as MuscleGroup, ...valueState])
+      : setValueState(valueState.filter((item) => item !== event.target.id));
+
   return (
     <fieldset
       name={name}
@@ -30,7 +39,7 @@ const CheckboxGroup: FC<CheckboxGroupProps> = ({
         {options.map((option, index) => (
           <div key={`${option}-${index}`} className="inline-flex items-center">
             <label
-              htmlFor={name}
+              htmlFor={option}
               className="relative flex items-center p-3 rounded-full cursor-pointer"
             >
               {option}
@@ -38,8 +47,9 @@ const CheckboxGroup: FC<CheckboxGroupProps> = ({
                 <input
                   type="checkbox"
                   className={`before:content[''] peer relative h-5 w-5 cursor-pointer appearance-none rounded-md border border-gray-400 transition-all before:absolute before:top-2/4 before:left-2/4 before:block before:h-12 before:w-12 before:-translate-y-2/4 before:-translate-x-2/4 before:rounded-full before:bg-gray-500 before:opacity-0 before:transition-opacity checked:border-pink-400 checked:bg-pink-400 checked:before:bg-pink-400 hover:before:opacity-10`}
-                  // checked={value.includes(option)}
-                  // id={option}
+                  checked={valueState.includes(option)}
+                  onChange={handleChange}
+                  id={option}
                   name={`${name}-${option}`}
                   disabled={isDisabled}
                 />

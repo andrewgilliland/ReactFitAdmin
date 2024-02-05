@@ -1,1 +1,1 @@
-export { createExercise as createExerciseAction } from "./exercises";
+export * from "./exercises";

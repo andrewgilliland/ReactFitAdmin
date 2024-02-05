@@ -1,4 +1,7 @@
 "use server";
+import { redirect } from "next/navigation";
+import { revalidatePath, revalidateTag } from "next/cache";
+import { ZodError } from "zod";
 import {
   Difficulty,
   Equipment,
@@ -10,9 +13,6 @@ import {
   MuscleGroup,
   exerciseSchema,
 } from "@/types";
-
-import { revalidatePath, revalidateTag } from "next/cache";
-import { ZodError } from "zod";
 import { getSelectedCheckboxesFromFormData } from "../utils";
 
 const apiEndpoint = "http://[::1]:8080/exercises";
@@ -74,9 +74,36 @@ export async function createExercise(
   }
 }
 
-export async function updateExerciseAction(formData: FormData) {
+const updateExercise = async (formData: FormData) => {
   console.log("updateExerciseAction");
-}
+
+  const response = await fetch("http://[::1]:8080/exercise", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(formData),
+  });
+
+  const data = await response.json();
+  console.log(data);
+};
+
+const deleteExercise = async (id: string) => {
+  const response = await fetch(`http://[::1]:8080/exercise/${id}`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+
+  const exercise = await response.json();
+  console.log("deleteExercise: ", exercise);
+
+  if (exercise.id) {
+    redirect("/dashboard/exercises");
+  }
+};
 
 export async function searchExercises(formData: FormData) {
   console.log(formData);
@@ -85,4 +112,4 @@ export async function searchExercises(formData: FormData) {
   // return results
 }
 
-export default getExercises;
+export { getExercises, updateExercise, deleteExercise };

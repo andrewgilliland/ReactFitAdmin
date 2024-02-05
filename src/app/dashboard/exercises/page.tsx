@@ -1,6 +1,6 @@
 import ExerciseCard from "@/components/ExerciseCard";
 import SearchInput from "@/components/forms/SearchInput";
-import getExercises from "@/lib/actions/exercises";
+import { getExercises } from "@/lib/actions";
 import { FC } from "react";
 
 type ExecisesPageProps = {

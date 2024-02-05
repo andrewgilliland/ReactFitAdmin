@@ -12,7 +12,7 @@ import {
 import Input from "@/components/Input";
 import Select from "@/components/Select";
 import CheckboxGroup from "./CheckboxGroup";
-import { createExerciseAction } from "@/lib/actions";
+import { createExercise } from "@/lib/actions";
 import SubmitButton from "./SubmitButton";
 
 const CreateExerciseForm = () => {
@@ -22,7 +22,7 @@ const CreateExerciseForm = () => {
     errors: undefined,
   } as FormState;
   const [formState, formAction] = useFormState(
-    createExerciseAction,
+    createExercise,
     initialFormState
   );
 

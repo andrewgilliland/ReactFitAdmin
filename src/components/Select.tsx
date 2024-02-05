@@ -5,7 +5,6 @@ type SelectProps = {
   name: string;
   options: readonly string[];
   value?: string;
-  onChange?: (e: ChangeEvent<HTMLSelectElement>) => void;
   className?: string;
   isDisabled?: boolean;
 };
@@ -14,11 +13,10 @@ const Select: FC<SelectProps> = ({
   name,
   options,
   value,
-  onChange,
   className,
   isDisabled = false,
 }) => {
-  // const [disabled, setDisabled] = useState(isDisabled);
+  const [valueState, setValueState] = useState(value);
 
   return (
     <label
@@ -32,8 +30,8 @@ const Select: FC<SelectProps> = ({
             : "border-pink-400 text-white"
         } rounded mt-1 px-2 py-1`}
         name={name}
-        // value={value}
-        onChange={onChange}
+        value={valueState}
+        onChange={(e) => setValueState(e.target.value)}
         disabled={isDisabled}
       >
         {options.map((option, index) => (
