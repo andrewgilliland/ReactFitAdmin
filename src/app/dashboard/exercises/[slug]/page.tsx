@@ -1,14 +1,13 @@
 import { FC } from "react";
-import { Exercise } from "@/types";
 import UpdateExerciseForm from "@/components/forms/UpdateExerciseForm";
+import { getExerciseById } from "@/lib/actions";
 
 type ExercisePageProps = {
   params: { slug: string };
 };
 
 const ExercisePage: FC<ExercisePageProps> = async ({ params }) => {
-  const response = await fetch(`http://[::1]:8080/exercise/${params.slug}`);
-  const exercise: Exercise = await response.json();
+  const exercise = await getExerciseById(params.slug);
 
   return (
     <div className="min-h-96">

@@ -20,11 +20,18 @@ const apiEndpoint = "http://[::1]:8080/exercises"; // dev
 
 const getExercises = async (searchQuery?: string): Promise<Exercise[]> => {
   const response = await fetch(
-    searchQuery ? `${apiEndpoint}/${searchQuery}` : apiEndpoint
+    searchQuery ? `${apiEndpoint}/search/${searchQuery}` : apiEndpoint
   );
   const exercises: Exercise[] = await response.json();
   revalidatePath("/dashboard/exercises");
   return exercises;
+};
+
+const getExerciseById = async (id: string): Promise<Exercise> => {
+  const response = await fetch(`${apiEndpoint}/${id}`);
+  const exercise: Exercise = await response.json();
+
+  return exercise;
 };
 
 const createExercise = async (
@@ -47,7 +54,7 @@ const createExercise = async (
 
   try {
     exerciseSchema.parse(newExercise);
-    const response = await fetch("http://[::1]:8080/exercise", {
+    const response = await fetch(apiEndpoint, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -97,7 +104,7 @@ const updateExercise = async (
   // Todo: schema validation
   // Todo: server error
 
-  const response = await fetch(`http://[::1]:8080/exercise/${id}`, {
+  const response = await fetch(`${apiEndpoint}/${id}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
@@ -116,7 +123,7 @@ const updateExercise = async (
 };
 
 const deleteExercise = async (id: string) => {
-  const response = await fetch(`http://[::1]:8080/exercise/${id}`, {
+  const response = await fetch(`${apiEndpoint}/${id}`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
@@ -139,6 +146,7 @@ const searchExercises = async (formData: FormData) => {
 
 export {
   getExercises,
+  getExerciseById,
   createExercise,
   updateExercise,
   deleteExercise,
