@@ -15,7 +15,8 @@ import {
 } from "@/types";
 import { getSelectedCheckboxesFromFormData } from "../utils";
 
-const apiEndpoint = "http://[::1]:8080/exercises";
+const apiEndpoint = "http://[::1]:8080/exercises"; // dev
+// Todo: make stage and prod endpoints
 
 const getExercises = async (searchQuery?: string): Promise<Exercise[]> => {
   const response = await fetch(
@@ -26,10 +27,10 @@ const getExercises = async (searchQuery?: string): Promise<Exercise[]> => {
   return exercises;
 };
 
-export async function createExercise(
+const createExercise = async (
   prevState: FormState,
   formData: FormData
-): Promise<FormState> {
+): Promise<FormState> => {
   const newExercise: Exercise = {
     name: (formData.get("name") as string)?.toString().toLocaleLowerCase(),
     difficulty: formData.get("difficulty") as Difficulty,
@@ -72,21 +73,46 @@ export async function createExercise(
       errors: { name: errorMap["name"]?.[0] ?? "" },
     };
   }
-}
+};
 
-const updateExercise = async (formData: FormData) => {
-  console.log("updateExerciseAction");
+const updateExercise = async (
+  prevState: FormState,
+  formData: FormData
+): Promise<FormState> => {
+  const id = formData.get("id") as string;
+  const updatedExercise: Exercise = {
+    name: (formData.get("name") as string)?.toString().toLocaleLowerCase(),
+    difficulty: formData.get("difficulty") as Difficulty,
+    equipment: formData.get("equipment") as Equipment,
+    exerciseType: formData.get("exerciseType") as ExerciseType,
+    forceType: formData.get("forceType") as ForceType,
+    mechanics: formData.get("mechanics") as Mechanics,
+    targetMuscleGroup: formData.get("targetMuscleGroup") as MuscleGroup,
+    secondaryMuscles: getSelectedCheckboxesFromFormData(
+      formData,
+      "secondaryMuscles"
+    ),
+  };
 
-  const response = await fetch("http://[::1]:8080/exercise", {
-    method: "POST",
+  // Todo: schema validation
+  // Todo: server error
+
+  const response = await fetch(`http://[::1]:8080/exercise/${id}`, {
+    method: "PUT",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(formData),
+    body: JSON.stringify(updatedExercise),
   });
 
   const data = await response.json();
-  console.log(data);
+
+  revalidatePath("/dashboard/exercises/[slug]", "page");
+  return {
+    success: true,
+    message: `${updateExercise.name} updated!`,
+    errors: undefined,
+  };
 };
 
 const deleteExercise = async (id: string) => {
@@ -98,18 +124,23 @@ const deleteExercise = async (id: string) => {
   });
 
   const exercise = await response.json();
-  console.log("deleteExercise: ", exercise);
 
   if (exercise.id) {
     redirect("/dashboard/exercises");
   }
 };
 
-export async function searchExercises(formData: FormData) {
+const searchExercises = async (formData: FormData) => {
   console.log(formData);
 
   // search mongoDB exercises for exercises that contain the string in the form field of search
   // return results
-}
+};
 
-export { getExercises, updateExercise, deleteExercise };
+export {
+  getExercises,
+  createExercise,
+  updateExercise,
+  deleteExercise,
+  searchExercises,
+};

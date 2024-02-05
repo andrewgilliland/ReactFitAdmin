@@ -3,6 +3,7 @@ import { FC, FormEvent } from "react";
 import { useRouter } from "next/navigation";
 import {
   Exercise,
+  FormState,
   difficulty,
   equipment,
   exerciseType,
@@ -15,18 +16,31 @@ import Select from "../Select";
 import CheckboxGroup from "./CheckboxGroup";
 import Button from "../Button";
 import { deleteExercise, updateExercise } from "@/lib/actions";
+import { useFormState } from "react-dom";
 
 type UpdateExerciseFormProps = {
   exercise: Exercise;
 };
 
 const UpdateExerciseForm: FC<UpdateExerciseFormProps> = ({ exercise }) => {
-  const router = useRouter();
+  const initialFormState = {
+    success: false,
+    message: "",
+    errors: undefined,
+  } as FormState;
+
+  const [formState, formAction] = useFormState(
+    updateExercise,
+    initialFormState
+  );
+
+  console.log("formState.message: ", formState.message);
 
   return (
     <div>
-      <form action={updateExercise} className="flex flex-col">
-        <Input name="name" value={exercise.name} />
+      <form action={formAction} className="flex flex-col">
+        <Input name="id" value={exercise.id} className="hidden" />
+        <Input name="name" value={exercise.name} className="mt-3" />
         <Select
           name="difficulty"
           options={difficulty}

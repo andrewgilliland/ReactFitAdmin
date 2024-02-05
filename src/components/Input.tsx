@@ -20,10 +20,9 @@ const Input: FC<InputProps> = ({
 
   return (
     <label
-      className={`flex items-center capitalize text-sm text-gray-500 ${className}`}
+      className={`flex flex-col capitalize text-sm text-gray-500 ${className}`}
     >
-      <span className="mr-3">{name}</span>
-
+      <div className="mr-3">{name}</div>
       <input
         className={`bg-black border-2 rounded mt-1 px-2 py-1 placeholder:text-gray-600 ${
           isDisabled
