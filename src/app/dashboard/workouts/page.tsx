@@ -1,17 +1,21 @@
-import Link from "next/link";
+import SearchInput from "@/components/forms/SearchInput";
 
-const Workouts = () => (
-  <main className="flex flex-col">
-    <div className="flex flex-row justify-between">
-      <h1 className="font-semibold text-xl">Workouts</h1>
-      <Link
-        className="text-pink-500 border border-pink-500 px-4 py-2 rounded-md transition hover:bg-pink-500 hover:text-black"
-        href="/dashboard"
-      >
-        Create Workout
-      </Link>
-    </div>
-  </main>
-);
+const WorkoutsPage = () => {
+  const workouts = Array.from({ length: 10 });
 
-export default Workouts;
+  return (
+    <section className="min-h-screen">
+      <div className="flex justify-between">
+        <SearchInput className="mb-10" name="workouts" />
+        <div className="text-gray-400 font-semibold">{10} Workouts</div>
+      </div>
+      <div className="flex flex-wrap w-full max-w-6xl gap-6 mt-4">
+        {workouts.map((_, index) => (
+          <div key={index}>Sweet</div>
+        ))}
+      </div>
+    </section>
+  );
+};
+
+export default WorkoutsPage;
