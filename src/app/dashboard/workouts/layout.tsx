@@ -12,10 +12,10 @@ const WorkoutLayout: FC<WorkoutLayoutProps> = ({ children }) => {
       <div className="flex flex-col md:flex-row justify-between items-center">
         <h1 className="font-semibold text-xl">Workouts</h1>
         <div>
-          <Link href="/dashboard/exercises">
+          <Link href="/dashboard/workouts">
             <Button>All Workouts</Button>
           </Link>
-          <Link className="ml-2" href="/dashboard/exercises/create">
+          <Link className="ml-2" href="/dashboard/workouts/create">
             <Button>Create Workouts</Button>
           </Link>
         </div>
