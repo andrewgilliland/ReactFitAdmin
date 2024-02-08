@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { exerciseSchema } from ".";
+import { difficultySchema, exerciseSchema } from ".";
 
 export const workoutSchema = z.object({
   id: z.string().optional(),
@@ -7,6 +7,7 @@ export const workoutSchema = z.object({
     .string()
     .min(1, { message: "Workout name must be at least 1 character long." }),
   description: z.string().optional(),
+  difficulty: difficultySchema,
   exercises: exerciseSchema.array(),
 });
 
