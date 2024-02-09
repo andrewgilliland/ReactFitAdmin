@@ -3,7 +3,7 @@ import { FC, InputHTMLAttributes, useState } from "react";
 
 type InputProps = {
   name: string;
-  value?: string;
+  value?: InputHTMLAttributes<HTMLInputElement>["value"];
   type?: InputHTMLAttributes<HTMLInputElement>["type"];
   className?: string;
   isDisabled?: boolean;
