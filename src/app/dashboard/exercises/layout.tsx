@@ -7,6 +7,7 @@ type ExerciseLayoutProps = {
 };
 
 const ExerciseLayout: FC<ExerciseLayoutProps> = ({ children }) => {
+  // Todo: Make common layout component for exercises, workouts, and programs
   return (
     <div className="flex flex-col">
       <div className="flex flex-col md:flex-row justify-between items-center">

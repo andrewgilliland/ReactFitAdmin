@@ -20,7 +20,7 @@ const Select: FC<SelectProps> = ({
 
   return (
     <label
-      className={`relative flex flex-col capitalize text-sm text-gray-500 ${className}`}
+      className={`flex flex-col capitalize text-sm text-gray-500 ${className}`}
     >
       {name}
       <select
