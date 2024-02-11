@@ -28,3 +28,7 @@ const durationSetSchema = baseSetSchema.extend({
 export const setSchema = z.union([repetitionsSetSchema, durationSetSchema]);
 
 export type Set = z.infer<typeof setSchema>;
+
+const setTypeSchema = z.enum(["repetitions", "duration"]);
+
+export type SetType = z.infer<typeof setTypeSchema>;
