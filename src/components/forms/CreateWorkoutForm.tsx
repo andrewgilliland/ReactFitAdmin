@@ -1,8 +1,10 @@
+"use client";
 import { Exercise, difficulty } from "@/types";
 import Input from "../Input";
 import Select from "../Select";
 import { FC } from "react";
 import Button from "../Button";
+import SetInput from "./SetInput";
 
 type CreateExerciseFormProps = {
   exercises: Exercise[];
@@ -10,7 +12,7 @@ type CreateExerciseFormProps = {
 
 const CreateWorkoutForm: FC<CreateExerciseFormProps> = ({ exercises }) => {
   const createWorkout = async () => {
-    "use server";
+    // "use server";
     console.log("createWorkout");
   };
 
@@ -41,13 +43,7 @@ const CreateWorkoutForm: FC<CreateExerciseFormProps> = ({ exercises }) => {
             <div className="mt-4">
               <div className="text-sm text-gray-500">Sets</div>
               <div className="border-2 border-pink-400 rounded mt-1 p-4">
-                <div className="text-sm text-gray-500">Set 1</div>
-                <Input
-                  value={10}
-                  name="repetitions"
-                  type="number"
-                  className="mt-1"
-                />
+                <SetInput />
                 <Button className="mt-4">Add Set</Button>
               </div>
             </div>
