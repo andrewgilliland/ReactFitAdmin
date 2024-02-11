@@ -1,9 +1,9 @@
-import { FC, ReactNode } from "react";
+import { FC, FormEvent, ReactNode } from "react";
 
 type ButtonProps = {
   children: ReactNode;
   className?: string;
-  onClick?: () => void;
+  onClick?: (event?: FormEvent<HTMLButtonElement>) => void;
   type?: "button" | "submit" | "reset";
 };
 

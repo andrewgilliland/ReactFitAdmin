@@ -1,8 +1,8 @@
 "use client";
+import { FC, FormEvent, useState } from "react";
 import { Exercise, difficulty } from "@/types";
 import Input from "../Input";
 import Select from "../Select";
-import { FC } from "react";
 import Button from "../Button";
 import SetInput from "./SetInput";
 
@@ -15,6 +15,8 @@ const CreateWorkoutForm: FC<CreateExerciseFormProps> = ({ exercises }) => {
     // "use server";
     console.log("createWorkout");
   };
+
+  const [sets, setSets] = useState(1);
 
   return (
     <form action={createWorkout}>
@@ -43,8 +45,22 @@ const CreateWorkoutForm: FC<CreateExerciseFormProps> = ({ exercises }) => {
             <div className="mt-4">
               <div className="text-sm text-gray-500">Sets</div>
               <div className="border-2 border-pink-400 rounded mt-1 p-4">
-                <SetInput />
-                <Button className="mt-4">Add Set</Button>
+                {new Array(sets).fill(null).map((_, index) => (
+                  <SetInput
+                    className={`${index ? "mt-3" : ""}`}
+                    index={index + 1}
+                    key={index + 1}
+                  />
+                ))}
+                <Button
+                  className="mt-4"
+                  onClick={(event) => {
+                    event?.preventDefault();
+                    setSets(sets + 1);
+                  }}
+                >
+                  Add Set
+                </Button>
               </div>
             </div>
           </div>

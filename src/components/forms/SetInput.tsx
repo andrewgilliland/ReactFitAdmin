@@ -1,23 +1,28 @@
 "use client";
-import { useState } from "react";
+import { FC, useState } from "react";
 import Input from "../Input";
 import { SetType } from "@/types/Set";
 
-const SetInput = () => {
+type SetInputProps = {
+  index: number;
+  className?: string;
+};
+
+const SetInput: FC<SetInputProps> = ({ index, className }) => {
   const [setType, setSetType] = useState<SetType>("repetitions");
 
   return (
-    <>
-      <div className="text-sm text-gray-500">Set 1</div>
+    <div className={className}>
+      <div className="text-sm text-gray-500">{`Set ${index}`}</div>
       <div className="border-2 border-pink-400 rounded mt-1 p-4">
-        <fieldset className="border-2 border-pink-400 rounded px-4 py-2">
+        <fieldset className="border-2 border-pink-400 rounded px-4 pb-2">
           <legend className="text-sm text-gray-500">Set Type</legend>
           <label className="text-sm text-grey-500">
             Repetitions
             <input
               className="ml-1"
               type="radio"
-              name="set-1"
+              name={`set-${index}`}
               value="repetitions"
               checked={setType === "repetitions"}
               onChange={() => setSetType("repetitions")}
@@ -28,7 +33,7 @@ const SetInput = () => {
             <input
               className="ml-1"
               type="radio"
-              name="set-1"
+              name={`set-${index}`}
               value="duration"
               checked={setType === "duration"}
               onChange={() => setSetType("duration")}
@@ -37,7 +42,7 @@ const SetInput = () => {
         </fieldset>
         <Input value={10} name={setType} type="number" className="mt-1" />
       </div>
-    </>
+    </div>
   );
 };
 
