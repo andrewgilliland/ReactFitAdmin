@@ -3,7 +3,7 @@ import { exerciseSchema } from ".";
 import { setSchema } from "./Set";
 
 export const workoutExerciseSchema = exerciseSchema.extend({
-  set: setSchema,
+  sets: setSchema.array(),
 });
 
 export type WorkoutExercise = z.infer<typeof workoutExerciseSchema>;

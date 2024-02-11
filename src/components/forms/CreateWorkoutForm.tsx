@@ -45,7 +45,8 @@ const CreateWorkoutForm: FC<CreateExerciseFormProps> = ({ exercises }) => {
                 {new Array(sets).fill(null).map((_, index) => (
                   <SetInput
                     className={`${index ? "mt-3" : ""}`}
-                    index={index + 1}
+                    exerciseIndex={1}
+                    setIndex={index + 1}
                     key={index + 1}
                   />
                 ))}
