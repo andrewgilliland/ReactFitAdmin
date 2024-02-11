@@ -1,25 +1,22 @@
 "use client";
-import { FC, FormEvent, useState } from "react";
+import { FC, useState } from "react";
 import { Exercise, difficulty } from "@/types";
+import { createWorkout } from "@/lib/actions";
 import Input from "../Input";
 import Select from "../Select";
 import Button from "../Button";
 import SetInput from "./SetInput";
+import SubmitButton from "./SubmitButton";
 
 type CreateExerciseFormProps = {
   exercises: Exercise[];
 };
 
 const CreateWorkoutForm: FC<CreateExerciseFormProps> = ({ exercises }) => {
-  const createWorkout = async () => {
-    // "use server";
-    console.log("createWorkout");
-  };
-
   const [sets, setSets] = useState(1);
 
   return (
-    <form action={createWorkout}>
+    <form action={createWorkout} className="flex flex-col">
       <Input name="name" />
       <Input name="description" className="mt-3" />
       <Select name="difficulty" options={difficulty} className="mt-3" />
@@ -67,6 +64,7 @@ const CreateWorkoutForm: FC<CreateExerciseFormProps> = ({ exercises }) => {
           <Button className="mt-4">Add Exercise</Button>
         </div>
       </div>
+      <SubmitButton />
     </form>
   );
 };
