@@ -21,7 +21,7 @@ const createWorkout = async (formData: FormData) => {
   };
 
   console.log("newWorkout: ", newWorkout);
-  // console.log(formatSets(formData));
+  console.log(formatSets(formData));
 };
 
 const formatSets = (formData: FormData) => {
