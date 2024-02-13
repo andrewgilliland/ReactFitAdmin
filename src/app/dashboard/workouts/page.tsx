@@ -1,7 +1,9 @@
 import SearchInput from "@/components/forms/SearchInput";
+import { getWorkouts } from "@/lib/actions";
 
-const WorkoutsPage = () => {
+const WorkoutsPage = async () => {
   const workouts = Array.from({ length: 10 });
+  // const workouts = await getWorkouts();
 
   return (
     <section className="min-h-screen">

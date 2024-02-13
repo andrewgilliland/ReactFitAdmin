@@ -1,7 +1,7 @@
 "use client";
 import { FC, useState } from "react";
 import Input from "../Input";
-import { SetType } from "@/types/Set";
+import { SetType } from "@/types";
 
 type SetInputProps = {
   exerciseIndex: number;

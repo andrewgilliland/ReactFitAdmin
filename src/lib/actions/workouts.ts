@@ -1,8 +1,14 @@
 "use server";
+import { Difficulty, SetType, Workout } from "@/types";
 
-import { Difficulty } from "@/types";
-import { SetType } from "@/types/Set";
-import { Workout } from "@/types/Workout";
+const apiEndpoint = "http://[::1]:8080/workouts"; // dev
+
+const getWorkouts = async (): Promise<Workout[]> => {
+  const response = await fetch(apiEndpoint);
+  console.log("workouts response: ", response.body);
+  const workouts: Workout[] = await response.json();
+  return workouts;
+};
 
 const createWorkout = async (formData: FormData) => {
   console.log("formData: ", formData);
@@ -17,6 +23,10 @@ const createWorkout = async (formData: FormData) => {
 
   console.log("newWorkout: ", newWorkout);
   console.log(formatSets(formData));
+
+  newWorkout.exercises.forEach((exercise) => {
+    console.log("exercise: ", exercise.sets);
+  });
 };
 
 const formatExercises = (formData: FormData) => {
@@ -54,4 +64,4 @@ const formatSets = (formData: FormData, exerciseIndex: number) => {
   return sets;
 };
 
-export { createWorkout };
+export { getWorkouts, createWorkout };
