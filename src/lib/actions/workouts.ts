@@ -11,30 +11,44 @@ const createWorkout = async (formData: FormData) => {
     name: formData.get("name") as string,
     description: formData.get("description") as string,
     difficulty: formData.get("difficulty") as Difficulty,
-    exercises: [
-      {
-        id: formData.get("exercise-1") as string,
-        // @ts-ignore
-        sets: formatSets(formData),
-      },
-    ],
+    // @ts-ignore
+    exercises: formatExercises(formData),
   };
 
   console.log("newWorkout: ", newWorkout);
   console.log(formatSets(formData));
 };
 
-const formatSets = (formData: FormData) => {
-  const sets = [];
-  let i = 1;
+const formatExercises = (formData: FormData) => {
+  const exercises = [];
+  let exerciseIndex = 1;
 
-  while (formData.get(`exercise-1-set-${i}`)) {
-    const setType = formData.get(`exercise-1-set-${i}`) as SetType;
+  while (formData.get(`exercise-${exerciseIndex}`)) {
+    exercises.push({
+      id: formData.get(`exercise-${exerciseIndex}`),
+      sets: formatSets(formData, exerciseIndex),
+    });
+    exerciseIndex++;
+  }
+
+  return exercises;
+};
+
+const formatSets = (formData: FormData, exerciseIndex: number) => {
+  const sets = [];
+  let setIndex = 1;
+
+  while (formData.get(`exercise-${exerciseIndex}-set-${setIndex}`)) {
+    const setType = formData.get(
+      `exercise-${exerciseIndex}-set-${setIndex}`
+    ) as SetType;
 
     sets.push({
-      [setType]: formData.get(`exercise-1-set-${i}-${setType}`),
+      [setType]: formData.get(
+        `exercise-${exerciseIndex}-set-${setIndex}-${setType}`
+      ),
     });
-    i++;
+    setIndex++;
   }
 
   return sets;

@@ -1,3 +1,4 @@
+"use client";
 import { FC, useState } from "react";
 import { Exercise } from "@/types";
 import SetInput from "./SetInput";
@@ -13,19 +14,17 @@ const ExerciseInput: FC<ExerciseInputProps> = ({
   exercises,
 }) => {
   const [setCount, setSetCount] = useState(1);
+  const selectName = `exercise-${exerciseIndex}`;
 
   return (
-    <div
-      className={`${exerciseIndex ? "mt-4" : ""}`}
-      key={`exercise-${exerciseIndex}`}
-    >
+    <div className={`${exerciseIndex ? "mt-4" : ""}`} key={selectName}>
       <div className="text-sm text-gray-500">{`Exercise ${exerciseIndex}`}</div>
       <div className="border-2 border-yellow-400 rounded mt-1 p-4">
         <label className={`flex flex-col capitalize text-sm text-gray-500`}>
           {"Exercise"}
           <select
             className={`bg-black border-2 border-pink-400 text-white rounded mt-1 px-2 py-1`}
-            name="exercise-1"
+            name={selectName}
           >
             {exercises.map(({ id, name }) => (
               <option className="capitalize" key={id} value={id}>
@@ -40,7 +39,7 @@ const ExerciseInput: FC<ExerciseInputProps> = ({
             {new Array(setCount).fill(null).map((_, index) => (
               <SetInput
                 className={`${index ? "mt-3" : ""}`}
-                exerciseIndex={1}
+                exerciseIndex={exerciseIndex}
                 setIndex={index + 1}
                 key={index + 1}
               />
