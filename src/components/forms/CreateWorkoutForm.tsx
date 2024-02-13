@@ -5,15 +5,14 @@ import { createWorkout } from "@/lib/actions";
 import Input from "../Input";
 import Select from "../Select";
 import Button from "../Button";
-import SetInput from "./SetInput";
 import SubmitButton from "./SubmitButton";
+import ExerciseInput from "./ExerciseInput";
 
 type CreateExerciseFormProps = {
   exercises: Exercise[];
 };
 
 const CreateWorkoutForm: FC<CreateExerciseFormProps> = ({ exercises }) => {
-  const [sets, setSets] = useState(1);
   const [exerciseCount, setExerciseCount] = useState(1);
 
   return (
@@ -26,52 +25,12 @@ const CreateWorkoutForm: FC<CreateExerciseFormProps> = ({ exercises }) => {
         <div className="text-sm text-gray-500">Exercises</div>
         <div className="border-2 border-pink-400 rounded mt-1 p-4">
           {new Array(exerciseCount).fill(null).map((_, index) => (
-            <div className={`${index ? "mt-4" : ""}`} key={`exercise-${index}`}>
-              <div className="text-sm text-gray-500">{`Exercise ${
-                index + 1
-              }`}</div>
-              <div className="border-2 border-yellow-400 rounded mt-1 p-4">
-                <label
-                  className={`flex flex-col capitalize text-sm text-gray-500`}
-                >
-                  {"Exercise"}
-                  <select
-                    className={`bg-black border-2 border-pink-400 text-white rounded mt-1 px-2 py-1`}
-                    name="exercise-1"
-                  >
-                    {exercises.map(({ id, name }) => (
-                      <option className="capitalize" key={id} value={id}>
-                        {name}
-                      </option>
-                    ))}
-                  </select>
-                </label>
-                <div className="mt-4">
-                  <div className="text-sm text-gray-500">Sets</div>
-                  <div className="border-2 border-pink-400 rounded mt-1 p-4">
-                    {new Array(sets).fill(null).map((_, index) => (
-                      <SetInput
-                        className={`${index ? "mt-3" : ""}`}
-                        exerciseIndex={1}
-                        setIndex={index + 1}
-                        key={index + 1}
-                      />
-                    ))}
-                    <Button
-                      className="mt-4"
-                      onClick={(event) => {
-                        event?.preventDefault();
-                        setSets(sets + 1);
-                      }}
-                    >
-                      Add Set
-                    </Button>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <ExerciseInput
+              key={index + 1}
+              exerciseIndex={index + 1}
+              exercises={exercises}
+            />
           ))}
-
           <Button
             className="mt-4"
             onClick={(event) => {
