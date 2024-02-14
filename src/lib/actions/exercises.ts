@@ -22,7 +22,7 @@ const getExercises = async (searchQuery?: string): Promise<Exercise[]> => {
   const response = await fetch(
     searchQuery ? `${apiEndpoint}/search/${searchQuery}` : apiEndpoint
   );
-  console.log("exercises response: ", response.body);
+
   const exercises: Exercise[] = await response.json();
   revalidatePath("/dashboard/exercises");
   return exercises;
