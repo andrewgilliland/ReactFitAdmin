@@ -1,8 +1,8 @@
+import Card from "@/components/Card";
 import SearchInput from "@/components/forms/SearchInput";
 import { getWorkouts } from "@/lib/actions";
 
 const WorkoutsPage = async () => {
-  // const workouts = Array.from({ length: 10 });
   const workouts = await getWorkouts();
 
   return (
@@ -14,11 +14,8 @@ const WorkoutsPage = async () => {
         </div>
       </div>
       <div className="flex flex-wrap w-full max-w-6xl gap-6 mt-4">
-        {workouts.map((_, index) => (
-          <div
-            className="border-2 border-pink-400 rounded h-40 w-1/3"
-            key={index}
-          ></div>
+        {workouts.map((workout) => (
+          <Card workout={workout} key={workout.id} />
         ))}
       </div>
     </section>

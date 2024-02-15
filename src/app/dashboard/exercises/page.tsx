@@ -1,4 +1,4 @@
-import ExerciseCard from "@/components/ExerciseCard";
+import Card from "@/components/Card";
 import SearchInput from "@/components/forms/SearchInput";
 import { getExercises } from "@/lib/actions";
 import { FC } from "react";
@@ -22,8 +22,8 @@ const ExercisesPage: FC<ExecisesPageProps> = async ({ searchParams }) => {
         </div>
       </div>
       <div className="flex flex-wrap w-full max-w-6xl gap-6 mt-4">
-        {exercises.map((exercise, index) => (
-          <ExerciseCard key={`${exercise.name}-${index}`} exercise={exercise} />
+        {exercises.map((exercise) => (
+          <Card key={exercise.id} exercise={exercise} />
         ))}
       </div>
     </section>
