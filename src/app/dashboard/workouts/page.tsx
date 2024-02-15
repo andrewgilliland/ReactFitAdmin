@@ -15,7 +15,10 @@ const WorkoutsPage = async () => {
       </div>
       <div className="flex flex-wrap w-full max-w-6xl gap-6 mt-4">
         {workouts.map((_, index) => (
-          <div key={index}>Sweet</div>
+          <div
+            className="border-2 border-pink-400 rounded h-40 w-1/3"
+            key={index}
+          ></div>
         ))}
       </div>
     </section>
