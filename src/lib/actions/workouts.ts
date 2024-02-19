@@ -6,15 +6,14 @@ const apiEndpoint = "http://[::1]:8080/workouts"; // dev
 
 const getWorkouts = async (): Promise<Workout[]> => {
   const response = await fetch("http://[::1]:8080/workouts");
-
   const workouts: Workout[] = await response.json();
-  console.log("workouts: ", workouts);
 
   revalidatePath("/dashboard/workouts");
   return workouts;
 };
 
 const getWorkoutById = async (id: string): Promise<Workout> => {
+  revalidatePath("/dashboard/workouts/[slug]", "page");
   const response = await fetch(`${apiEndpoint}/${id}`);
   const workout: Workout = await response.json();
 

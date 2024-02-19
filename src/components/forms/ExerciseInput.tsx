@@ -7,24 +7,30 @@ import Button from "../Button";
 type ExerciseInputProps = {
   exerciseIndex: number;
   exercises: Exercise[];
+  value?: string;
 };
 
 const ExerciseInput: FC<ExerciseInputProps> = ({
   exerciseIndex,
   exercises,
+  value,
 }) => {
   const [setCount, setSetCount] = useState(1);
+  const [exerciseId, setExerciseId] = useState(value);
+
   const selectName = `exercise-${exerciseIndex}`;
 
   return (
-    <div className={`${exerciseIndex ? "mt-4" : ""}`} key={selectName}>
+    <div className="mt-4" key={selectName}>
       <div className="text-sm text-gray-500">{`Exercise ${exerciseIndex}`}</div>
       <div className="border-2 border-yellow-400 rounded mt-1 p-4">
-        <label className={`flex flex-col capitalize text-sm text-gray-500`}>
+        <label className="flex flex-col capitalize text-sm text-gray-500">
           {"Exercise"}
           <select
-            className={`bg-black border-2 border-pink-400 text-white rounded mt-1 px-2 py-1`}
+            className="bg-black border-2 border-pink-400 text-white rounded mt-1 px-2 py-1"
             name={selectName}
+            value={exerciseId}
+            onChange={(e) => setExerciseId(e.target.value)}
           >
             {exercises.map(({ id, name }) => (
               <option className="capitalize" key={id} value={id}>
