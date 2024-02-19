@@ -1,18 +1,18 @@
 import { FC } from "react";
-import UpdateExerciseForm from "@/components/forms/UpdateExerciseForm";
-import { getExerciseById } from "@/lib/actions";
+
+import { getWorkoutById } from "@/lib/actions";
 
 type WorkoutPageProps = {
   params: { id: string };
 };
 
 const WorkoutPage: FC<WorkoutPageProps> = async ({ params }) => {
-  //   const exercise = await getExerciseById(params.slug);
+  const workout = await getWorkoutById(params.id);
 
   return (
     <div className="min-h-96">
       <div className="flex justify-between items-center">
-        <h2 className="font-semibold text-xl">{"Sweet"}</h2>
+        <h2 className="capitalize font-semibold text-xl">{workout.name}</h2>
         <div className="text-sm text-gray-400">{`ID: ${params.id}`}</div>
       </div>
     </div>

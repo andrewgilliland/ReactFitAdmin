@@ -16,6 +16,13 @@ const getWorkouts = async (): Promise<Workout[]> => {
   return workouts;
 };
 
+const getWorkoutById = async (id: string): Promise<Workout> => {
+  const response = await fetch(`${apiEndpoint}/${id}`);
+  const workout: Workout = await response.json();
+
+  return workout;
+};
+
 const createWorkout = async (formData: FormData) => {
   console.log("formData: ", formData);
 
@@ -70,4 +77,4 @@ const formatSets = (formData: FormData, exerciseIndex: number) => {
   return sets;
 };
 
-export { getWorkouts, createWorkout };
+export { getWorkouts, getWorkoutById, createWorkout };
