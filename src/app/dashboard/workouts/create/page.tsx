@@ -1,4 +1,4 @@
-import CreateWorkoutForm from "@/components/forms/CreateWorkoutForm";
+import CreateWorkoutForm from "@/components/forms/workout/CreateWorkoutForm";
 import { getExercises } from "@/lib/actions";
 
 const CreateExercisePage = async () => {

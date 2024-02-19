@@ -1,5 +1,5 @@
 import { FC } from "react";
-import UpdateExerciseForm from "@/components/forms/UpdateExerciseForm";
+import UpdateExerciseForm from "@/components/forms/exercise/UpdateExerciseForm";
 import { getExerciseById } from "@/lib/actions";
 
 type ExercisePageProps = {

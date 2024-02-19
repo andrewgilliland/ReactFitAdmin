@@ -11,9 +11,9 @@ import {
 } from "@/types";
 import Input from "@/components/Input";
 import Select from "@/components/Select";
-import CheckboxGroup from "./CheckboxGroup";
+import CheckboxGroup from "../CheckboxGroup";
 import { createExercise } from "@/lib/actions";
-import SubmitButton from "./SubmitButton";
+import SubmitButton from "../SubmitButton";
 
 const CreateExerciseForm = () => {
   const initialFormState = {

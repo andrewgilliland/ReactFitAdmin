@@ -1,6 +1,7 @@
 import { FC } from "react";
 
 import { getWorkoutById } from "@/lib/actions";
+import UpdateWorkoutForm from "@/components/forms/workout/UpdateWorkoutForm";
 
 type WorkoutPageProps = {
   params: { id: string };
@@ -15,6 +16,7 @@ const WorkoutPage: FC<WorkoutPageProps> = async ({ params }) => {
         <h2 className="capitalize font-semibold text-xl">{workout.name}</h2>
         <div className="text-sm text-gray-400">{`ID: ${params.id}`}</div>
       </div>
+      {workout && <UpdateWorkoutForm workout={workout} />}
     </div>
   );
 };

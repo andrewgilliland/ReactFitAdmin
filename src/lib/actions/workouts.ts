@@ -7,8 +7,6 @@ const apiEndpoint = "http://[::1]:8080/workouts"; // dev
 const getWorkouts = async (): Promise<Workout[]> => {
   const response = await fetch("http://[::1]:8080/workouts");
 
-  // console.log("workouts response: ", response);
-
   const workouts: Workout[] = await response.json();
   console.log("workouts: ", workouts);
 
@@ -35,11 +33,14 @@ const createWorkout = async (formData: FormData) => {
   };
 
   console.log("newWorkout: ", newWorkout);
-  console.log(formatSets(formData));
 
   newWorkout.exercises.forEach((exercise) => {
     console.log("exercise: ", exercise.sets);
   });
+};
+
+const updateWorkout = async (formData: FormData) => {
+  console.log("formData: ", formData);
 };
 
 const formatExercises = (formData: FormData) => {
@@ -77,4 +78,4 @@ const formatSets = (formData: FormData, exerciseIndex: number) => {
   return sets;
 };
 
-export { getWorkouts, getWorkoutById, createWorkout };
+export { getWorkouts, getWorkoutById, createWorkout, updateWorkout };

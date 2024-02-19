@@ -1,6 +1,5 @@
 "use client";
-import { FC, FormEvent } from "react";
-import { useRouter } from "next/navigation";
+import { FC } from "react";
 import {
   Exercise,
   FormState,
@@ -11,10 +10,10 @@ import {
   mechanics,
   muscleGroups,
 } from "@/types";
-import Input from "../Input";
-import Select from "../Select";
-import CheckboxGroup from "./CheckboxGroup";
-import Button from "../Button";
+import Input from "../../Input";
+import Select from "../../Select";
+import CheckboxGroup from "../CheckboxGroup";
+import Button from "../../Button";
 import { deleteExercise, updateExercise } from "@/lib/actions";
 import { useFormState } from "react-dom";
 

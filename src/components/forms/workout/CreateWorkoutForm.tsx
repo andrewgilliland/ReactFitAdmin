@@ -2,11 +2,11 @@
 import { FC, useState } from "react";
 import { Exercise, difficulty } from "@/types";
 import { createWorkout } from "@/lib/actions";
-import Input from "../Input";
-import Select from "../Select";
-import Button from "../Button";
-import SubmitButton from "./SubmitButton";
-import ExerciseInput from "./ExerciseInput";
+import Input from "../../Input";
+import Select from "../../Select";
+import Button from "../../Button";
+import SubmitButton from "../SubmitButton";
+import ExerciseInput from "../ExerciseInput";
 
 type CreateExerciseFormProps = {
   exercises: Exercise[];
