@@ -1,9 +1,8 @@
 import { z } from "zod";
-import { setSchema } from ".";
+import { workoutExerciseSchema } from "./WorkoutExercise";
 
 export const supersetSchema = z.object({
-  exerciseIds: z.string().array().length(2),
-  sets: setSchema.array(),
+  exercises: workoutExerciseSchema.array().length(2),
 });
 
 export type Superset = z.infer<typeof supersetSchema>;

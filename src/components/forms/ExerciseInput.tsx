@@ -1,9 +1,9 @@
 "use client";
-import { FC, useEffect, useState } from "react";
-import { Exercise, Set } from "@/types";
+import { FC, useContext, useEffect, useState } from "react";
+import { Set } from "@/types";
 import SetInput from "./SetInput";
 import Button from "../Button";
-import { getExercises } from "@/lib/actions";
+import { ExerciseContext } from "@/app/Provider";
 
 type ExerciseInputProps = {
   exerciseIndex: number;
@@ -16,20 +16,13 @@ const ExerciseInput: FC<ExerciseInputProps> = ({
   value,
   sets,
 }) => {
-  const [exerciseOptions, setExerciseOptions] = useState<Exercise[]>([]);
   const [setCount, setSetCount] = useState(sets?.length || 1);
   const [exerciseId, setExerciseId] = useState(value);
+  const { exercises } = useContext(ExerciseContext);
 
   useEffect(() => {
-    (async () => {
-      const exercises = await getExercises();
-      setExerciseOptions(exercises);
-    })();
-  }, []);
-
-  useEffect(() => {
-    exerciseOptions.length && !value && setExerciseId(exerciseOptions[0]?.id);
-  }, [exerciseOptions, value]);
+    exercises.length && !value && setExerciseId(exercises[0]?.id);
+  }, [exercises, value]);
 
   const selectName = `exercise-${exerciseIndex}`;
 
@@ -45,8 +38,8 @@ const ExerciseInput: FC<ExerciseInputProps> = ({
             value={exerciseId}
             onChange={(e) => setExerciseId(e.target.value)}
           >
-            {exerciseOptions &&
-              exerciseOptions.map(({ id, name }) => (
+            {exercises &&
+              exercises.map(({ id, name }) => (
                 <option className="capitalize" key={id} value={id}>
                   {name}
                 </option>
