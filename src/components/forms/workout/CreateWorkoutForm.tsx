@@ -13,7 +13,9 @@ type CreateExerciseFormProps = {
 };
 
 const CreateWorkoutForm: FC<CreateExerciseFormProps> = ({ exercises }) => {
-  const [exerciseCount, setExerciseCount] = useState(1);
+  const [rounds, setRounds] = useState<("straightSet" | "superset")[]>([
+    "superset",
+  ]);
 
   return (
     <form action={createWorkout} className="flex flex-col">
@@ -24,18 +26,43 @@ const CreateWorkoutForm: FC<CreateExerciseFormProps> = ({ exercises }) => {
       <div className="mt-6">
         <div className="text-sm text-gray-500">Exercises</div>
         <div className="border-2 border-pink-400 rounded mt-1 p-4">
-          {new Array(exerciseCount).fill(null).map((_, index) => (
-            <ExerciseInput key={index + 1} exerciseIndex={index + 1} />
-          ))}
-          <Button
-            className="mt-4"
-            onClick={(event) => {
-              event?.preventDefault();
-              setExerciseCount(exerciseCount + 1);
-            }}
-          >
-            Add Exercise
-          </Button>
+          {rounds.map((round, index) => {
+            const exerciseIndex = index + 1;
+            switch (round) {
+              case "straightSet":
+                return (
+                  <ExerciseInput
+                    key={exerciseIndex}
+                    exerciseIndex={exerciseIndex}
+                  />
+                );
+              case "superset":
+                return (
+                  <div className="mt-4" key={exerciseIndex}>
+                    <div className="text-sm text-gray-500">{`Superset ${exerciseIndex}`}</div>
+                    <div className="border-2 border-yellow-400 rounded mt-1 p-4 h-40"></div>
+                  </div>
+                );
+            }
+          })}
+          <div className="flex gap-4 mt-4">
+            <Button
+              onClick={(event) => {
+                event?.preventDefault();
+                setRounds([...rounds, "straightSet"]);
+              }}
+            >
+              Add Exercise
+            </Button>
+            <Button
+              onClick={(event) => {
+                event?.preventDefault();
+                setRounds([...rounds, "superset"]);
+              }}
+            >
+              Add Superset
+            </Button>
+          </div>
         </div>
       </div>
       <SubmitButton />

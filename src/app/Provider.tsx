@@ -10,8 +10,6 @@ export const ExerciseContext = createContext<{ exercises: Exercise[] }>({
 const Provider = ({ children }: { children: ReactNode }) => {
   const [exerciseOptions, setExerciseOptions] = useState<Exercise[]>([]);
 
-  console.log("Provider mounted");
-
   useEffect(() => {
     (async () => {
       const exercises = await getExercises();

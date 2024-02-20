@@ -27,7 +27,7 @@ const ExerciseInput: FC<ExerciseInputProps> = ({
   const selectName = `exercise-${exerciseIndex}`;
 
   return (
-    <div className="mt-4" key={selectName}>
+    <div className="mt-4">
       <div className="text-sm text-gray-500">{`Exercise ${exerciseIndex}`}</div>
       <div className="border-2 border-yellow-400 rounded mt-1 p-4">
         <label className="flex flex-col capitalize text-sm text-gray-500">
