@@ -7,6 +7,7 @@ import Select from "../../Select";
 import Button from "../../Button";
 import SubmitButton from "../SubmitButton";
 import ExerciseInput from "../ExerciseInput";
+import SupersetInput from "../SupersetInput";
 
 type CreateExerciseFormProps = {
   exercises: Exercise[];
@@ -38,10 +39,10 @@ const CreateWorkoutForm: FC<CreateExerciseFormProps> = ({ exercises }) => {
                 );
               case "superset":
                 return (
-                  <div className="mt-4" key={exerciseIndex}>
-                    <div className="text-sm text-gray-500">{`Superset ${exerciseIndex}`}</div>
-                    <div className="border-2 border-yellow-400 rounded mt-1 p-4 h-40"></div>
-                  </div>
+                  <SupersetInput
+                    key={exerciseIndex}
+                    exerciseIndex={exerciseIndex}
+                  />
                 );
             }
           })}
