@@ -1,7 +1,7 @@
 "use client";
-import { FC, useState } from "react";
 import Input from "../Input";
-import { Set, SetType } from "@/types";
+import { Set, SetType, setTypes } from "@/types";
+import { FC, useState } from "react";
 
 type SetInputProps = {
   exerciseIndex: number;
@@ -28,31 +28,32 @@ const SetInput: FC<SetInputProps> = ({
   return (
     <div className={className}>
       <div className="text-sm text-gray-500">{`Set ${setIndex}`}</div>
-      <div className="border-2 border-pink-400 rounded mt-1 p-4">
-        <fieldset className="border-2 border-pink-400 rounded px-4 pb-2">
+      <div className="flex border-2 border-pink-400 rounded mt-1 p-4">
+        <fieldset className="px-4 pb-2">
           <legend className="text-sm text-gray-500">Set Type</legend>
-          <label className="text-sm text-grey-500">
-            Repetitions
-            <input
-              className="ml-1"
-              type="radio"
-              name={setIdentifier}
-              value="repetitions"
-              checked={setType === "repetitions"}
-              onChange={() => setSetType("repetitions")}
-            />
-          </label>
-          <label className="text-sm text-grey-500 ml-4">
-            Duration
-            <input
-              className="ml-1"
-              type="radio"
-              name={setIdentifier}
-              value="duration"
-              checked={setType === "duration"}
-              onChange={() => setSetType("duration")}
-            />
-          </label>
+          <div className="bg-pink-400 text-black font-semibold border border-pink-400 rounded-md max-w-min mt-1 p-1">
+            {setTypes.map((type, index) => {
+              return (
+                <label
+                  key={type}
+                  className={`text-sm text-grey-500 px-2 py-1 transition-all ${
+                    setType === type ? "bg-black text-pink-400" : ""
+                  }
+                  ${index ? "rounded-r-md" : "rounded-l-md"}`}
+                >
+                  <span className="capitalize">{type}</span>
+                  <input
+                    className="hidden"
+                    type="radio"
+                    name={setIdentifier}
+                    value={type}
+                    checked={setType === type}
+                    onChange={() => setSetType(type)}
+                  />
+                </label>
+              );
+            })}
+          </div>
         </fieldset>
         <Input
           value={setValue}

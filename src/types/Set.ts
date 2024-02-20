@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { set, z } from "zod";
 
 const baseSetSchema = z.object({
   weight: z.number().optional(),
@@ -29,6 +29,8 @@ export const setSchema = z.union([repetitionsSetSchema, durationSetSchema]);
 
 export type Set = z.infer<typeof setSchema>;
 
-const setTypeSchema = z.enum(["repetitions", "duration"]);
+export const setTypes = ["repetitions", "duration"] as const;
+
+const setTypeSchema = z.enum(setTypes);
 
 export type SetType = z.infer<typeof setTypeSchema>;
