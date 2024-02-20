@@ -1,22 +1,35 @@
 "use client";
-import { FC, useState } from "react";
-import { Exercise } from "@/types";
+import { FC, useEffect, useState } from "react";
+import { Exercise, Set } from "@/types";
 import SetInput from "./SetInput";
 import Button from "../Button";
+import { getExercises } from "@/lib/actions";
 
 type ExerciseInputProps = {
   exerciseIndex: number;
-  exercises: Exercise[];
   value?: string;
+  sets?: Set[];
 };
 
 const ExerciseInput: FC<ExerciseInputProps> = ({
   exerciseIndex,
-  exercises,
   value,
+  sets,
 }) => {
-  const [setCount, setSetCount] = useState(1);
+  const [exerciseOptions, setExerciseOptions] = useState<Exercise[]>([]);
+  const [setCount, setSetCount] = useState(sets?.length || 1);
   const [exerciseId, setExerciseId] = useState(value);
+
+  useEffect(() => {
+    (async () => {
+      const exercises = await getExercises();
+      setExerciseOptions(exercises);
+    })();
+  }, []);
+
+  useEffect(() => {
+    exerciseOptions.length && !value && setExerciseId(exerciseOptions[0]?.id);
+  }, [exerciseOptions, value]);
 
   const selectName = `exercise-${exerciseIndex}`;
 
@@ -32,11 +45,12 @@ const ExerciseInput: FC<ExerciseInputProps> = ({
             value={exerciseId}
             onChange={(e) => setExerciseId(e.target.value)}
           >
-            {exercises.map(({ id, name }) => (
-              <option className="capitalize" key={id} value={id}>
-                {name}
-              </option>
-            ))}
+            {exerciseOptions &&
+              exerciseOptions.map(({ id, name }) => (
+                <option className="capitalize" key={id} value={id}>
+                  {name}
+                </option>
+              ))}
           </select>
         </label>
         <div className="mt-4">
@@ -48,6 +62,7 @@ const ExerciseInput: FC<ExerciseInputProps> = ({
                 exerciseIndex={exerciseIndex}
                 setIndex={index + 1}
                 key={index + 1}
+                set={sets?.[index]}
               />
             ))}
             <Button

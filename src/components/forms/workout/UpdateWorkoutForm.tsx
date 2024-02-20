@@ -1,17 +1,6 @@
 "use client";
-import { FC, FormEvent, useState } from "react";
-import { useRouter } from "next/navigation";
-import {
-  Exercise,
-  FormState,
-  Workout,
-  difficulty,
-  equipment,
-  exerciseType,
-  forceType,
-  mechanics,
-  muscleGroups,
-} from "@/types";
+import { FC, useState } from "react";
+import { FormState, Workout, difficulty } from "@/types";
 import Input from "../../Input";
 import Select from "../../Select";
 import Button from "../../Button";
@@ -21,13 +10,9 @@ import ExerciseInput from "../ExerciseInput";
 
 type UpdateWorkoutFormProps = {
   workout: Workout;
-  exercises: Exercise[];
 };
 
-const UpdateWorkoutForm: FC<UpdateWorkoutFormProps> = ({
-  workout,
-  exercises,
-}) => {
+const UpdateWorkoutForm: FC<UpdateWorkoutFormProps> = ({ workout }) => {
   const [exerciseCount, setExerciseCount] = useState(workout.exercises.length);
 
   const initialFormState = {
@@ -58,12 +43,12 @@ const UpdateWorkoutForm: FC<UpdateWorkoutFormProps> = ({
         <div className="mt-6">
           <div className="text-sm text-gray-500">Exercises</div>
           <div className="border-2 border-pink-400 rounded mt-1 p-4">
-            {workout.exercises.map((_, index) => (
+            {workout.exercises.map((exercise, index) => (
               <ExerciseInput
-                key={index + 1}
+                key={exercise.id}
                 exerciseIndex={index + 1}
-                exercises={exercises}
                 value={workout.exercises[index].id as string}
+                sets={exercise.sets}
               />
             ))}
             <Button
@@ -85,7 +70,7 @@ const UpdateWorkoutForm: FC<UpdateWorkoutFormProps> = ({
 
       {/* <Button
         className="mt-8 text-red-400 border-red-400 hover:bg-red-400"
-        onClick={() => deleteExercise(exercise.id as string)}
+        onClick={() => deleteWorkout(workout.id as string)}
       >
         Delete Workout
       </Button> */}

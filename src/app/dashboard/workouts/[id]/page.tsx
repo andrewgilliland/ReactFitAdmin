@@ -1,5 +1,4 @@
 import { FC } from "react";
-
 import { getExercises, getWorkoutById } from "@/lib/actions";
 import UpdateWorkoutForm from "@/components/forms/workout/UpdateWorkoutForm";
 
@@ -17,7 +16,7 @@ const WorkoutPage: FC<WorkoutPageProps> = async ({ params }) => {
         <h2 className="capitalize font-semibold text-xl">{workout.name}</h2>
         <div className="text-sm text-gray-400">{`ID: ${params.id}`}</div>
       </div>
-      {workout && <UpdateWorkoutForm workout={workout} exercises={exercises} />}
+      {workout && <UpdateWorkoutForm workout={workout} />}
     </div>
   );
 };

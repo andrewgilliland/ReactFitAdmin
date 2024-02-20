@@ -25,11 +25,7 @@ const CreateWorkoutForm: FC<CreateExerciseFormProps> = ({ exercises }) => {
         <div className="text-sm text-gray-500">Exercises</div>
         <div className="border-2 border-pink-400 rounded mt-1 p-4">
           {new Array(exerciseCount).fill(null).map((_, index) => (
-            <ExerciseInput
-              key={index + 1}
-              exerciseIndex={index + 1}
-              exercises={exercises}
-            />
+            <ExerciseInput key={index + 1} exerciseIndex={index + 1} />
           ))}
           <Button
             className="mt-4"

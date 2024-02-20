@@ -1,21 +1,29 @@
 "use client";
 import { FC, useState } from "react";
 import Input from "../Input";
-import { SetType } from "@/types";
+import { Set, SetType } from "@/types";
 
 type SetInputProps = {
   exerciseIndex: number;
   setIndex: number;
+  set?: Set;
   className?: string;
 };
 
 const SetInput: FC<SetInputProps> = ({
   exerciseIndex,
   setIndex,
+  set = { repetitions: 10, duration: null },
   className,
 }) => {
-  const [setType, setSetType] = useState<SetType>("repetitions");
+  // Remove null values from set object
+  const filteredSet = Object.entries(set)
+    .filter(([_, value]) => value !== null)
+    .flat() as [SetType, number];
+  const setValue = filteredSet[1];
   const setIdentifier = `exercise-${exerciseIndex}-set-${setIndex}`;
+
+  const [setType, setSetType] = useState<SetType>(filteredSet[0]);
 
   return (
     <div className={className}>
@@ -47,7 +55,7 @@ const SetInput: FC<SetInputProps> = ({
           </label>
         </fieldset>
         <Input
-          value={10}
+          value={setValue}
           label={setType}
           name={`${setIdentifier}-${setType}`}
           type="number"
