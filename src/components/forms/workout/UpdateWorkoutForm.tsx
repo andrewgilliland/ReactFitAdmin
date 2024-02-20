@@ -51,15 +51,23 @@ const UpdateWorkoutForm: FC<UpdateWorkoutFormProps> = ({ workout }) => {
                 sets={exercise.sets}
               />
             ))}
-            <Button
-              className="mt-4"
-              onClick={(event) => {
-                event?.preventDefault();
-                setExerciseCount(exerciseCount + 1);
-              }}
-            >
-              Add Exercise
-            </Button>
+            <div className="flex gap-4 mt-4">
+              <Button
+                onClick={(event) => {
+                  event?.preventDefault();
+                  setExerciseCount(exerciseCount + 1);
+                }}
+              >
+                Add Exercise
+              </Button>
+              <Button
+                onClick={(event) => {
+                  event?.preventDefault();
+                }}
+              >
+                Add Superset
+              </Button>
+            </div>
           </div>
         </div>
 

@@ -1,4 +1,4 @@
-import { set, z } from "zod";
+import { z } from "zod";
 
 const baseSetSchema = z.object({
   weight: z.number().optional(),

@@ -7,5 +7,6 @@ export * from "./ForceType";
 export * from "./Mechanics";
 export * from "./MuscleGroup";
 export * from "./Set";
+export * from "./Superset";
 export * from "./Workout";
 export * from "./WorkoutExercise";
