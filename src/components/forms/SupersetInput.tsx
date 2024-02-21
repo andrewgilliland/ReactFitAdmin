@@ -1,6 +1,8 @@
 "use client";
 import { FC, useState } from "react";
 import ExerciseSelect from "./ExerciseSelect";
+import SetInput from "./SetInput";
+import Button from "../Button";
 
 type SupersetInputProps = {
   supersetIndex: number;
@@ -8,6 +10,7 @@ type SupersetInputProps = {
 };
 
 const SupersetInput: FC<SupersetInputProps> = ({ supersetIndex, value }) => {
+  const [setCount, setSetCount] = useState(1);
   //   const [exerciseId, setExerciseId] = useState(value);
   //   const { exercises } = useContext(ExerciseContext);
 
@@ -32,6 +35,29 @@ const SupersetInput: FC<SupersetInputProps> = ({ supersetIndex, value }) => {
             />
           );
         })}
+      </div>
+      <div className="mt-4">
+        <div className="text-sm text-gray-500">Sets</div>
+        <div className="border-2 border-pink-400 rounded mt-1 p-4">
+          {new Array(setCount).fill(null).map((_, index) => (
+            <SetInput
+              className={`${index ? "mt-3" : ""}`}
+              exerciseIndex={supersetIndex}
+              setIndex={index + 1}
+              key={index + 1}
+              //   set={sets?.[index]}
+            />
+          ))}
+          <Button
+            className="mt-4"
+            onClick={(event) => {
+              event?.preventDefault();
+              setSetCount(setCount + 1);
+            }}
+          >
+            Add Set
+          </Button>
+        </div>
       </div>
     </div>
   );
