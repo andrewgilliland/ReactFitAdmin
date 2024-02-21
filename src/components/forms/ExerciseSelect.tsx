@@ -1,28 +1,30 @@
 "use client";
-import { FC, useState } from "react";
+import { ExerciseContext } from "@/app/Provider";
+import { FC, useContext, useState } from "react";
 
 type SelectProps = {
   name: string;
-  options: readonly string[];
+  label?: string;
   value?: string;
   className?: string;
   isDisabled?: boolean;
 };
 
-const Select: FC<SelectProps> = ({
+const ExerciseSelect: FC<SelectProps> = ({
   name,
-  options,
+  label,
   value,
   className,
   isDisabled = false,
 }) => {
   const [valueState, setValueState] = useState(value);
+  const { exercises } = useContext(ExerciseContext);
 
   return (
     <label
       className={`flex flex-col capitalize text-sm text-gray-500 ${className}`}
     >
-      {name}
+      {label ? label : name}
       <select
         className={`bg-black border-2 ${
           isDisabled
@@ -34,13 +36,9 @@ const Select: FC<SelectProps> = ({
         onChange={(e) => setValueState(e.target.value)}
         disabled={isDisabled}
       >
-        {options.map((option, index) => (
-          <option
-            className="capitalize"
-            key={`${option}-${index}`}
-            value={option}
-          >
-            {option}
+        {exercises.map(({ id, name }) => (
+          <option className="capitalize" key={id} value={id}>
+            {name}
           </option>
         ))}
       </select>
@@ -48,4 +46,4 @@ const Select: FC<SelectProps> = ({
   );
 };
 
-export default Select;
+export default ExerciseSelect;

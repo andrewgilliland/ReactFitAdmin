@@ -41,7 +41,7 @@ const CreateWorkoutForm: FC<CreateExerciseFormProps> = ({ exercises }) => {
                 return (
                   <SupersetInput
                     key={exerciseIndex}
-                    exerciseIndex={exerciseIndex}
+                    supersetIndex={exerciseIndex}
                   />
                 );
             }

@@ -1,40 +1,37 @@
-import { ExerciseContext } from "@/app/Provider";
-import { FC, useContext, useEffect, useState } from "react";
+"use client";
+import { FC, useState } from "react";
+import ExerciseSelect from "./ExerciseSelect";
 
 type SupersetInputProps = {
-  exerciseIndex: number;
+  supersetIndex: number;
   value?: string;
 };
 
-const SupersetInput: FC<SupersetInputProps> = ({ exerciseIndex, value }) => {
-  const selectName = `superset-${exerciseIndex}`;
-  const [exerciseId, setExerciseId] = useState(value);
-  const { exercises } = useContext(ExerciseContext);
+const SupersetInput: FC<SupersetInputProps> = ({ supersetIndex, value }) => {
+  //   const [exerciseId, setExerciseId] = useState(value);
+  //   const { exercises } = useContext(ExerciseContext);
 
-  useEffect(() => {
-    exercises.length && setExerciseId(exercises[0]?.id);
-  }, [exercises]);
+  //   useEffect(() => {
+  //     exercises.length && setExerciseId(exercises[0]?.id);
+  //   }, [exercises]);
 
   return (
-    <div className="mt-4" key={exerciseIndex}>
-      <div className="text-sm text-gray-500">{`Superset ${exerciseIndex}`}</div>
-      <div className="border-2 border-yellow-400 rounded mt-1 p-4 h-40">
-        <label className="flex flex-col capitalize text-sm text-gray-500">
-          {"Exercise 1"}
-          <select
-            className="bg-black border-2 border-pink-400 text-white rounded mt-1 px-2 py-1"
-            name={`${selectName}-exercise-1`}
-            value={exerciseId}
-            onChange={(e) => setExerciseId(e.target.value)}
-          >
-            {exercises &&
-              exercises.map(({ id, name }) => (
-                <option className="capitalize" key={id} value={id}>
-                  {name}
-                </option>
-              ))}
-          </select>
-        </label>
+    <div className="mt-4" key={supersetIndex}>
+      <div className="text-sm text-gray-500">{`Superset ${supersetIndex}`}</div>
+      <div className="border-2 border-yellow-400 rounded mt-1 p-4">
+        {new Array(2).fill(null).map((_, index) => {
+          const exerciseIndex = index + 1;
+          const exerciseName = `superset-${supersetIndex}-exercise-${exerciseIndex}`;
+
+          return (
+            <ExerciseSelect
+              key={exerciseName}
+              label={`Exercise ${exerciseIndex}`}
+              name={exerciseName}
+              className={index ? "mt-3" : ""}
+            />
+          );
+        })}
       </div>
     </div>
   );
