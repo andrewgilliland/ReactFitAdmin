@@ -1,12 +1,13 @@
 "use client";
 import { ExerciseContext } from "@/app/Provider";
-import { FC, useContext, useState } from "react";
+import { FC, useContext, useEffect, useState } from "react";
 
 type SelectProps = {
   name: string;
   label?: string;
   value?: string;
   className?: string;
+  onChange?: (name: string) => void;
   isDisabled?: boolean;
 };
 
@@ -15,10 +16,22 @@ const ExerciseSelect: FC<SelectProps> = ({
   label,
   value,
   className,
+  onChange,
   isDisabled = false,
 }) => {
-  const [valueState, setValueState] = useState(value);
+  const [valueState, setValueState] = useState(value || "");
   const { exercises } = useContext(ExerciseContext);
+
+  useEffect(() => {
+    const exerciseName = exercises.filter(
+      (exercise) => exercise.id === valueState
+    );
+  }, [valueState, exercises]);
+
+  const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setValueState(event.target.value);
+    onChange && onChange(event.target.getAttribute("data-name") || "");
+  };
 
   return (
     <label
@@ -32,8 +45,12 @@ const ExerciseSelect: FC<SelectProps> = ({
             : "border-pink-400 text-white"
         } rounded mt-1 px-2 py-1`}
         name={name}
+        data-name={
+          /** This filters to get the name of the exercise from the exercises array */
+          exercises.filter((exercise) => exercise.id === valueState)[0]?.name
+        }
         value={valueState}
-        onChange={(e) => setValueState(e.target.value)}
+        onChange={handleChange}
         disabled={isDisabled}
       >
         {exercises.map(({ id, name }) => (
