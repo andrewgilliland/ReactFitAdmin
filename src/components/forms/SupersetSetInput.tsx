@@ -2,10 +2,10 @@
 import { capitalize } from "@/lib/utils";
 import Input from "../Input";
 import { Set, SetType, setTypes } from "@/types";
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 
 type SupersetSetInputProps = {
-  exerciseIndex: number;
+  supersetIndex: number;
   setIndex: number;
   exerciseNames: [string, string];
   set?: Set;
@@ -13,7 +13,7 @@ type SupersetSetInputProps = {
 };
 
 const SupersetSetInput: FC<SupersetSetInputProps> = ({
-  exerciseIndex,
+  supersetIndex,
   setIndex,
   exerciseNames,
   set = { repetitions: 10, duration: null },
@@ -24,53 +24,77 @@ const SupersetSetInput: FC<SupersetSetInputProps> = ({
     .filter(([_, value]) => value !== null)
     .flat() as [SetType, number];
   const setValue = filteredSet[1];
-  const setIdentifier = `exercise-${exerciseIndex}-set-${setIndex}`;
 
-  const [setType, setSetType] = useState<SetType>(filteredSet[0]);
+  const [setType, setSetType] = useState<[SetType, SetType]>([
+    "repetitions",
+    "repetitions",
+  ]);
+
+  //   useEffect(() => {
+  //     console.log("setTypes: ", setType);
+  //   }, [setType]);
 
   return (
     <div className={className}>
       <div className="border-2 border-pink-400 rounded mt-1 p-4">
         <div className="text-sm text-gray-500">{`Set ${setIndex}`}</div>
         <div className="flex flex-col border">
-          {exerciseNames.map((name, index) => (
-            <div className={`flex mt-4`} key={`${name}-${index}`}>
-              <div className="flex-1 text-sm text-gray-500">
-                {exerciseNames[index]}
-              </div>
-              <fieldset className="mx-4">
-                <legend className="text-sm text-gray-500">Set Type</legend>
-                <div className="bg-pink-400 text-black font-semibold border border-pink-400 rounded-md max-w-min mt-1 p-1">
-                  {setTypes.map((type, index) => (
-                    <label
-                      key={type}
-                      className={`text-sm text-grey-500 px-2 py-1 transition-all ${
-                        setType === type ? "bg-black text-pink-400" : ""
-                      }
-                    ${index ? "rounded-r-md" : "rounded-l-md"}`}
-                    >
-                      <span>{`${capitalize(type)}`}</span>
-                      <input
-                        className="hidden"
-                        type="radio"
-                        name={setIdentifier}
-                        value={type}
-                        checked={setType === type}
-                        onChange={() => setSetType(type)}
-                      />
-                    </label>
-                  ))}
+          {exerciseNames.map((name, index) => {
+            const setTypeIdentifier = `superset-${supersetIndex}-exercise-${
+              index + 1
+            }-set-${setIndex}`;
+            const setIdentifier = `${setTypeIdentifier}-${setType[index]}`;
+
+            // console.log("setIdentifier: ", setIdentifier);
+
+            return (
+              <div className={`flex mt-4`} key={`${name}-${index}`}>
+                <div className="w-1/2 text-sm text-gray-500">
+                  {exerciseNames[index]}
                 </div>
-              </fieldset>
-              <Input
-                value={setValue}
-                label={setType}
-                name={`${setIdentifier}-${setType}`}
-                type="number"
-                className="mt-1"
-              />
-            </div>
-          ))}
+                <fieldset className="mx-4">
+                  <legend className="text-sm text-gray-500">Set Type</legend>
+                  <div className="bg-pink-400 text-black font-semibold border border-pink-400 rounded-md max-w-min mt-1 p-1">
+                    {setTypes.map((type, i) => (
+                      <label
+                        key={type}
+                        className={`text-sm text-grey-500 px-2 py-1 transition-all 
+                          ${
+                            setType[index] === type
+                              ? "bg-black text-pink-400"
+                              : ""
+                          }
+                    ${i ? "rounded-r-md" : "rounded-l-md"}`}
+                      >
+                        <span>{`${capitalize(type)}`}</span>
+                        <input
+                          className="hidden"
+                          type="radio"
+                          name={setTypeIdentifier}
+                          value={type}
+                          checked={setType[index] === type}
+                          onChange={() =>
+                            setSetType((prev) => {
+                              const newSetType: [SetType, SetType] = [...prev];
+                              newSetType[index] = type;
+                              return newSetType;
+                            })
+                          }
+                        />
+                      </label>
+                    ))}
+                  </div>
+                </fieldset>
+                <Input
+                  value={setValue}
+                  label={setType[index]}
+                  name={setIdentifier}
+                  type="number"
+                  className="mt-1"
+                />
+              </div>
+            );
+          })}
         </div>
       </div>
     </div>
