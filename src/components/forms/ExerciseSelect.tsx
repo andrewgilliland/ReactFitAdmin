@@ -1,6 +1,7 @@
 "use client";
 import { ExerciseContext } from "@/app/Provider";
-import { FC, useContext, useEffect, useState } from "react";
+import { FC, use, useContext, useEffect, useState } from "react";
+import { set } from "zod";
 
 type SelectProps = {
   name: string;
@@ -21,6 +22,16 @@ const ExerciseSelect: FC<SelectProps> = ({
 }) => {
   const [valueState, setValueState] = useState(value || "");
   const { exercises } = useContext(ExerciseContext);
+
+  useEffect(() => {
+    if (exercises[0]?.id) {
+      setValueState(exercises[0].id);
+    }
+  }, [exercises]);
+
+  useEffect(() => {
+    console.log("valueState: ", valueState);
+  }, [valueState]);
 
   return (
     <label
@@ -45,7 +56,7 @@ const ExerciseSelect: FC<SelectProps> = ({
         disabled={isDisabled}
       >
         {exercises.map(({ id, name }) => (
-          <option className="capitalize" key={id} value={id}>
+          <option key={id} value={id}>
             {name}
           </option>
         ))}

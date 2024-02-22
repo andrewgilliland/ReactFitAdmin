@@ -2,7 +2,7 @@
 import { capitalize } from "@/lib/utils";
 import Input from "../Input";
 import { Set, SetType, setTypes } from "@/types";
-import { FC, useEffect, useState } from "react";
+import { FC, useState } from "react";
 
 type SupersetSetInputProps = {
   supersetIndex: number;
@@ -30,27 +30,21 @@ const SupersetSetInput: FC<SupersetSetInputProps> = ({
     "repetitions",
   ]);
 
-  //   useEffect(() => {
-  //     console.log("setTypes: ", setType);
-  //   }, [setType]);
-
   return (
     <div className={className}>
       <div className="border-2 border-pink-400 rounded mt-1 p-4">
         <div className="text-sm text-gray-500">{`Set ${setIndex}`}</div>
-        <div className="flex flex-col border">
+        <div className="flex flex-col">
           {exerciseNames.map((name, index) => {
             const setTypeIdentifier = `superset-${supersetIndex}-exercise-${
               index + 1
             }-set-${setIndex}`;
             const setIdentifier = `${setTypeIdentifier}-${setType[index]}`;
 
-            // console.log("setIdentifier: ", setIdentifier);
-
             return (
               <div className={`flex mt-4`} key={`${name}-${index}`}>
-                <div className="w-1/2 text-sm text-gray-500">
-                  {exerciseNames[index]}
+                <div className="text-sm text-gray-500">
+                  {exerciseNames[index] || `Exercise ${index + 1}`}
                 </div>
                 <fieldset className="mx-4">
                   <legend className="text-sm text-gray-500">Set Type</legend>
