@@ -11,7 +11,10 @@ type SupersetInputProps = {
 
 const SupersetInput: FC<SupersetInputProps> = ({ supersetIndex, value }) => {
   const [setCount, setSetCount] = useState(1);
-  const [setNames, setSetNames] = useState<[string, string]>(["", ""]);
+  const [exerciseNames, setExerciseNames] = useState<[string, string]>([
+    "",
+    "",
+  ]);
 
   //   const [exerciseId, setExerciseId] = useState(value);
   //   const { exercises } = useContext(ExerciseContext);
@@ -21,8 +24,8 @@ const SupersetInput: FC<SupersetInputProps> = ({ supersetIndex, value }) => {
   //   }, [exercises]);
 
   useEffect(() => {
-    console.log("setNames: ", setNames);
-  }, [setNames]);
+    console.log("setNames: ", exerciseNames);
+  }, [exerciseNames]);
 
   return (
     <div className="mt-4" key={supersetIndex}>
@@ -38,9 +41,7 @@ const SupersetInput: FC<SupersetInputProps> = ({ supersetIndex, value }) => {
               label={`Exercise ${exerciseIndex}`}
               name={exerciseName}
               onChange={(name) => {
-                setSetNames((prev) => {
-                  console.log("supersetinput: ", name);
-                  console.log("index: ", index);
+                setExerciseNames((prev) => {
                   const newSetNames: [string, string] = [...prev];
                   newSetNames[index] = name;
                   return newSetNames;
@@ -58,6 +59,7 @@ const SupersetInput: FC<SupersetInputProps> = ({ supersetIndex, value }) => {
             <SupersetSetInput
               className={`${index ? "mt-3" : ""}`}
               exerciseIndex={supersetIndex}
+              exerciseNames={exerciseNames}
               setIndex={index + 1}
               key={index + 1}
             />

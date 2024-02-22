@@ -22,17 +22,6 @@ const ExerciseSelect: FC<SelectProps> = ({
   const [valueState, setValueState] = useState(value || "");
   const { exercises } = useContext(ExerciseContext);
 
-  useEffect(() => {
-    const exerciseName = exercises.filter(
-      (exercise) => exercise.id === valueState
-    );
-  }, [valueState, exercises]);
-
-  const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setValueState(event.target.value);
-    onChange && onChange(event.target.getAttribute("data-name") || "");
-  };
-
   return (
     <label
       className={`flex flex-col capitalize text-sm text-gray-500 ${className}`}
@@ -45,12 +34,14 @@ const ExerciseSelect: FC<SelectProps> = ({
             : "border-pink-400 text-white"
         } rounded mt-1 px-2 py-1`}
         name={name}
-        data-name={
-          /** This filters to get the name of the exercise from the exercises array */
-          exercises.filter((exercise) => exercise.id === valueState)[0]?.name
-        }
         value={valueState}
-        onChange={handleChange}
+        onChange={(event: React.ChangeEvent<HTMLSelectElement>) => {
+          setValueState(event.target.value);
+          const exerciseName = exercises.filter(
+            (exercise) => exercise.id === event.target.value
+          )[0]?.name;
+          onChange && onChange(exerciseName || "");
+        }}
         disabled={isDisabled}
       >
         {exercises.map(({ id, name }) => (
