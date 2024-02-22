@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { difficultySchema } from ".";
+import { difficultySchema, exerciseSchema, supersetSchema } from ".";
 import { workoutExerciseSchema } from "./WorkoutExercise";
 
 export const workoutSchema = z.object({
@@ -9,7 +9,7 @@ export const workoutSchema = z.object({
     .min(1, { message: "Workout name must be at least 1 character long." }),
   description: z.string().optional(),
   difficulty: difficultySchema,
-  exercises: workoutExerciseSchema.array(),
+  exercises: z.array(z.union([workoutExerciseSchema, supersetSchema])),
 });
 
 export type Workout = z.infer<typeof workoutSchema>;
