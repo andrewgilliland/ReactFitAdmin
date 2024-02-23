@@ -50,47 +50,35 @@ const updateWorkout = async (formData: FormData) => {
 
 const formatExercises = (formData: FormData) => {
   const exercises = [];
-  let exerciseIndex = 1;
-  let supersetIndex = 1;
-  let supersetExerciseIndex = 1;
+  let mainIndex = 1;
+  let secondaryIndex = 1;
 
-  while (
-    formData.get(`superset-${supersetIndex}-exercise-${supersetExerciseIndex}`)
-  ) {
+  // Formats superset exercises
+  while (formData.get(`superset-${mainIndex}-exercise-${secondaryIndex}`)) {
     const superset = [];
-    while (
-      formData.get(
-        `superset-${supersetIndex}-exercise-${supersetExerciseIndex}`
-      )
-    ) {
+    while (formData.get(`superset-${mainIndex}-exercise-${secondaryIndex}`)) {
       superset.push({
-        id: formData.get(
-          `superset-${supersetIndex}-exercise-${supersetExerciseIndex}`
-        ),
-        sets: formatSupersetSets(
-          formData,
-          supersetIndex,
-          supersetExerciseIndex
-        ),
+        id: formData.get(`superset-${mainIndex}-exercise-${secondaryIndex}`),
+        sets: formatSupersetSets(formData, mainIndex, secondaryIndex),
       });
 
-      supersetExerciseIndex++;
+      secondaryIndex++;
     }
-    supersetIndex++;
-    supersetExerciseIndex = 1;
+    mainIndex++;
+    secondaryIndex = 1;
     exercises.push(superset);
   }
 
-  while (formData.get(`exercise-${supersetIndex}`)) {
+  while (formData.get(`exercise-${mainIndex}`)) {
     exercises.push({
-      id: formData.get(`exercise-${supersetIndex}`),
-      sets: formatSets(formData, supersetIndex),
+      id: formData.get(`exercise-${mainIndex}`),
+      sets: formatSets(formData, mainIndex),
     });
-    supersetIndex++;
+    mainIndex++;
   }
-  console.log("exerciseIndex: ", exerciseIndex);
-  console.log("supersetIndex: ", supersetIndex);
-  console.log("supersetExerciseIndex: ", supersetExerciseIndex);
+
+  console.log("mainIndex: ", mainIndex);
+  console.log("secondaryIndex: ", secondaryIndex);
 
   return exercises;
 };
