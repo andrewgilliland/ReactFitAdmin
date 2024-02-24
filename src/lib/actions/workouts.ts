@@ -1,5 +1,5 @@
 "use server";
-import { Difficulty, SetType, Workout } from "@/types";
+import { Difficulty, Exercise, Set, SetType, Workout } from "@/types";
 import { revalidatePath } from "next/cache";
 
 const apiEndpoint = "http://[::1]:8080/workouts"; // dev
@@ -21,17 +21,17 @@ const getWorkoutById = async (id: string): Promise<Workout> => {
 };
 
 const createWorkout = async (formData: FormData) => {
-  console.log("formData: ", formData);
+  // console.log("formData: ", formData);
 
   const newWorkout: Workout = {
     name: formData.get("name") as string,
     description: formData.get("description") as string,
     difficulty: formData.get("difficulty") as Difficulty,
-    // @ts-ignore
+    // @ts-ignore // Todo: Fix this type error
     exercises: formatExercises(formData),
   };
 
-  console.log("newWorkout: ", newWorkout);
+  console.log("newWorkout.exercises: ", newWorkout.exercises);
 
   // newWorkout.exercises.forEach((exercise) => {
   //   if (Array.isArray(exercise)) {
@@ -49,33 +49,46 @@ const updateWorkout = async (formData: FormData) => {
 };
 
 const formatExercises = (formData: FormData) => {
-  const exercises = [];
+  const exercises: (Exercise | Exercise[])[] = [];
   let mainIndex = 1;
   let secondaryIndex = 1;
 
-  // Formats superset exercises
-  while (formData.get(`superset-${mainIndex}-exercise-${secondaryIndex}`)) {
-    const superset = [];
-    while (formData.get(`superset-${mainIndex}-exercise-${secondaryIndex}`)) {
-      superset.push({
-        id: formData.get(`superset-${mainIndex}-exercise-${secondaryIndex}`),
-        sets: formatSupersetSets(formData, mainIndex, secondaryIndex),
-      });
+  // Continue to loop through exercises until no more are found
+  formData.forEach((_, key) => {
+    // Conditionally formats straight set or superset exercises
+    if (key === "superset") {
+      // Formats superset exercises
+      while (formData.get(`superset-${mainIndex}-exercise-${secondaryIndex}`)) {
+        const superset = [];
 
-      secondaryIndex++;
+        while (
+          formData.get(`superset-${mainIndex}-exercise-${secondaryIndex}`)
+        ) {
+          superset.push({
+            id: formData.get(
+              `superset-${mainIndex}-exercise-${secondaryIndex}`
+            ),
+            sets: formatSupersetSets(formData, mainIndex, secondaryIndex),
+          });
+
+          secondaryIndex++;
+        }
+
+        mainIndex++;
+        secondaryIndex = 1;
+        exercises.push(superset);
+      }
+    } else if (key === "exercise") {
+      // Formats straight set exercises
+      while (formData.get(`exercise-${mainIndex}`)) {
+        exercises.push({
+          id: formData.get(`exercise-${mainIndex}`) as string,
+          sets: formatSets(formData, mainIndex),
+        });
+        mainIndex++;
+      }
     }
-    mainIndex++;
-    secondaryIndex = 1;
-    exercises.push(superset);
-  }
-
-  while (formData.get(`exercise-${mainIndex}`)) {
-    exercises.push({
-      id: formData.get(`exercise-${mainIndex}`),
-      sets: formatSets(formData, mainIndex),
-    });
-    mainIndex++;
-  }
+  });
 
   console.log("mainIndex: ", mainIndex);
   console.log("secondaryIndex: ", secondaryIndex);
@@ -87,8 +100,8 @@ const formatSupersetSets = (
   formData: FormData,
   supersetIndex: number,
   exerciseIndex: number
-) => {
-  const sets = [];
+): Set[] => {
+  const sets: Set[] = [];
   let setIndex = 1;
 
   while (

@@ -20,6 +20,8 @@ const SupersetInput: FC<SupersetInputProps> = ({ supersetIndex, value }) => {
     <div className="mt-4" key={supersetIndex}>
       <div className="text-sm text-gray-500">{`Superset ${supersetIndex}`}</div>
       <div className="border-2 border-yellow-400 rounded mt-1 p-4">
+        {/** Hidden input name needed for formatExercise function in workout server action */}
+        <input type="hidden" name="superset" />
         {new Array(2).fill(null).map((_, index) => {
           const exerciseIndex = index + 1;
           const exerciseName = `superset-${supersetIndex}-exercise-${exerciseIndex}`;

@@ -1,7 +1,6 @@
 "use client";
 import { ExerciseContext } from "@/app/Provider";
-import { FC, use, useContext, useEffect, useState } from "react";
-import { set } from "zod";
+import { FC, useContext, useEffect, useState } from "react";
 
 type SelectProps = {
   name: string;

@@ -30,6 +30,8 @@ const ExerciseInput: FC<ExerciseInputProps> = ({
     <div className="mt-4">
       <div className="text-sm text-gray-500">{`Exercise ${exerciseIndex}`}</div>
       <div className="border-2 border-yellow-400 rounded mt-1 p-4">
+        {/** Hidden input name needed for formatExercise function in workout server action */}
+        <input type="hidden" name="exercise" />
         <label className="flex flex-col capitalize text-sm text-gray-500">
           {"Exercise"}
           <select
