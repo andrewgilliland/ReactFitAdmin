@@ -1,5 +1,12 @@
 "use server";
-import { Difficulty, Exercise, Set, SetType, Workout } from "@/types";
+import {
+  Difficulty,
+  Exercise,
+  Set,
+  SetType,
+  Workout,
+  WorkoutExercise,
+} from "@/types";
 import { revalidatePath } from "next/cache";
 
 const apiEndpoint = "http://[::1]:8080/workouts"; // dev
@@ -49,7 +56,7 @@ const updateWorkout = async (formData: FormData) => {
 };
 
 const formatExercises = (formData: FormData) => {
-  const exercises: (Exercise | Exercise[])[] = [];
+  const exercises: (WorkoutExercise | WorkoutExercise[])[] = [];
   let mainIndex = 1;
   let secondaryIndex = 1;
 
@@ -67,7 +74,7 @@ const formatExercises = (formData: FormData) => {
           superset.push({
             id: formData.get(
               `superset-${mainIndex}-exercise-${secondaryIndex}`
-            ),
+            ) as string,
             sets: formatSupersetSets(formData, mainIndex, secondaryIndex),
           });
 
@@ -116,8 +123,8 @@ const formatSupersetSets = (
     sets.push({
       [setType]: formData.get(
         `superset-${supersetIndex}-exercise-${exerciseIndex}-set-${setIndex}-${setType}`
-      ),
-    });
+      ) as unknown as number,
+    } as Set);
     setIndex++;
   }
 
@@ -125,7 +132,7 @@ const formatSupersetSets = (
 };
 
 const formatSets = (formData: FormData, exerciseIndex: number) => {
-  const sets = [];
+  const sets: Set[] = [];
   let setIndex = 1;
 
   while (formData.get(`exercise-${exerciseIndex}-set-${setIndex}`)) {
@@ -136,8 +143,8 @@ const formatSets = (formData: FormData, exerciseIndex: number) => {
     sets.push({
       [setType]: formData.get(
         `exercise-${exerciseIndex}-set-${setIndex}-${setType}`
-      ),
-    });
+      ) as unknown as number,
+    } as Set);
     setIndex++;
   }
 

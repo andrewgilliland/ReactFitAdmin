@@ -2,7 +2,8 @@ import { z } from "zod";
 import { exerciseSchema } from ".";
 import { setSchema } from "./Set";
 
-export const workoutExerciseSchema = exerciseSchema.extend({
+export const workoutExerciseSchema = z.object({
+  id: z.string(),
   sets: setSchema.array(),
 });
 
