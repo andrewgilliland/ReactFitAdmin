@@ -13,10 +13,9 @@ import {
   MuscleGroup,
   exerciseSchema,
 } from "@/types";
-import { getSelectedCheckboxesFromFormData } from "../utils";
+import { BASE_URL, getSelectedCheckboxesFromFormData } from "../utils";
 
-const apiEndpoint = "http://[::1]:8080/exercises"; // dev
-// Todo: make stage and prod endpoints
+const apiEndpoint = `${BASE_URL}/exercises`;
 
 const getExercises = async (searchQuery?: string): Promise<Exercise[]> => {
   const response = await fetch(

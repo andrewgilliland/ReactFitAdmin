@@ -1,18 +1,12 @@
 "use server";
-import {
-  Difficulty,
-  Exercise,
-  Set,
-  SetType,
-  Workout,
-  WorkoutExercise,
-} from "@/types";
+import { Difficulty, Set, SetType, Workout, WorkoutExercise } from "@/types";
 import { revalidatePath } from "next/cache";
+import { BASE_URL } from "../utils";
 
-const apiEndpoint = "http://[::1]:8080/workouts"; // dev
+const apiEndpoint = `${BASE_URL}/workouts`;
 
 const getWorkouts = async (): Promise<Workout[]> => {
-  const response = await fetch("http://[::1]:8080/workouts");
+  const response = await fetch(apiEndpoint);
   const workouts: Workout[] = await response.json();
 
   revalidatePath("/dashboard/workouts");
