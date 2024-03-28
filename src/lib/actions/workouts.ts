@@ -9,6 +9,10 @@ const getWorkouts = async (): Promise<Workout[]> => {
   const response = await fetch(apiEndpoint);
   const workouts: Workout[] = await response.json();
 
+  console.log("workouts: ", workouts);
+  workouts.forEach((workout) => {
+    console.log("workout: ", workout.exercises);
+  });
   revalidatePath("/dashboard/workouts");
   return workouts;
 };

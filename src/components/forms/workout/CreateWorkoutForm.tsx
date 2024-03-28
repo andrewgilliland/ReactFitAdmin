@@ -15,7 +15,7 @@ type CreateExerciseFormProps = {
 
 const CreateWorkoutForm: FC<CreateExerciseFormProps> = ({ exercises }) => {
   const [rounds, setRounds] = useState<("straightSet" | "superset")[]>([
-    "superset",
+    "straightSet",
   ]);
 
   return (
@@ -54,14 +54,6 @@ const CreateWorkoutForm: FC<CreateExerciseFormProps> = ({ exercises }) => {
               }}
             >
               Add Exercise
-            </Button>
-            <Button
-              onClick={(event) => {
-                event?.preventDefault();
-                setRounds([...rounds, "superset"]);
-              }}
-            >
-              Add Superset
             </Button>
           </div>
         </div>
