@@ -28,10 +28,6 @@ const ExerciseSelect: FC<SelectProps> = ({
     }
   }, [exercises]);
 
-  useEffect(() => {
-    console.log("valueState: ", valueState);
-  }, [valueState]);
-
   return (
     <label
       className={`flex flex-col capitalize text-sm text-gray-500 ${className}`}

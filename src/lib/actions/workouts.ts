@@ -9,10 +9,6 @@ const getWorkouts = async (): Promise<Workout[]> => {
   const response = await fetch(apiEndpoint);
   const workouts: Workout[] = await response.json();
 
-  console.log("workouts: ", workouts);
-  workouts.forEach((workout) => {
-    console.log("workout: ", workout.exercises);
-  });
   revalidatePath("/dashboard/workouts");
   return workouts;
 };
@@ -26,8 +22,6 @@ const getWorkoutById = async (id: string): Promise<Workout> => {
 };
 
 const createWorkout = async (formData: FormData) => {
-  // console.log("formData: ", formData);
-
   const newWorkout: Workout = {
     name: formData.get("name") as string,
     description: formData.get("description") as string,
