@@ -1,27 +1,47 @@
 "use client";
-import { useEffect, useState } from "react";
+import { sleep } from "@/lib/utils";
+import { FC, useEffect, useState } from "react";
 
-const TypeWriterText = ({ text }: { text: string }) => {
+type TypeWriterTextProps = {
+  /** The array of words or word to be typed out */
+  words: string[];
+};
+
+/**
+ * A component that types out a word or array of words in a typewriter fashion
+ * @param words The array of words or word to be typed out
+ * @returns A typewriter effect of the words passed in
+ */
+const TypeWriterText: FC<TypeWriterTextProps> = ({ words }) => {
   const [currentText, setCurrentText] = useState("");
-  const [index, setIndex] = useState(0);
 
-  const sleep = (ms: number) =>
-    new Promise((resolve) => setTimeout(resolve, ms));
+  const sleepTime = 100;
 
-  const phrases = ["fitter", "stronger", "healthier", "happier", "better"];
+  const typeWords = async () => {
+    let currentPhraseIndex = 0;
+
+    while (true) {
+      const word = words[currentPhraseIndex];
+
+      for (let i = 0; i < word.length; i++) {
+        setCurrentText(word.slice(0, i + 1));
+        await sleep(sleepTime);
+      }
+
+      await sleep(sleepTime * 20);
+
+      for (let i = word.length; i > 0; i--) {
+        setCurrentText(word.slice(0, i - 1));
+        await sleep(sleepTime);
+      }
+
+      currentPhraseIndex = currentPhraseIndex === words.length - 1 ? 0 : +1;
+    }
+  };
 
   useEffect(() => {
-    if (index === text.length) {
-      setIndex(0);
-      setCurrentText("");
-    }
-    const interval = setInterval(() => {
-      setCurrentText((prev) => prev + text[index]);
-      setIndex((prev) => prev + 1);
-    }, 800);
-
-    return () => clearInterval(interval);
-  }, [index, text]);
+    typeWords();
+  }, []);
 
   return (
     <span>

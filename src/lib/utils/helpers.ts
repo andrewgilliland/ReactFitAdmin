@@ -22,5 +22,10 @@ export const getSelectedCheckboxesFromFormData = (
   return selectedCheckboxes;
 };
 
+/** Capitalizes the first letter of a string. */
 export const capitalize = (string: string): string =>
   string.charAt(0).toUpperCase() + string.slice(1);
+
+/** Sleeps for a given amount of time in milliseconds. */
+export const sleep = (ms: number) =>
+  new Promise((resolve) => setTimeout(resolve, ms));
