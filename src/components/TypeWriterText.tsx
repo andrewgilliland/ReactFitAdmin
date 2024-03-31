@@ -35,7 +35,8 @@ const TypeWriterText: FC<TypeWriterTextProps> = ({ words }) => {
         await sleep(sleepTime);
       }
 
-      currentPhraseIndex = currentPhraseIndex === words.length - 1 ? 0 : +1;
+      currentPhraseIndex =
+        currentPhraseIndex === words.length - 1 ? 0 : ++currentPhraseIndex;
     }
   };
 
