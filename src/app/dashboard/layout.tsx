@@ -1,14 +1,25 @@
-"use client";
+// "use client";
 import { FC, ReactNode } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { redirect, usePathname } from "next/navigation";
+import { createClient } from "@/lib/utils/supabase/server";
 
 type DashboardLayoutProps = {
   children: ReactNode;
 };
 
-const DashboardLayout: FC<DashboardLayoutProps> = ({ children }) => {
-  const pathname = usePathname();
+const DashboardLayout: FC<DashboardLayoutProps> = async ({ children }) => {
+  const supabase = createClient();
+  const { data, error } = await supabase.auth.getUser();
+
+  console.log("data: ", data);
+  console.log("error: ", error);
+
+  if (error || !data?.user) {
+    redirect("/");
+  }
+
+  // const pathname = usePathname();
   const routes = [
     { name: "exercises" },
     { name: "workouts" },
@@ -22,9 +33,8 @@ const DashboardLayout: FC<DashboardLayoutProps> = ({ children }) => {
           <Link
             key={`${name}-${index}`}
             className={`capitalize font-semibold border-2 md:border-t-2 border-x-2 border-cyan-400 px-4 py-2 rounded-md md:rounded-t-md md:rounded-b-none transition hover:bg-cyan-400 hover:text-black ${
-              pathname.includes(name)
-                ? "bg-cyan-400 text-black"
-                : "bg-black text-cyan-400"
+              // pathname.includes(name)
+              true ? "bg-cyan-400 text-black" : "bg-black text-cyan-400"
             }`}
             href={`/dashboard/${name}`}
           >
