@@ -1,8 +1,5 @@
-import Button from "@/components/Button";
-import Input from "@/components/Input";
-import LoginForm from "@/components/LoginForm";
 import TypeWriterText from "@/components/TypeWriterText";
-import { signUp } from "@/lib/actions";
+import SignupForm from "@/components/forms/auth/SignupForm";
 
 const Home = () => (
   <main className="flex flex-col">
@@ -15,17 +12,8 @@ const Home = () => (
       </p>
     </div>
     <section className="flex flex-row justify-center mt-12 gap-10">
-      <LoginForm />
-      <form
-        className="bg-black flex flex-col border-2 border-pink-400 rounded p-4"
-        action={signUp}
-      >
-        <Input name="email" type="email" />
-        <Input name="password" type="password" />
-        <Button className="mt-4" type="submit">
-          Sign Up
-        </Button>
-      </form>
+      {/* <LoginForm /> */}
+      <SignupForm />
     </section>
   </main>
 );
