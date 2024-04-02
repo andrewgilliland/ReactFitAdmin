@@ -14,10 +14,8 @@ const Home = () => (
         />
       </p>
     </div>
-    <section className="flex flex-row justify-center mt-12">
+    <section className="flex flex-row justify-center mt-12 gap-10">
       <LoginForm />
-    </section>
-    <section className="flex flex-row justify-center mt-12">
       <form
         className="bg-black flex flex-col border-2 border-pink-400 rounded p-4"
         action={signUp}
