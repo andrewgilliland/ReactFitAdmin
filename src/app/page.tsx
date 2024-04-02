@@ -3,7 +3,7 @@ import SignupForm from "@/components/forms/auth/SignupForm";
 
 const Home = () => (
   <main className="flex flex-col">
-    <div className="border p-10">
+    <div className="border-2 border-pink-400 rounded p-10">
       <p className="font-semibold text-3xl">
         I want to be{" "}
         <TypeWriterText

@@ -1,4 +1,4 @@
-const Dashboard = () => {
+const Dashboard = async () => {
   return (
     <main className="flex">
       <div className="flex flex-row justify-between">

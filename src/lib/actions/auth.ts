@@ -19,7 +19,7 @@ const signup = async (prevState: FormState, formData: FormData) => {
 
     return {
       success: false,
-      message: "error",
+      message: error.message,
       errors: { name: error.message },
     };
   }
