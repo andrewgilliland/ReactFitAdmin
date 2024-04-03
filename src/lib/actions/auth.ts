@@ -4,6 +4,26 @@ import { redirect } from "next/navigation";
 import { createClient } from "@/lib/utils/supabase/server";
 import { FormState } from "@/types";
 
+const signIn = async (formData: FormData) => {
+  const supabase = createClient();
+
+  // type-casting here for convenience
+  // in practice, you should validate your inputs
+  const data = {
+    email: formData.get("email") as string,
+    password: formData.get("password") as string,
+  };
+
+  const { error } = await supabase.auth.signInWithPassword(data);
+
+  if (error) {
+    redirect("/error");
+  }
+
+  revalidatePath("/", "layout");
+  redirect("/dashboard");
+};
+
 const signup = async (prevState: FormState, formData: FormData) => {
   const supabase = createClient();
 
@@ -33,7 +53,7 @@ const signup = async (prevState: FormState, formData: FormData) => {
   };
 };
 
-export { signup };
+export { signIn as login, signup };
 
 // import { BASE_URL } from "../utils";
 
