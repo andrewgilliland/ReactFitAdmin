@@ -53,7 +53,7 @@ const signup = async (prevState: FormState, formData: FormData) => {
   };
 };
 
-export { signIn as login, signup };
+export { signIn, signup };
 
 // import { BASE_URL } from "../utils";
 

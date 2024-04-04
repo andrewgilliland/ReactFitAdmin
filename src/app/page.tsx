@@ -1,9 +1,10 @@
 import TypeWriterText from "@/components/TypeWriterText";
-import SignupForm from "@/components/forms/auth/SignupForm";
+import SignUpForm from "@/components/forms/auth/SignUpForm";
 
 const Home = () => (
   <main className="flex flex-col">
     <div className="border-2 border-pink-400 rounded p-10">
+      <div className="bg-gray-900 h-96 w-"> </div>
       <p className="font-semibold text-3xl">
         I want to be{" "}
         <TypeWriterText
@@ -11,10 +12,6 @@ const Home = () => (
         />
       </p>
     </div>
-    <section className="flex flex-row justify-center mt-12 gap-10">
-      {/* <LoginForm /> */}
-      <SignupForm />
-    </section>
   </main>
 );
 

@@ -1,19 +1,28 @@
+"use client";
 import Link from "next/link";
 import Button from "./Button";
+import { usePathname } from "next/navigation";
 
 const Header = () => {
   const isLoggedIn = true;
+  const pathname = usePathname();
 
   return (
     <div className="flex justify-between items-center px-[10%] py-4 border-b-2 border-cyan-400">
       <Link href="/">
-        <h1 className="text-2xl font-bold">ReactFit</h1>
+        <h1 className="text-2xl font-bold">
+          React<span className="text-pink-400">Fit</span>
+        </h1>
       </Link>
       {isLoggedIn ? (
         <div className="flex gap-4">
-          <Link href="/sign-in">
-            <Button size="sm">Sign In</Button>
-          </Link>
+          {!pathname.includes("sign-in") ? (
+            <Link href="/sign-in">
+              <Button size="sm">Sign In</Button>
+            </Link>
+          ) : (
+            <></>
+          )}
         </div>
       ) : (
         <div className="flex justify-center items-center bg-cyan-400 h-7 w-7 rounded-full">
