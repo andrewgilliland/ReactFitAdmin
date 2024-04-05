@@ -21,14 +21,27 @@ import {
 
 const apiEndpoint = `${BASE_URL}/exercises`;
 
-const getExercises = async (searchQuery?: string): Promise<Exercise[]> => {
+const getExercises = async (
+  searchQuery?: string
+): Promise<(Exercise | undefined)[]> => {
   const response = await fetch(
     searchQuery ? `${apiEndpoint}/search/${searchQuery}` : apiEndpoint
   );
 
   const exercises: Exercise[] = await response.json();
+
+  console.log("exercises: ", exercises);
+
+  const validatedExercises = exercises.map((exercise) => {
+    try {
+      return exerciseSchema.parse(snakeCaseToCamelCase(exercise));
+    } catch (error) {
+      console.error("Exercise is invalid: ", error);
+    }
+  });
+
   revalidatePath("/dashboard/exercises");
-  return exercises;
+  return validatedExercises;
 };
 
 const getExerciseById = async (id: string): Promise<Exercise | undefined> => {

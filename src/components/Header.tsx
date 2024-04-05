@@ -2,9 +2,15 @@
 import Link from "next/link";
 import Button from "./Button";
 import { usePathname } from "next/navigation";
+import { FC } from "react";
+import { User } from "@supabase/supabase-js";
 
-const Header = () => {
-  const isLoggedIn = true; // Todo: set this value if user is logged in
+type HeaderProps = {
+  user: User | null;
+};
+
+const Header: FC<HeaderProps> = ({ user }) => {
+  const isLoggedIn = user?.id ? true : false; // Todo: set this value if user is logged in
   const pathname = usePathname();
 
   return (

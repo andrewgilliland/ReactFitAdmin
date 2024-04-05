@@ -4,6 +4,9 @@ import "@/styles/globals.css";
 import { FC, ReactNode } from "react";
 import Header from "@/components/Header";
 import Provider from "./Provider";
+import { SupabaseClient } from "@supabase/supabase-js";
+import { get } from "http";
+import { getUser } from "@/lib/actions";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -16,15 +19,21 @@ type RootLayoutProps = {
   children: ReactNode;
 };
 
-const RootLayout: FC<RootLayoutProps> = ({ children }) => (
-  <html lang="en">
-    <Provider>
-      <body className={`${inter.className} bg-black text-white min-h-screen`}>
-        <Header />
-        <div className="p-10 md:pt-16 md:px-[10%]">{children}</div>
-      </body>
-    </Provider>
-  </html>
-);
+const RootLayout: FC<RootLayoutProps> = async ({ children }) => {
+  const user = await getUser();
+
+  console.log("rootlayout user: ", user);
+
+  return (
+    <html lang="en">
+      <Provider>
+        <body className={`${inter.className} bg-black text-white min-h-screen`}>
+          <Header user={user} />
+          <div className="p-10 md:pt-16 md:px-[10%]">{children}</div>
+        </body>
+      </Provider>
+    </html>
+  );
+};
 
 export default RootLayout;

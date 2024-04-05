@@ -22,9 +22,10 @@ const ExercisesPage: FC<ExecisesPageProps> = async ({ searchParams }) => {
         </div>
       </div>
       <div className="flex flex-wrap w-full max-w-6xl gap-6 mt-4">
-        {exercises.map((exercise) => (
-          <Card key={exercise.id} exercise={exercise} />
-        ))}
+        {exercises.map(
+          (exercise) =>
+            exercise && <Card key={exercise.id} exercise={exercise} />
+        )}
       </div>
     </section>
   );

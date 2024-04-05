@@ -30,6 +30,7 @@ export const capitalize = (string: string): string =>
 export const sleep = (ms: number) =>
   new Promise((resolve) => setTimeout(resolve, ms));
 
+/** Converts object keys from snake case to camel case. */
 export const snakeCaseToCamelCase = (object: Record<string, any>) => {
   const newObject: Record<string, any> = {};
 
