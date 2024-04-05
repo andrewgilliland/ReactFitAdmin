@@ -12,7 +12,7 @@ const ExercisePage: FC<ExercisePageProps> = async ({ params }) => {
   return (
     <div className="min-h-96">
       <div className="flex justify-between items-center">
-        <h2 className="font-semibold text-xl">{exercise.name}</h2>
+        <h2 className="font-semibold text-xl capitalize">{exercise.name}</h2>
         <div className="text-sm text-gray-400">{`ID: ${exercise.id}`}</div>
       </div>
       {exercise && <UpdateExerciseForm exercise={exercise} />}

@@ -13,7 +13,11 @@ import {
   MuscleGroup,
   exerciseSchema,
 } from "@/types";
-import { BASE_URL, getSelectedCheckboxesFromFormData } from "../utils";
+import {
+  BASE_URL,
+  getSelectedCheckboxesFromFormData,
+  snakeCaseToCamelCase,
+} from "../utils";
 
 const apiEndpoint = `${BASE_URL}/exercises`;
 
@@ -27,11 +31,18 @@ const getExercises = async (searchQuery?: string): Promise<Exercise[]> => {
   return exercises;
 };
 
-const getExerciseById = async (id: string): Promise<Exercise> => {
+const getExerciseById = async (id: string): Promise<Exercise | undefined> => {
   const response = await fetch(`${apiEndpoint}/${id}`);
   const exercise: Exercise = await response.json();
 
-  return exercise;
+  try {
+    const validatedExercise = exerciseSchema.parse(
+      snakeCaseToCamelCase(exercise)
+    );
+    return validatedExercise;
+  } catch (error) {
+    console.error("Exercise is invalid: ", error);
+  }
 };
 
 const createExercise = async (

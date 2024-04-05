@@ -4,7 +4,7 @@ import Button from "./Button";
 import { usePathname } from "next/navigation";
 
 const Header = () => {
-  const isLoggedIn = true;
+  const isLoggedIn = true; // Todo: set this value if user is logged in
   const pathname = usePathname();
 
   return (

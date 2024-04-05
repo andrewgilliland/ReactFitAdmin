@@ -33,6 +33,8 @@ const UpdateExerciseForm: FC<UpdateExerciseFormProps> = ({ exercise }) => {
     initialFormState
   );
 
+  console.log("exercise: ", exercise);
+
   // console.log("formState.message: ", formState.message);
   // Todo: UI states for success and failure of update
 
@@ -91,7 +93,8 @@ const UpdateExerciseForm: FC<UpdateExerciseFormProps> = ({ exercise }) => {
 
       <Button
         className="mt-8 text-red-400 border-red-400 hover:bg-red-400"
-        onClick={() => deleteExercise(exercise.id as string)}
+        theme="secondary"
+        onClick={() => deleteExercise(exercise.id)}
       >
         Delete Exercise
       </Button>
