@@ -22,7 +22,7 @@ const Input: FC<InputProps> = ({
 
   return (
     <label
-      className={`flex flex-col capitalize text-sm text-gray-500 ${className}`}
+      className={`flex flex-col capitalize text-sm text-gray-100 ${className}`}
     >
       <div className="mr-3">{label ? label : name}</div>
       <input

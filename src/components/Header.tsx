@@ -16,8 +16,8 @@ const Header = () => {
       </Link>
       {isLoggedIn ? (
         <div className="flex gap-4">
-          {!pathname.includes("sign-in") ? (
-            <Link href="/sign-in">
+          {!pathname.includes("signin") ? (
+            <Link href="/signin">
               <Button size="sm">Sign In</Button>
             </Link>
           ) : (
