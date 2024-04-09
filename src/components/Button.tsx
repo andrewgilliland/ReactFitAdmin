@@ -6,6 +6,7 @@ type ButtonProps = {
   onClick?: (event?: FormEvent<HTMLButtonElement>) => void;
   type?: "button" | "submit" | "reset";
   size?: "sm" | "md" | "lg";
+  theme?: "primary" | "secondary";
 };
 
 const Button: FC<ButtonProps> = ({
@@ -14,7 +15,13 @@ const Button: FC<ButtonProps> = ({
   onClick,
   type,
   size = "md",
+  theme = "primary",
 }) => {
+  const themes = {
+    primary: "bg-pink-400 text-black hover:bg-black hover:text-pink-400",
+    secondary: "bg-black text-pink-400 hover:bg-pink-400 hover:text-black",
+  };
+
   const sizes = {
     sm: "text-sm px-2 py-1",
     md: "text-md px-4 py-2",
@@ -25,7 +32,7 @@ const Button: FC<ButtonProps> = ({
     <button
       onClick={onClick}
       type={type}
-      className={`text-pink-400 border-2 border-pink-400 rounded-md transition hover:bg-pink-400 hover:text-black ${className} ${sizes[size]}`}
+      className={`font-semibold border-2 border-pink-400 rounded-md w-full transition duration-500 ${className} ${sizes[size]} ${themes[theme]}`}
     >
       {children}
     </button>

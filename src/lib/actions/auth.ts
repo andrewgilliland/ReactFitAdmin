@@ -53,7 +53,16 @@ const signup = async (prevState: FormState, formData: FormData) => {
   };
 };
 
-export { signIn as login, signup };
+const getUser = async () => {
+  const supabase = createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  return user;
+};
+
+export { signIn, signup, getUser };
 
 // import { BASE_URL } from "../utils";
 

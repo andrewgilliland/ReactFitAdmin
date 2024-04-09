@@ -12,7 +12,7 @@ const ExerciseLayout: FC<ExerciseLayoutProps> = ({ children }) => {
     <div className="flex flex-col">
       <div className="flex flex-col md:flex-row justify-between items-center">
         <h1 className="font-semibold text-xl">Exercises</h1>
-        <div>
+        <div className="flex">
           <Link href="/dashboard/exercises">
             <Button>All Exercises</Button>
           </Link>

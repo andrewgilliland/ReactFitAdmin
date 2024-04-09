@@ -7,7 +7,7 @@ import { mechanicsSchema } from "./Mechanics";
 import { exerciseTypeSchema } from "./ExerciseType";
 
 export const exerciseSchema = z.object({
-  id: z.string().optional(),
+  id: z.number().optional(),
   name: z
     .string()
     .min(1, { message: "Exercise name must be at least 1 character long." }),

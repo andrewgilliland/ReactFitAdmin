@@ -2,42 +2,37 @@
 import { useFormState } from "react-dom";
 import Button from "@/components/Button";
 import Input from "@/components/Input";
-import { signup } from "@/lib/actions";
+import { signIn, signup } from "@/lib/actions";
 import { FormState } from "@/types";
+import Link from "next/link";
 
-const SignupForm = () => {
-  const initialFormState = {
-    success: false,
-    message: "",
-    errors: undefined,
-  } as FormState;
-  const [formState, formAction] = useFormState(signup, initialFormState);
-
+const SignUpForm = () => {
   return (
     <form
-      className="bg-black flex flex-col border-2 border-pink-400 rounded p-4 w-64"
-      action={formAction}
+      className="border-2 border-pink-400 rounded px-6 pt-8 pb-28 mx-auto max-w-sm"
+      action={signIn}
     >
-      <Input name="email" type="email" />
-      <Input className="mt-4" name="password" type="password" />
-      <Button className="mt-10" type="submit">
-        Sign Up
-      </Button>
-
-      <div className="h-32"></div>
-
-      {formState.success && (
-        <div className="flex justify-center text-emerald-400 border-2 border-emerald-400 rounded mt-4 p-2">
-          <div className="capitalize">{formState.message}</div>
+      <div className="">
+        <h1 className="font-bold text-xl">Sign Up</h1>
+        <p className="text-gray-400 text-sm">
+          Get Started with your own personalized workout plan today.
+        </p>
+      </div>
+      <div className="mt-12">
+        <div className="grid grid-cols-2 gap-4 mt-4">
+          <Input name="first name" type="text" />
+          <Input name="last name" type="text" />
         </div>
-      )}
-      {!formState.success && formState.errors && (
-        <div className="flex justify-center text-red-400 border-2 border-red-400 rounded mt-4 p-2">
-          <div className="capitalize">{formState.message}</div>
-        </div>
-      )}
+        <Input className="mt-4" name="email" type="email" />
+        <Input className="mt-4" name="password" type="password" />
+        <Input className="mt-4" name="confirm password" type="password" />
+
+        <Button className="mt-6" type="submit">
+          Sign Up
+        </Button>
+      </div>
     </form>
   );
 };
 
-export default SignupForm;
+export default SignUpForm;
