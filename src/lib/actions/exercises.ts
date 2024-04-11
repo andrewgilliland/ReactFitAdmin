@@ -30,8 +30,6 @@ const getExercises = async (
 
   const exercises: Exercise[] = await response.json();
 
-  console.log("exercises: ", exercises);
-
   const validatedExercises = exercises.map((exercise) => {
     try {
       return exerciseSchema.parse(snakeCaseToCamelCase(exercise));

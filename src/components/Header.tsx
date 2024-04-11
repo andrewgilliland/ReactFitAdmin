@@ -4,6 +4,7 @@ import Button from "./Button";
 import { usePathname } from "next/navigation";
 import { FC } from "react";
 import { User } from "@supabase/supabase-js";
+import { UserCircleIcon } from "@heroicons/react/24/outline";
 
 type HeaderProps = {
   user: User | null;
@@ -21,6 +22,14 @@ const Header: FC<HeaderProps> = ({ user }) => {
         </h1>
       </Link>
       {isLoggedIn ? (
+        <Link href="/dashboard">
+          <div className="flex justify-center items-center bg-yellow-400 h-9 w-9 rounded-full">
+            <div className="flex justify-center items-center bg-black h-8 w-8 rounded-full">
+              <UserCircleIcon className="h-7 w-7 text-cyan-400" />
+            </div>
+          </div>
+        </Link>
+      ) : (
         <div className="flex gap-4">
           {!pathname.includes("signin") ? (
             <Link href="/signin">
@@ -29,12 +38,6 @@ const Header: FC<HeaderProps> = ({ user }) => {
           ) : (
             <></>
           )}
-        </div>
-      ) : (
-        <div className="flex justify-center items-center bg-cyan-400 h-7 w-7 rounded-full">
-          <div className="flex justify-center items-center bg-yellow-400 h-6 w-6 rounded-full border-4 border-black">
-            <div className="bg-pink-400 h-3 w-3 rounded-full border-4 border-black" />
-          </div>
         </div>
       )}
     </div>
