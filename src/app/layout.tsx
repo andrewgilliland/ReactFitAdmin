@@ -1,11 +1,9 @@
+import { FC, ReactNode } from "react";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import "@/styles/globals.css";
-import { FC, ReactNode } from "react";
-import Header from "@/components/Header";
 import Provider from "./Provider";
-import { SupabaseClient } from "@supabase/supabase-js";
-import { get } from "http";
+import "@/styles/globals.css";
+import Header from "@/components/Header";
 import { getUser } from "@/lib/actions";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -21,8 +19,6 @@ type RootLayoutProps = {
 
 const RootLayout: FC<RootLayoutProps> = async ({ children }) => {
   const user = await getUser();
-
-  console.log("rootlayout user: ", user);
 
   return (
     <html lang="en">
