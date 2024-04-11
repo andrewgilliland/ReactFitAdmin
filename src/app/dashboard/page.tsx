@@ -5,12 +5,6 @@ const Dashboard = async () => {
   const exercises = await getExercises();
 
   // return an array of objects with the muscle group and the amount of exercises of that type of muscle group
-  const data = exercises.map((exercise) => {
-    return {
-      muscleGroup: exercise?.targetMuscleGroup,
-      amount: 1,
-    };
-  });
 
   return (
     <main className="flex flex-col">
@@ -20,7 +14,7 @@ const Dashboard = async () => {
       <section className="flex flex-col mt-4">
         <div className="border-2 border-pink-400 rounded">
           <h2 className="font-semibold text-xl">Exercises</h2>
-          <BarChart data={data} />
+          <BarChart exercises={exercises} />
         </div>
       </section>
     </main>

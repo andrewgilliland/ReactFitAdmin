@@ -1,7 +1,7 @@
 "use client";
-import { pink } from "@/styles/colors";
+import { gray, pink } from "@/styles/colors";
+import { Exercise } from "@/types";
 import { FC } from "react";
-import { gray } from "tailwindcss/colors";
 import {
   VictoryAxis,
   VictoryBar,
@@ -10,15 +10,23 @@ import {
 } from "victory";
 
 type BarChartProps = {
-  data: any;
+  exercises: any[];
 };
 
-const BarChart: FC<BarChartProps> = ({ data }) => {
-  console.log("data: ", data);
+const BarChart: FC<BarChartProps> = ({ exercises }) => {
+  const data = exercises.map((exercise) => {
+    return {
+      muscleGroup: exercise?.targetMuscleGroup,
+      amount: 1,
+    };
+  });
 
   const chartTheme: VictoryThemeDefinition = {
     axis: {
       style: {
+        axisLabel: {
+          fill: gray[200],
+        },
         tickLabels: {
           fill: gray[400],
         },
@@ -41,7 +49,7 @@ const BarChart: FC<BarChartProps> = ({ data }) => {
     <div className="max-w-sm">
       <VictoryChart theme={chartTheme}>
         <VictoryAxis label="Muscle Group" />
-        <VictoryAxis dependentAxis tickFormat={(x) => `${x}`} />
+        <VictoryAxis dependentAxis />
         <VictoryBar data={data} x="muscleGroup" y="amount" />
       </VictoryChart>
     </div>
