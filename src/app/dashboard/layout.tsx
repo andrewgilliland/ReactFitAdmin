@@ -1,7 +1,7 @@
 // "use client";
 import { FC, ReactNode } from "react";
 import Link from "next/link";
-import { redirect, usePathname } from "next/navigation";
+import { redirect } from "next/navigation";
 import { createClient } from "@/lib/utils/supabase/server";
 
 type DashboardLayoutProps = {
@@ -19,7 +19,6 @@ const DashboardLayout: FC<DashboardLayoutProps> = async ({ children }) => {
     redirect("/");
   }
 
-  // const pathname = usePathname();
   const routes = [
     { name: "exercises" },
     { name: "workouts" },

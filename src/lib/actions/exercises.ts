@@ -18,6 +18,7 @@ import {
   getSelectedCheckboxesFromFormData,
   snakeCaseToCamelCase,
 } from "../utils";
+import { createClient } from "@/lib/utils/supabase/server";
 
 const apiEndpoint = `${BASE_URL}/exercises`;
 
@@ -60,6 +61,7 @@ const createExercise = async (
   prevState: FormState,
   formData: FormData
 ): Promise<FormState> => {
+  const supabase = createClient();
   const newExercise: Exercise = {
     name: (formData.get("name") as string)?.toString().toLocaleLowerCase(),
     difficulty: formData.get("difficulty") as Difficulty,
@@ -73,6 +75,22 @@ const createExercise = async (
       "secondaryMuscles"
     ),
   };
+
+  // convert all keys to snake_case
+  const snakeCaseExercise = Object.fromEntries(
+    Object.entries(newExercise).map(([key, value]) => [
+      key.replace(/([A-Z])/g, "_$1").toLowerCase(),
+      value,
+    ])
+  );
+
+  // console.log("snakeCaseExercise: ", snakeCaseExercise);
+
+  const { data, error } = await supabase
+    .from("exercises")
+    .insert(snakeCaseExercise);
+  console.log("data: ", data);
+  console.log("error: ", error);
 
   try {
     exerciseSchema.parse(newExercise);
