@@ -1,5 +1,6 @@
 // "use client";
 import { FC, ReactNode } from "react";
+import { cookies } from "next/headers";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/utils/supabase/server";
@@ -14,6 +15,12 @@ const DashboardLayout: FC<DashboardLayoutProps> = async ({ children }) => {
 
   // console.log("data: ", data);
   // console.log("error: ", error);
+
+  const storageKey = `sb-daclxoglfdpkhtzijmcn-auth-token`;
+  const cookieStore = cookies();
+  const authCookie = cookieStore.get(storageKey);
+
+  console.log("authCookie: ", authCookie?.value);
 
   if (error || !data?.user) {
     redirect("/");

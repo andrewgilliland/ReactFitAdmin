@@ -9,12 +9,14 @@ const signIn = async (formData: FormData) => {
 
   // type-casting here for convenience
   // in practice, you should validate your inputs
-  const data = {
+  const signInData = {
     email: formData.get("email") as string,
     password: formData.get("password") as string,
   };
 
-  const { error } = await supabase.auth.signInWithPassword(data);
+  const { data, error } = await supabase.auth.signInWithPassword(signInData);
+
+  console.log("data: ", data);
 
   if (error) {
     redirect("/error");
