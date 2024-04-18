@@ -62,7 +62,14 @@ const getUser = async () => {
   return user;
 };
 
-export { signIn, signup, getUser };
+const logout = async () => {
+  const supabase = createClient();
+  await supabase.auth.signOut();
+  revalidatePath("/", "layout");
+  redirect("/");
+};
+
+export { signIn, signup, getUser, logout };
 
 // import { BASE_URL } from "../utils";
 

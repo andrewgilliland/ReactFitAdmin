@@ -12,8 +12,8 @@ const DashboardLayout: FC<DashboardLayoutProps> = async ({ children }) => {
   const supabase = createClient();
   const { data, error } = await supabase.auth.getUser();
 
-  console.log("data: ", data);
-  console.log("error: ", error);
+  // console.log("data: ", data);
+  // console.log("error: ", error);
 
   if (error || !data?.user) {
     redirect("/");
