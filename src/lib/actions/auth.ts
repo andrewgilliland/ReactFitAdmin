@@ -3,18 +3,31 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/utils/supabase/server";
 import { FormState } from "@/types";
+import { cookies } from "next/headers";
+
+const getAuthJWT = async () => {
+  const storageKey = `sb-${process.env.NEXT_PUBLIC_SUPABASE_PROJECT_ID}-auth-token`;
+  const cookieStore = cookies();
+  const authCookie = cookieStore.get(storageKey);
+
+  console.log("authCookie: ", authCookie?.value);
+
+  return authCookie?.value;
+};
 
 const signIn = async (formData: FormData) => {
   const supabase = createClient();
 
   // type-casting here for convenience
   // in practice, you should validate your inputs
-  const data = {
+  const signInData = {
     email: formData.get("email") as string,
     password: formData.get("password") as string,
   };
 
-  const { error } = await supabase.auth.signInWithPassword(data);
+  const { data, error } = await supabase.auth.signInWithPassword(signInData);
+
+  console.log("data: ", data);
 
   if (error) {
     redirect("/error");
@@ -62,7 +75,14 @@ const getUser = async () => {
   return user;
 };
 
-export { signIn, signup, getUser };
+const logout = async () => {
+  const supabase = createClient();
+  await supabase.auth.signOut();
+  revalidatePath("/", "layout");
+  redirect("/");
+};
+
+export { signIn, signup, getUser, logout, getAuthJWT };
 
 // import { BASE_URL } from "../utils";
 

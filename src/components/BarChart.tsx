@@ -1,7 +1,6 @@
 "use client";
-import { gray, pink } from "@/styles/colors";
-import { Exercise } from "@/types";
 import { FC } from "react";
+import { gray, pink } from "@/styles/colors";
 import {
   VictoryAxis,
   VictoryBar,

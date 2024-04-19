@@ -1,7 +1,7 @@
 // "use client";
 import { FC, ReactNode } from "react";
 import Link from "next/link";
-import { redirect, usePathname } from "next/navigation";
+import { redirect } from "next/navigation";
 import { createClient } from "@/lib/utils/supabase/server";
 
 type DashboardLayoutProps = {
@@ -11,15 +11,13 @@ type DashboardLayoutProps = {
 const DashboardLayout: FC<DashboardLayoutProps> = async ({ children }) => {
   const supabase = createClient();
   const { data, error } = await supabase.auth.getUser();
-
-  console.log("data: ", data);
-  console.log("error: ", error);
+  // console.log("data: ", data);
+  // console.log("error: ", error);
 
   if (error || !data?.user) {
     redirect("/");
   }
 
-  // const pathname = usePathname();
   const routes = [
     { name: "exercises" },
     { name: "workouts" },
