@@ -1,14 +1,13 @@
 import BarChart from "@/components/BarChart";
 import LogoutButton from "@/components/LogoutButton";
-import { getExercises, getUser } from "@/lib/actions";
+import { getAuthJWT, getExercises, getUser } from "@/lib/actions";
 
 const Dashboard = async () => {
   const user = await getUser();
   const exercises = await getExercises();
-
-  console.log("user: ", user);
-
   // return an array of objects with the muscle group and the amount of exercises of that type of muscle group
+
+  await getAuthJWT();
 
   return (
     <main className="flex flex-col">

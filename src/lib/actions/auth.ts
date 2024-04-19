@@ -3,6 +3,17 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/utils/supabase/server";
 import { FormState } from "@/types";
+import { cookies } from "next/headers";
+
+const getAuthJWT = async () => {
+  const storageKey = `sb-${process.env.NEXT_PUBLIC_SUPABASE_PROJECT_ID}-auth-token`;
+  const cookieStore = cookies();
+  const authCookie = cookieStore.get(storageKey);
+
+  console.log("authCookie: ", authCookie?.value);
+
+  return authCookie?.value;
+};
 
 const signIn = async (formData: FormData) => {
   const supabase = createClient();
@@ -71,7 +82,7 @@ const logout = async () => {
   redirect("/");
 };
 
-export { signIn, signup, getUser, logout };
+export { signIn, signup, getUser, logout, getAuthJWT };
 
 // import { BASE_URL } from "../utils";
 
