@@ -22,11 +22,11 @@ import {
 import { createClient } from "@/lib/utils/supabase/server";
 
 const apiEndpoint = `${BASE_URL}/exercises`;
-const supabase = createClient();
 
 const getExercises = async (
   searchQuery?: string
 ): Promise<(Exercise | undefined)[]> => {
+  const supabase = createClient();
   const { data, error } = await supabase.from("exercises").select("*");
 
   // TODO: handle error response from supabase
@@ -44,14 +44,20 @@ const getExercises = async (
 };
 
 const getExerciseById = async (id: string): Promise<Exercise | undefined> => {
-  const response = await fetch(`${apiEndpoint}/${id}`);
-
-  const exercise: Exercise = await response.json();
+  const supabase = createClient();
 
   try {
+    const { data, error } = await supabase
+      .from("exercises")
+      .select("*")
+      .match({ id });
+
+    const exercise = data[0];
+
     const validatedExercise = exerciseSchema.parse(
       snakeCaseToCamelCase(exercise)
     );
+
     return validatedExercise;
   } catch (error) {
     console.error("Exercise is invalid: ", error);
@@ -62,7 +68,7 @@ const createExercise = async (
   prevState: FormState,
   formData: FormData
 ): Promise<FormState> => {
-  // const supabase = createClient();
+  const supabase = createClient();
   const inputExercise: Exercise = {
     name: (formData.get("name") as string)?.toString().toLocaleLowerCase(),
     difficulty: formData.get("difficulty") as Difficulty,
@@ -85,9 +91,6 @@ const createExercise = async (
     const { data, error } = await supabase
       .from("exercises")
       .insert(dataFormatExercise);
-
-    console.log("data: ", data);
-    console.log("error: ", error);
 
     // Todo: use response to validate if exercise was created of not
 
@@ -114,6 +117,7 @@ const updateExercise = async (
   prevState: FormState,
   formData: FormData
 ): Promise<FormState> => {
+  const supabase = createClient();
   const id = formData.get("id") as string;
   const updatedExercise: Exercise = {
     name: (formData.get("name") as string)?.toString().toLocaleLowerCase(),
@@ -130,7 +134,6 @@ const updateExercise = async (
   };
 
   // update exercise in supabase
-  const supabase = createClient();
   const { data, error } = await supabase
     .from("exercises")
     .update(updatedExercise)
