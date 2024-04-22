@@ -45,3 +45,13 @@ export const snakeCaseToCamelCase = (object: Record<string, any>) => {
 
   return newObject;
 };
+
+/** Converts object keys from camel case to snake case. */
+export const camelCaseToSnakeCase = (object: Record<string, any>) => {
+  return Object.fromEntries(
+    Object.entries(object).map(([key, value]) => [
+      key.replace(/([A-Z])/g, "_$1").toLowerCase(),
+      value,
+    ])
+  );
+};

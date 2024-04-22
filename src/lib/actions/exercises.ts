@@ -15,6 +15,7 @@ import {
 } from "@/types";
 import {
   BASE_URL,
+  camelCaseToSnakeCase,
   getSelectedCheckboxesFromFormData,
   snakeCaseToCamelCase,
 } from "../utils";
@@ -62,7 +63,7 @@ const createExercise = async (
   formData: FormData
 ): Promise<FormState> => {
   const supabase = createClient();
-  const newExercise: Exercise = {
+  const inputExercise: Exercise = {
     name: (formData.get("name") as string)?.toString().toLocaleLowerCase(),
     difficulty: formData.get("difficulty") as Difficulty,
     equipment: formData.get("equipment") as Equipment,
@@ -76,38 +77,25 @@ const createExercise = async (
     ),
   };
 
-  // convert all keys to snake_case
-  const snakeCaseExercise = Object.fromEntries(
-    Object.entries(newExercise).map(([key, value]) => [
-      key.replace(/([A-Z])/g, "_$1").toLowerCase(),
-      value,
-    ])
-  );
-
-  // console.log("snakeCaseExercise: ", snakeCaseExercise);
-
-  const { data, error } = await supabase
-    .from("exercises")
-    .insert(snakeCaseExercise);
-  console.log("data: ", data);
-  console.log("error: ", error);
-
   try {
-    exerciseSchema.parse(newExercise);
-    const response = await fetch(apiEndpoint, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(newExercise),
-    });
+    exerciseSchema.parse(inputExercise);
+
+    const dataFormatExercise = camelCaseToSnakeCase(inputExercise);
+
+    const { data, error } = await supabase
+      .from("exercises")
+      .insert(dataFormatExercise);
+
+    console.log("data: ", data);
+    console.log("error: ", error);
 
     // Todo: use response to validate if exercise was created of not
 
     revalidatePath("/dashboard/exercises");
+
     return {
       success: true,
-      message: `${newExercise.name} created!`,
+      message: `${inputExercise.name} created!`,
       errors: undefined,
     };
   } catch (error) {
