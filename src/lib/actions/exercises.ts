@@ -22,17 +22,16 @@ import {
 import { createClient } from "@/lib/utils/supabase/server";
 
 const apiEndpoint = `${BASE_URL}/exercises`;
+const supabase = createClient();
 
 const getExercises = async (
   searchQuery?: string
 ): Promise<(Exercise | undefined)[]> => {
-  const response = await fetch(
-    searchQuery ? `${apiEndpoint}/search/${searchQuery}` : apiEndpoint
-  );
+  const { data, error } = await supabase.from("exercises").select("*");
 
-  const exercises: Exercise[] = await response.json();
+  // TODO: handle error response from supabase
 
-  const validatedExercises = exercises.map((exercise) => {
+  const validatedExercises = data.map((exercise) => {
     try {
       return exerciseSchema.parse(snakeCaseToCamelCase(exercise));
     } catch (error) {
@@ -46,6 +45,7 @@ const getExercises = async (
 
 const getExerciseById = async (id: string): Promise<Exercise | undefined> => {
   const response = await fetch(`${apiEndpoint}/${id}`);
+
   const exercise: Exercise = await response.json();
 
   try {
@@ -62,7 +62,7 @@ const createExercise = async (
   prevState: FormState,
   formData: FormData
 ): Promise<FormState> => {
-  const supabase = createClient();
+  // const supabase = createClient();
   const inputExercise: Exercise = {
     name: (formData.get("name") as string)?.toString().toLocaleLowerCase(),
     difficulty: formData.get("difficulty") as Difficulty,
@@ -129,6 +129,13 @@ const updateExercise = async (
     ),
   };
 
+  // update exercise in supabase
+  const supabase = createClient();
+  const { data, error } = await supabase
+    .from("exercises")
+    .update(updatedExercise)
+    .match({ id });
+
   // Todo: schema validation
   // Todo: server error
 
@@ -140,7 +147,7 @@ const updateExercise = async (
     body: JSON.stringify(updatedExercise),
   });
 
-  const data = await response.json();
+  // const data = await response.json();
 
   revalidatePath("/dashboard/exercises/[slug]", "page");
   return {
