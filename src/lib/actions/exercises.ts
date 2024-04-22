@@ -133,44 +133,37 @@ const updateExercise = async (
     ),
   };
 
-  // update exercise in supabase
+  const dataFormatExercise = camelCaseToSnakeCase(updatedExercise);
+
   const { data, error } = await supabase
     .from("exercises")
-    .update(updatedExercise)
-    .match({ id });
+    .update(dataFormatExercise)
+    .match({ id })
+    .select();
+
+  console.log("data: ", data);
+  console.log("error: ", error);
 
   // Todo: schema validation
   // Todo: server error
 
-  const response = await fetch(`${apiEndpoint}/${id}`, {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(updatedExercise),
-  });
-
-  // const data = await response.json();
-
   revalidatePath("/dashboard/exercises/[slug]", "page");
   return {
     success: true,
-    message: `${updateExercise.name} updated!`,
+    message: `${dataFormatExercise.name} updated!`,
     errors: undefined,
   };
 };
 
 const deleteExercise = async (id: string) => {
-  const response = await fetch(`${apiEndpoint}/${id}`, {
-    method: "DELETE",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
+  const supabase = createClient();
 
-  const exercise = await response.json();
+  const { status, error } = await supabase
+    .from("exercises")
+    .delete()
+    .match({ id });
 
-  if (exercise.id) {
+  if (status === 204) {
     redirect("/dashboard/exercises");
   }
 };
