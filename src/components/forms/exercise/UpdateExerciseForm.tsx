@@ -33,9 +33,6 @@ const UpdateExerciseForm: FC<UpdateExerciseFormProps> = ({ exercise }) => {
     initialFormState
   );
 
-  console.log("exercise: ", exercise);
-
-  // console.log("formState.message: ", formState.message);
   // Todo: UI states for success and failure of update
 
   return (

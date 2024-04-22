@@ -15,6 +15,7 @@ import {
 } from "@/types";
 import {
   BASE_URL,
+  camelCaseToSnakeCase,
   getSelectedCheckboxesFromFormData,
   snakeCaseToCamelCase,
 } from "../utils";
@@ -25,13 +26,12 @@ const apiEndpoint = `${BASE_URL}/exercises`;
 const getExercises = async (
   searchQuery?: string
 ): Promise<(Exercise | undefined)[]> => {
-  const response = await fetch(
-    searchQuery ? `${apiEndpoint}/search/${searchQuery}` : apiEndpoint
-  );
+  const supabase = createClient();
+  const { data, error } = await supabase.from("exercises").select("*");
 
-  const exercises: Exercise[] = await response.json();
+  // TODO: handle error response from supabase
 
-  const validatedExercises = exercises.map((exercise) => {
+  const validatedExercises = data.map((exercise) => {
     try {
       return exerciseSchema.parse(snakeCaseToCamelCase(exercise));
     } catch (error) {
@@ -44,13 +44,20 @@ const getExercises = async (
 };
 
 const getExerciseById = async (id: string): Promise<Exercise | undefined> => {
-  const response = await fetch(`${apiEndpoint}/${id}`);
-  const exercise: Exercise = await response.json();
+  const supabase = createClient();
 
   try {
+    const { data, error } = await supabase
+      .from("exercises")
+      .select("*")
+      .match({ id });
+
+    const exercise = data[0];
+
     const validatedExercise = exerciseSchema.parse(
       snakeCaseToCamelCase(exercise)
     );
+
     return validatedExercise;
   } catch (error) {
     console.error("Exercise is invalid: ", error);
@@ -62,7 +69,7 @@ const createExercise = async (
   formData: FormData
 ): Promise<FormState> => {
   const supabase = createClient();
-  const newExercise: Exercise = {
+  const inputExercise: Exercise = {
     name: (formData.get("name") as string)?.toString().toLocaleLowerCase(),
     difficulty: formData.get("difficulty") as Difficulty,
     equipment: formData.get("equipment") as Equipment,
@@ -76,38 +83,22 @@ const createExercise = async (
     ),
   };
 
-  // convert all keys to snake_case
-  const snakeCaseExercise = Object.fromEntries(
-    Object.entries(newExercise).map(([key, value]) => [
-      key.replace(/([A-Z])/g, "_$1").toLowerCase(),
-      value,
-    ])
-  );
-
-  // console.log("snakeCaseExercise: ", snakeCaseExercise);
-
-  const { data, error } = await supabase
-    .from("exercises")
-    .insert(snakeCaseExercise);
-  console.log("data: ", data);
-  console.log("error: ", error);
-
   try {
-    exerciseSchema.parse(newExercise);
-    const response = await fetch(apiEndpoint, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(newExercise),
-    });
+    exerciseSchema.parse(inputExercise);
+
+    const dataFormatExercise = camelCaseToSnakeCase(inputExercise);
+
+    const { data, error } = await supabase
+      .from("exercises")
+      .insert(dataFormatExercise);
 
     // Todo: use response to validate if exercise was created of not
 
     revalidatePath("/dashboard/exercises");
+
     return {
       success: true,
-      message: `${newExercise.name} created!`,
+      message: `${inputExercise.name} created!`,
       errors: undefined,
     };
   } catch (error) {
@@ -126,6 +117,7 @@ const updateExercise = async (
   prevState: FormState,
   formData: FormData
 ): Promise<FormState> => {
+  const supabase = createClient();
   const id = formData.get("id") as string;
   const updatedExercise: Exercise = {
     name: (formData.get("name") as string)?.toString().toLocaleLowerCase(),
@@ -141,38 +133,37 @@ const updateExercise = async (
     ),
   };
 
+  const dataFormatExercise = camelCaseToSnakeCase(updatedExercise);
+
+  const { data, error } = await supabase
+    .from("exercises")
+    .update(dataFormatExercise)
+    .match({ id })
+    .select();
+
+  console.log("data: ", data);
+  console.log("error: ", error);
+
   // Todo: schema validation
   // Todo: server error
-
-  const response = await fetch(`${apiEndpoint}/${id}`, {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(updatedExercise),
-  });
-
-  const data = await response.json();
 
   revalidatePath("/dashboard/exercises/[slug]", "page");
   return {
     success: true,
-    message: `${updateExercise.name} updated!`,
+    message: `${dataFormatExercise.name} updated!`,
     errors: undefined,
   };
 };
 
 const deleteExercise = async (id: string) => {
-  const response = await fetch(`${apiEndpoint}/${id}`, {
-    method: "DELETE",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
+  const supabase = createClient();
 
-  const exercise = await response.json();
+  const { status, error } = await supabase
+    .from("exercises")
+    .delete()
+    .match({ id });
 
-  if (exercise.id) {
+  if (status === 204) {
     redirect("/dashboard/exercises");
   }
 };

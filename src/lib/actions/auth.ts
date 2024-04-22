@@ -18,6 +18,7 @@ const getAuthJWT = async () => {
 const signIn = async (formData: FormData) => {
   const supabase = createClient();
 
+  // TODO: validate form data
   // type-casting here for convenience
   // in practice, you should validate your inputs
   const signInData = {
