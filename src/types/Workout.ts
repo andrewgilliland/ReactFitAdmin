@@ -9,7 +9,7 @@ export const workoutSchema = z.object({
     .min(1, { message: "Workout name must be at least 1 character long." }),
   description: z.string().optional(),
   difficulty: difficultySchema,
-  exercises: z.array(z.union([workoutExerciseSchema, supersetSchema])),
+  exercises: z.array(workoutExerciseSchema),
 });
 
 export type Workout = z.infer<typeof workoutSchema>;
