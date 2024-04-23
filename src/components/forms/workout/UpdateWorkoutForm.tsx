@@ -13,7 +13,9 @@ type UpdateWorkoutFormProps = {
 };
 
 const UpdateWorkoutForm: FC<UpdateWorkoutFormProps> = ({ workout }) => {
-  const [exerciseCount, setExerciseCount] = useState(workout.exercises.length);
+  // const [exerciseCount, setExerciseCount] = useState(workout.exercises.length);
+
+  console.log("UpdateWorkoutForm: ", workout);
 
   const initialFormState = {
     success: false,
@@ -40,7 +42,7 @@ const UpdateWorkoutForm: FC<UpdateWorkoutFormProps> = ({ workout }) => {
           className="mt-3"
         />
 
-        <div className="mt-6">
+        {/* <div className="mt-6">
           <div className="text-sm text-gray-500">Exercises</div>
           <div className="border-2 border-pink-400 rounded mt-1 p-4">
             {workout.exercises.map((exercise, index) => (
@@ -69,7 +71,7 @@ const UpdateWorkoutForm: FC<UpdateWorkoutFormProps> = ({ workout }) => {
               </Button>
             </div>
           </div>
-        </div>
+        </div> */}
 
         <Button className="mt-8" type="submit">
           Update

@@ -2,12 +2,23 @@
 import { Difficulty, Set, SetType, Workout, WorkoutExercise } from "@/types";
 import { revalidatePath } from "next/cache";
 import { BASE_URL } from "../utils";
+import { createClient } from "../utils/supabase/server";
 
 const apiEndpoint = `${BASE_URL}/workouts`;
 
 const getWorkouts = async (): Promise<Workout[]> => {
-  const response = await fetch(apiEndpoint);
-  const workouts: Workout[] = await response.json();
+  const supabase = createClient();
+
+  const { data: workouts, error } = await supabase.from("workouts").select(`
+    id,
+    name,
+    description,
+    difficulty
+  `);
+
+  if (error) {
+    console.error("Error fetching workouts: ", error);
+  }
 
   revalidatePath("/dashboard/workouts");
   return workouts;
@@ -15,8 +26,24 @@ const getWorkouts = async (): Promise<Workout[]> => {
 
 const getWorkoutById = async (id: string): Promise<Workout> => {
   revalidatePath("/dashboard/workouts/[slug]", "page");
-  const response = await fetch(`${apiEndpoint}/${id}`);
-  const workout: Workout = await response.json();
+  // const response = await fetch(`${apiEndpoint}/${id}`);
+  // const workout: Workout = await response.json();
+  // const workout: Workout = [];
+
+  const supabase = createClient();
+
+  const { data: workout, error } = await supabase
+    .from("workouts")
+    .select(
+      `
+  id,
+  name,
+  description,
+  difficulty
+`
+    )
+    .match({ id })
+    .single();
 
   return workout;
 };
@@ -30,6 +57,7 @@ const createWorkout = async (formData: FormData) => {
     exercises: formatExercises(formData),
   };
 
+  console.log("newWorkout: ", newWorkout);
   console.log("newWorkout.exercises: ", newWorkout.exercises);
 
   // newWorkout.exercises.forEach((exercise) => {
