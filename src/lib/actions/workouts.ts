@@ -26,21 +26,24 @@ const getWorkouts = async (): Promise<Workout[]> => {
 
 const getWorkoutById = async (id: string): Promise<Workout> => {
   revalidatePath("/dashboard/workouts/[slug]", "page");
-  const response = await fetch(`${apiEndpoint}/${id}`);
-  const workout: Workout = await response.json();
+  // const response = await fetch(`${apiEndpoint}/${id}`);
+  // const workout: Workout = await response.json();
+  // const workout: Workout = [];
 
   const supabase = createClient();
-  const { data, error } = await supabase.from("workouts").select(`
+
+  const { data: workout, error } = await supabase
+    .from("workouts")
+    .select(
+      `
   id,
   name,
   description,
-  difficulty,
-  workout_exercises (
-    id,
-    sets,
-    repetitions
-  )
-`);
+  difficulty
+`
+    )
+    .match({ id })
+    .single();
 
   return workout;
 };
@@ -54,6 +57,7 @@ const createWorkout = async (formData: FormData) => {
     exercises: formatExercises(formData),
   };
 
+  console.log("newWorkout: ", newWorkout);
   console.log("newWorkout.exercises: ", newWorkout.exercises);
 
   // newWorkout.exercises.forEach((exercise) => {

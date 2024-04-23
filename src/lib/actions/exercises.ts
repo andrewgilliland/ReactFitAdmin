@@ -47,12 +47,11 @@ const getExerciseById = async (id: string): Promise<Exercise | undefined> => {
   const supabase = createClient();
 
   try {
-    const { data, error } = await supabase
+    const { data: exercise, error } = await supabase
       .from("exercises")
       .select("*")
-      .match({ id });
-
-    const exercise = data[0];
+      .match({ id })
+      .single();
 
     const validatedExercise = exerciseSchema.parse(
       snakeCaseToCamelCase(exercise)
