@@ -21,7 +21,7 @@ import {
 } from "../utils";
 import { createClient } from "@/lib/utils/supabase/server";
 
-const apiEndpoint = `${BASE_URL}/exercises`;
+// const apiEndpoint = `${BASE_URL}/exercises`;
 
 const getExercises = async (
   searchQuery?: string

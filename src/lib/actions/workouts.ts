@@ -4,7 +4,7 @@ import { revalidatePath } from "next/cache";
 import { BASE_URL } from "../utils";
 import { createClient } from "../utils/supabase/server";
 
-const apiEndpoint = `${BASE_URL}/workouts`;
+// const apiEndpoint = `${BASE_URL}/workouts`;
 
 const getWorkouts = async (): Promise<Workout[]> => {
   const supabase = createClient();
@@ -26,9 +26,6 @@ const getWorkouts = async (): Promise<Workout[]> => {
 
 const getWorkoutById = async (id: string): Promise<Workout> => {
   revalidatePath("/dashboard/workouts/[slug]", "page");
-  // const response = await fetch(`${apiEndpoint}/${id}`);
-  // const workout: Workout = await response.json();
-  // const workout: Workout = [];
 
   const supabase = createClient();
 
@@ -36,14 +33,22 @@ const getWorkoutById = async (id: string): Promise<Workout> => {
     .from("workouts")
     .select(
       `
-  id,
-  name,
-  description,
-  difficulty
-`
+      id,
+      name,
+      description,
+      difficulty,
+      exercises:workout_exercises (
+        id:exercise_id,
+        sets:workout_exercise_sets (
+          repetitions
+        )
+      )
+    `
     )
     .match({ id })
     .single();
+
+  console.log("workout: ", workout);
 
   return workout;
 };
