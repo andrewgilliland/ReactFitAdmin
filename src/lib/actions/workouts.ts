@@ -49,7 +49,9 @@ const getWorkoutById = async (id: string): Promise<Workout> => {
 };
 
 const createWorkout = async (formData: FormData) => {
-  const newWorkout: Workout = {
+  const supabase = createClient();
+
+  const inputWorkout: Workout = {
     name: formData.get("name") as string,
     description: formData.get("description") as string,
     difficulty: formData.get("difficulty") as Difficulty,
@@ -57,18 +59,37 @@ const createWorkout = async (formData: FormData) => {
     exercises: formatExercises(formData),
   };
 
-  console.log("newWorkout: ", newWorkout);
-  console.log("newWorkout.exercises: ", newWorkout.exercises);
+  const { data: workout, error } = await supabase
+    .from("workouts")
+    .insert({
+      name: inputWorkout.name,
+      description: inputWorkout.description,
+      difficulty: inputWorkout.difficulty,
+    })
+    .select()
+    .single();
 
-  // newWorkout.exercises.forEach((exercise) => {
-  //   if (Array.isArray(exercise)) {
-  //     exercise.forEach((subExercise) => {
-  //       console.log("subExercise: ", subExercise);
-  //     });
-  //   } else {
-  //     console.log("exercise: ", exercise);
-  //   }
-  // });
+  inputWorkout.exercises.map(async ({ id, sets }) => {
+    const { data: workout_exercise, error } = await supabase
+      .from("workout_exercises")
+      .insert({ workout_id: workout.id, exercise_id: id })
+      .select()
+      .single();
+
+    sets.map(async (set) => {
+      const { data, error } = await supabase
+        .from("workout_exercise_sets")
+        .insert({
+          workout_exercise_id: workout_exercise.id,
+          repetitions: set.repetitions,
+        })
+        .select()
+        .single();
+
+      console.log("data: ", data);
+      console.log("error: ", error);
+    });
+  });
 };
 
 const updateWorkout = async (formData: FormData) => {
