@@ -3,7 +3,7 @@ import { difficultySchema, exerciseSchema, supersetSchema } from ".";
 import { workoutExerciseSchema } from "./WorkoutExercise";
 
 export const workoutSchema = z.object({
-  id: z.string().optional(),
+  id: z.number().optional(),
   name: z
     .string()
     .min(1, { message: "Workout name must be at least 1 character long." }),
