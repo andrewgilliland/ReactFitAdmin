@@ -1,27 +1,36 @@
 "use server";
 import { Difficulty, Set, SetType, Workout, WorkoutExercise } from "@/types";
 import { revalidatePath } from "next/cache";
-import { BASE_URL } from "../utils";
 import { createClient } from "../utils/supabase/server";
+// import { BASE_URL } from "../utils";
 
 // const apiEndpoint = `${BASE_URL}/workouts`;
 
-const getWorkouts = async (): Promise<Workout[]> => {
-  const supabase = createClient();
-
-  const { data: workouts, error } = await supabase.from("workouts").select(`
+const getWorkouts = async (): Promise<Partial<Workout>[]> => {
+  try {
+    const supabase = createClient();
+    const { data: workouts, error } = await supabase.from("workouts").select(`
     id,
     name,
     description,
     difficulty
-  `);
+    `);
 
-  if (error) {
+    if (error) {
+      throw error;
+    }
+
+    if (!workouts) {
+      throw new Error("No workouts found");
+    }
+
+    revalidatePath("/dashboard/workouts");
+
+    return workouts;
+  } catch (error) {
     console.error("Error fetching workouts: ", error);
+    return [];
   }
-
-  revalidatePath("/dashboard/workouts");
-  return workouts;
 };
 
 const getWorkoutById = async (id: string): Promise<Workout> => {
