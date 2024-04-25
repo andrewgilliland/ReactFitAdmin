@@ -21,7 +21,7 @@ const getWorkouts = async (): Promise<Partial<Workout>[]> => {
     }
 
     if (!workouts) {
-      throw new Error("No workouts found");
+      throw new Error("No workouts found!");
     }
 
     revalidatePath("/dashboard/workouts");
@@ -33,15 +33,16 @@ const getWorkouts = async (): Promise<Partial<Workout>[]> => {
   }
 };
 
-const getWorkoutById = async (id: string): Promise<Workout> => {
-  revalidatePath("/dashboard/workouts/[slug]", "page");
+const getWorkoutById = async (id: string): Promise<Partial<Workout>> => {
+  try {
+    revalidatePath("/dashboard/workouts/[slug]", "page");
 
-  const supabase = createClient();
+    const supabase = createClient();
 
-  const { data: workout, error } = await supabase
-    .from("workouts")
-    .select(
-      `
+    const { data: workout, error } = await supabase
+      .from("workouts")
+      .select(
+        `
       id,
       name,
       description,
@@ -49,17 +50,28 @@ const getWorkoutById = async (id: string): Promise<Workout> => {
       exercises:workout_exercises (
         id:exercise_id,
         sets:workout_exercise_sets (
-          repetitions
+          repetitions,
+          duration
         )
       )
-    `
-    )
-    .match({ id })
-    .single();
+      `
+      )
+      .match({ id })
+      .single();
 
-  console.log("workout: ", workout);
+    if (error) {
+      throw error;
+    }
 
-  return workout;
+    if (!workout) {
+      throw new Error("No workout found!");
+    }
+
+    return workout;
+  } catch (error) {
+    console.error("Error fetching workout: ", error);
+    return {};
+  }
 };
 
 const createWorkout = async (formData: FormData) => {
@@ -86,7 +98,7 @@ const createWorkout = async (formData: FormData) => {
   inputWorkout.exercises.map(async ({ id, sets }) => {
     const { data: workout_exercise, error } = await supabase
       .from("workout_exercises")
-      .insert({ workout_id: workout.id, exercise_id: id })
+      .insert({ workout_id: workout?.id, exercise_id: id })
       .select()
       .single();
 
@@ -94,8 +106,9 @@ const createWorkout = async (formData: FormData) => {
       const { data, error } = await supabase
         .from("workout_exercise_sets")
         .insert({
-          workout_exercise_id: workout_exercise.id,
+          workout_exercise_id: workout_exercise?.id,
           repetitions: set.repetitions,
+          duration: set.duration,
         })
         .select()
         .single();

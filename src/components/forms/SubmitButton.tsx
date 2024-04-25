@@ -15,7 +15,11 @@ const SubmitButton = () => {
       }  hover:text-black`}
       disabled={pending}
     >
-      {pending ? <ArrowPathIcon className="h-5 w-5 animate-spin" /> : "Create"}
+      {pending ? (
+        <ArrowPathIcon className="h-5 w-5 animate-spin" />
+      ) : (
+        <span className="font-semibold">Create</span>
+      )}
     </button>
   );
 };

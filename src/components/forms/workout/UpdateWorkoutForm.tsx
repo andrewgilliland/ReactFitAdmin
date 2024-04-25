@@ -15,7 +15,7 @@ type UpdateWorkoutFormProps = {
 const UpdateWorkoutForm: FC<UpdateWorkoutFormProps> = ({ workout }) => {
   const [exerciseCount, setExerciseCount] = useState(workout.exercises.length);
 
-  console.log("UpdateWorkoutForm: ", workout);
+  // console.log("UpdateWorkoutForm: ", workout);
 
   const initialFormState = {
     success: false,
@@ -54,7 +54,7 @@ const UpdateWorkoutForm: FC<UpdateWorkoutFormProps> = ({ workout }) => {
               <ExerciseInput
                 key={exercise.id}
                 exerciseIndex={index + 1}
-                value={workout.exercises[index].id as string}
+                value={workout.exercises[index].id?.toString()}
                 sets={exercise.sets}
               />
             ))}
