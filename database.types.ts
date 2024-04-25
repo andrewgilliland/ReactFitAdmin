@@ -63,23 +63,23 @@ export type Database = {
       workout_exercise_sets: {
         Row: {
           created_at: string
+          duration: number | null
           id: number
           repetitions: number | null
-          time: number | null
           workout_exercise_id: number | null
         }
         Insert: {
           created_at?: string
+          duration?: number | null
           id?: number
           repetitions?: number | null
-          time?: number | null
           workout_exercise_id?: number | null
         }
         Update: {
           created_at?: string
+          duration?: number | null
           id?: number
           repetitions?: number | null
-          time?: number | null
           workout_exercise_id?: number | null
         }
         Relationships: [

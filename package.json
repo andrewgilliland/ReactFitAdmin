@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "gen-supabase-types": "source .env.local && supabase gen types typescript --project-id $NEXT_PUBLIC_SUPABASE_PROJECT_ID > database.types.ts"
   },
   "dependencies": {
     "@heroicons/react": "^2.1.1",
