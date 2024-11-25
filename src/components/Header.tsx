@@ -18,7 +18,7 @@ const Header: FC<HeaderProps> = ({ user }) => {
     <div className="flex justify-between items-center bg-gray-700 px-[10%] py-4 rounded-b-xl">
       <Link href="/">
         <h1 className="text-2xl font-bold">
-          React<span className="text-orange-500">Fit</span>
+          React<span className="text-orange-600">Fit</span>
         </h1>
       </Link>
       {isLoggedIn ? (
