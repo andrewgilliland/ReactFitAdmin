@@ -4,7 +4,7 @@ import Button from "./Button";
 import { usePathname } from "next/navigation";
 import { FC } from "react";
 import { User } from "@supabase/supabase-js";
-import { UserCircleIcon } from "@heroicons/react/24/outline";
+import { Cog6ToothIcon } from "@heroicons/react/24/outline";
 
 type HeaderProps = {
   user: User | null;
@@ -15,18 +15,16 @@ const Header: FC<HeaderProps> = ({ user }) => {
   const pathname = usePathname();
 
   return (
-    <div className="flex justify-between items-center px-[10%] py-4 border-b-2 border-cyan-400">
+    <div className="flex justify-between items-center bg-gray-800 px-[10%] py-4 rounded-b-2xl">
       <Link href="/">
         <h1 className="text-2xl font-bold">
-          React<span className="text-pink-400">Fit</span>
+          React<span className="text-orange-600">Fit</span>
         </h1>
       </Link>
       {isLoggedIn ? (
-        <Link href="/dashboard">
-          <div className="flex justify-center items-center bg-yellow-400 h-9 w-9 rounded-full">
-            <div className="flex justify-center items-center bg-black h-8 w-8 rounded-full">
-              <UserCircleIcon className="h-7 w-7 text-cyan-400" />
-            </div>
+        <Link href="/dashboard" className="group">
+          <div className="flex justify-center items-center bg-gray-900 h-12 w-12 rounded-xl group-active:scale-95">
+            <Cog6ToothIcon className="h-6 w-6 text-gray-200 group-active:rotate-180 transition" />
           </div>
         </Link>
       ) : (
