@@ -76,14 +76,13 @@ const WorkoutsPage = async () => {
 
   return (
     <main className="flex flex-col">
-      <div className="w-96 mx-auto">
-        <h1 className="font-semibold text-xl ">Workouts</h1>
-      </div>
-      <section className=" bg-gray-800 rounded-xl mt-8 p-10 mx-auto w-96">
+      <h1 className="font-semibold text-xl max-w-sm mt-6">Workouts</h1>
+
+      <section className=" bg-gray-800 rounded-xl mt-6 p-4">
         <div className="grid gap-4">
           {workouts.map((workout, index) => (
             <div
-              className="group flex justify-between items-center bg-gray-900 px-8 py-4 rounded-xl hover:scale-[.98] transition-transform"
+              className="group flex justify-between items-center bg-gray-900 p-4 rounded-xl hover:scale-[.98] transition-transform"
               key={index}
             >
               <div>
@@ -97,12 +96,12 @@ const WorkoutsPage = async () => {
                       {workout.rating}
                     </span>
                   </div>
-                  <div className="flex justify-center items-center bg-blue-950 rounded-full h-6 w-6">
+                  <div className="flex items-center">
                     <ForwardIcon className="h-4 w-4 text-blue-600 stroke-2" />
+                    <span className="text-sm text-gray-200 ml-1">
+                      {workout.exercises.length} Exercises
+                    </span>
                   </div>
-                  <span className="text-sm text-gray-200 ml-1">
-                    {workout.exercises.length} Exercises
-                  </span>
                 </div>
               </div>
               <ChevronRightIcon className="h-5 w-5 text-gray-200 stroke-2 group-hover:translate-x-1 transition-transform" />

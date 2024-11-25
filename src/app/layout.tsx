@@ -1,12 +1,17 @@
 import { FC, ReactNode } from "react";
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Work_Sans } from "next/font/google";
 import Provider from "./Provider";
 import "@/styles/globals.css";
 import Header from "@/components/Header";
 import { getUser } from "@/lib/actions";
 
-const inter = Inter({ subsets: ["latin"] });
+// const inter = Inter({ subsets: ["latin"] });
+
+const workSans = Work_Sans({
+  subsets: ["latin"],
+  variable: "--font-work-sans",
+});
 
 export const metadata: Metadata = {
   title: "ReactFit Admin",
@@ -23,9 +28,11 @@ const RootLayout: FC<RootLayoutProps> = async ({ children }) => {
   return (
     <html lang="en">
       <Provider>
-        <body className={`${inter.className} bg-black text-white min-h-screen`}>
+        <body
+          className={`${workSans.className} bg-black text-white min-h-screen`}
+        >
           <Header user={user} />
-          <div className="p-10 md:pt-16 md:px-[10%]">{children}</div>
+          <div className="p-4 md:pt-16 md:px-[10%]">{children}</div>
         </body>
       </Provider>
     </html>
