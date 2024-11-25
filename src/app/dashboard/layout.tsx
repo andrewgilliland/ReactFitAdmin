@@ -30,9 +30,9 @@ const DashboardLayout: FC<DashboardLayoutProps> = async ({ children }) => {
         {routes.map(({ name }, index) => (
           <Link
             key={`${name}-${index}`}
-            className={`capitalize font-semibold border-2 md:border-t-2 border-x-2 border-cyan-400 px-4 py-2 rounded-md md:rounded-t-md md:rounded-b-none transition hover:bg-cyan-400 hover:text-black ${
+            className={`capitalize font-semibold border-2 md:border-t-2 border-x-2 border-gray-500 px-4 py-2 rounded-md md:rounded-t-md md:rounded-b-none transition hover:bg-cyan-400 hover:text-black ${
               // pathname.includes(name)
-              true ? "bg-cyan-400 text-black" : "bg-black text-cyan-400"
+              true ? "bg-gray-500 text-black" : "bg-black text-gray-500"
             }`}
             href={`/dashboard/${name}`}
           >
@@ -40,7 +40,7 @@ const DashboardLayout: FC<DashboardLayoutProps> = async ({ children }) => {
           </Link>
         ))}
       </div>
-      <div className="border-2 border-cyan-400 rounded-tl-md md:rounded-tl-none rounded-tr-md rounded-b-md px-2 md:px-12 py-10 mt-4 md:mt-0">
+      <div className="border-2 border-gray-500 rounded-tl-md md:rounded-tl-none rounded-tr-md rounded-b-md px-2 md:px-12 py-10 mt-4 md:mt-0">
         {children}
       </div>
     </div>
