@@ -18,8 +18,8 @@ const Button: FC<ButtonProps> = ({
   theme = "primary",
 }) => {
   const themes = {
-    primary: "bg-orange-600 text-white hover:bg-black hover:text-orange-600",
-    secondary: "bg-black text-orange-500 hover:bg-orange-500 hover:text-black",
+    primary: "bg-orange-600 text-white hover:bg-black hover:text-neutral-100",
+    secondary: "bg-black text-orange-600 hover:bg-orange-600 hover:text-black",
   };
 
   const sizes = {

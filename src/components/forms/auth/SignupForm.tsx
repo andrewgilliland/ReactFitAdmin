@@ -9,7 +9,7 @@ import Link from "next/link";
 const SignUpForm = () => {
   return (
     <form
-      className="border-2 border-pink-400 rounded px-6 pt-8 pb-28 mx-auto max-w-sm"
+      className="border-2 border-neutral-800 rounded-xl px-6 pt-8 pb-28 mx-auto max-w-sm"
       action={signIn}
     >
       <div className="">
@@ -27,7 +27,7 @@ const SignUpForm = () => {
         <Input className="mt-4" name="password" type="password" />
         <Input className="mt-4" name="confirm password" type="password" />
 
-        <Button className="mt-6" type="submit">
+        <Button className="mt-6" type="submit" theme="secondary">
           Sign Up
         </Button>
       </div>

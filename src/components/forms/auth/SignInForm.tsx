@@ -16,12 +16,12 @@ const SignInForm = () => {
 
   return (
     <form
-      className="border-2 border-pink-400 rounded px-6 pt-8 pb-28 mx-auto max-w-sm"
+      className="border-2 border-neutral-800 rounded-xl px-6 pt-8 pb-28 mx-auto max-w-sm"
       action={signIn}
     >
       <div className="">
-        <h1 className="font-bold text-xl">Sign In</h1>
-        <p className="text-gray-400 text-sm">
+        <h1 className="font-bold text-neutral-100 text-xl">Sign In</h1>
+        <p className="text-neutral-400 text-sm">
           Enter your email below to sign in to your account
         </p>
       </div>
@@ -30,7 +30,7 @@ const SignInForm = () => {
         <Input className="mt-4" name="password" type="password" />
         <Link
           href="forgot-password"
-          className="text-gray-400 text-sm underline mt-2"
+          className="text-neutral-400 text-sm underline mt-2"
         >
           Forgot your password
         </Link>
@@ -38,10 +38,10 @@ const SignInForm = () => {
           Sign In
         </Button>
 
-        <div className="flex justify-center text-gray-400 text-sm mt-4">
+        <div className="flex justify-center text-neutral-400 text-sm mt-4">
           {`Don't have an account? `}
           <span className="ml-2">
-            <Link href="signup" className="underline">
+            <Link href="signup" className="text-neutral-200 underline">
               Sign up
             </Link>
           </span>
