@@ -79,16 +79,18 @@ const WorkoutsPage = async () => {
   ];
 
   return (
-    <main className="flex flex-col">
-      <h1 className="font-semibold text-xl max-w-sm mt-6">Workouts</h1>
+    <main className="mx-auto">
+      <div className="md:w-1/2 lg:w-2/5 mx-auto">
+        <h1 className="font-semibold text-xl md:text-3xl">Workouts</h1>
 
-      <section className=" bg-neutral-800 rounded-xl mt-6 p-4">
-        <div className="grid gap-4">
-          {workouts.map((workout, index) => (
-            <WorkoutCard workout={workout} key={index} />
-          ))}
-        </div>
-      </section>
+        <section className="bg-neutral-800 rounded-xl mt-6 p-4">
+          <div className="grid gap-4">
+            {workouts.map((workout, index) => (
+              <WorkoutCard workout={workout} key={index} />
+            ))}
+          </div>
+        </section>
+      </div>
     </main>
   );
 };
