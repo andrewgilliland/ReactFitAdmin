@@ -22,15 +22,19 @@ const Input: FC<InputProps> = ({
 
   return (
     <label
-      className={`flex flex-col capitalize text-sm text-gray-100 ${className}`}
+      className={`flex flex-col capitalize text-sm text-neutral-400 ${className}`}
     >
       <div className="mr-3">{label ? label : name}</div>
       <input
-        className={`bg-black border-2 rounded mt-1 px-2 py-1 placeholder:text-gray-600 ${
-          isDisabled
-            ? "border-gray-500 text-gray-500"
-            : "border-pink-400 text-white"
-        }`}
+        className={`bg-neutral-800 text-neutral-100 rounded-xl mt-1 p-2 placeholder:text-neutral-600
+           autofill:bg-neutral-800 autofill:text-neutral-100 
+           focus:outline-none focus:outline-2 focus:outline-orange-600 focus:outline-offset-0 
+           ${
+             // isDisabled
+             //   ? "border-gray-500 text-gray-500"
+             //   : "border-orange-600 text-white"
+             ""
+           }`}
         type={type}
         name={name}
         autoComplete="on"

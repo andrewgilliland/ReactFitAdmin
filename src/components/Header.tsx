@@ -15,16 +15,19 @@ const Header: FC<HeaderProps> = ({ user }) => {
   const pathname = usePathname();
 
   return (
-    <div className="flex justify-between items-center bg-gray-800 px-[10%] py-4 rounded-b-2xl">
+    <div className="flex justify-between items-center bg-neutral-800 px-[10%] py-4 rounded-b-2xl">
       <Link href="/">
         <h1 className="text-2xl font-bold">
           React<span className="text-orange-600">Fit</span>
         </h1>
       </Link>
       {isLoggedIn ? (
-        <Link href="/dashboard" className="group">
-          <div className="flex justify-center items-center bg-gray-900 h-12 w-12 rounded-xl group-active:scale-95">
-            <Cog6ToothIcon className="h-6 w-6 text-gray-200 group-active:rotate-180 transition" />
+        <Link
+          href="/dashboard"
+          className="group hover:scale-105 transition-transform"
+        >
+          <div className="flex justify-center items-center bg-neutral-900 h-12 w-12 rounded-xl group-active:scale-95">
+            <Cog6ToothIcon className="h-6 w-6 text-neutral-200 group-active:rotate-180 transition" />
           </div>
         </Link>
       ) : (
