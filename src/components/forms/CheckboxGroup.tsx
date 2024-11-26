@@ -28,32 +28,37 @@ const CheckboxGroup: FC<CheckboxGroupProps> = ({
   return (
     <fieldset
       name={name}
-      className={`relative border-2 border-${
-        isDisabled ? "gray-500" : "pink-400"
-      } rounded px-4 py-1 ${className}`}
+      className={`relative ${
+        isDisabled ? "border-gray-500" : ""
+      } rounded ${className}`}
     >
-      <legend className="flex flex-col capitalize text-sm text-gray-500">
+      <legend className="flex flex-col capitalize text-sm text-neutral-400">
         {name}
       </legend>
-      <div className="flex flex-wrap">
+      <div className="flex flex-wrap gap-2 mt-1">
         {options.map((option, index) => (
-          <div key={`${option}-${index}`} className="inline-flex items-center">
+          <div
+            key={`${option}-${index}`}
+            className={`bg-neutral-800 rounded-xl ${
+              valueState.includes(option) && "bg-orange-600"
+            }`}
+          >
             <label
               htmlFor={option}
-              className="relative flex items-center p-3 rounded-full cursor-pointer"
+              className="relative flex items-center font-semibold text-sm text-neutral-100 p-3 rounded-full cursor-pointer"
             >
               {option}
               <div className="flex ml-2">
                 <input
                   type="checkbox"
-                  className={`before:content[''] peer relative h-5 w-5 cursor-pointer appearance-none rounded-md border border-gray-400 transition-all before:absolute before:top-2/4 before:left-2/4 before:block before:h-12 before:w-12 before:-translate-y-2/4 before:-translate-x-2/4 before:rounded-full before:bg-gray-500 before:opacity-0 before:transition-opacity checked:border-pink-400 checked:bg-pink-400 checked:before:bg-pink-400 hover:before:opacity-10`}
+                  className={`before:content[''] peer relative h-5 w-5 cursor-pointer appearance-none rounded-md border-2 border-neutral-100 transition-all before:absolute before:top-2/4 before:left-2/4 before:block before:h-12 before:w-12 before:-translate-y-2/4 before:-translate-x-2/4 before:rounded-full before:bg-gray-500 before:opacity-0 before:transition-opacity checked:bg-orange-600 checked:before:bg-orange-600 hover:before:opacity-10`}
                   checked={valueState.includes(option)}
                   onChange={handleChange}
                   id={option}
                   name={`${name}-${option}`}
                   disabled={isDisabled}
                 />
-                <span className="absolute text-black transition-opacity opacity-0 pointer-events-none top-2/4 right-3.5 -translate-y-2/4 peer-checked:opacity-100">
+                <span className="absolute text-neutral-100 transition-opacity opacity-0 pointer-events-none top-2/4 right-3.5 -translate-y-2/4 peer-checked:opacity-100">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     className="h-3.5 w-3.5"

@@ -20,15 +20,15 @@ const Select: FC<SelectProps> = ({
 
   return (
     <label
-      className={`flex flex-col capitalize text-sm text-gray-500 ${className}`}
+      className={`flex flex-col capitalize text-sm text-neutral-400 ${className}`}
     >
       {name}
       <select
-        className={`bg-black border-2 ${
+        className={`bg-neutral-800 ${
           isDisabled
             ? "border-gray-400 text-gray-400"
             : "border-pink-400 text-white"
-        } rounded mt-1 px-2 py-1`}
+        } rounded-xl mt-1 p-2`}
         name={name}
         value={valueState}
         onChange={(e) => setValueState(e.target.value)}

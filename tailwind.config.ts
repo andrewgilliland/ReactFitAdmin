@@ -20,7 +20,7 @@ const config: Config = {
   safelist: [
     {
       pattern:
-        /(bg|text|border)-(yellow|pink|cyan|emerald|gray)-(100|200|300|400|500|600|700|800|900)/,
+        /(bg|text|border)-(orange|blue|yellow|pink|cyan|emerald|gray)-(100|200|300|400|500|600|700|800|900)/,
     },
   ],
 };
