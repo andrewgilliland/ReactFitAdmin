@@ -18,8 +18,8 @@ const Button: FC<ButtonProps> = ({
   theme = "primary",
 }) => {
   const themes = {
-    primary: "bg-orange-600 text-white hover:bg-black hover:text-neutral-100",
-    secondary: "bg-black text-orange-600 hover:bg-orange-600 hover:text-black",
+    primary: "bg-orange-600 text-white border-orange-600 hover:bg-black",
+    secondary: "bg-blue-700 text-white border-blue-700 hover:bg-black",
   };
 
   const sizes = {
@@ -32,7 +32,7 @@ const Button: FC<ButtonProps> = ({
     <button
       onClick={onClick}
       type={type}
-      className={`font-semibold border-2 border-orange-600 rounded-xl w-full transition duration-500 ${className} ${sizes[size]} ${themes[theme]}`}
+      className={`font-semibold border-2 rounded-xl w-full transition duration-500 ${className} ${sizes[size]} ${themes[theme]}`}
     >
       {children}
     </button>
