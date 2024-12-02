@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { Work_Sans } from "next/font/google";
 import Provider from "./Provider";
 import "@/styles/globals.css";
-import Navbar from "@/components/Navbar";
+import Navbar from "@/components/navigation/Navbar";
 import { getUser } from "@/lib/actions";
 
 const workSans = Work_Sans({
