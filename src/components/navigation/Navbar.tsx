@@ -4,12 +4,9 @@ import Button from "../Button";
 import { usePathname } from "next/navigation";
 import { FC, useState } from "react";
 import { User } from "@supabase/supabase-js";
-import {
-  Bars3BottomLeftIcon,
-  XMarkIcon,
-  UserCircleIcon,
-} from "@heroicons/react/24/outline";
+import { Bars3BottomLeftIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import Logo from "../Logo";
+import MobileNavMenu from "./MobileNavMenu";
 
 type HeaderProps = {
   user: User | null;
@@ -18,9 +15,6 @@ type HeaderProps = {
 const Navbar: FC<HeaderProps> = ({ user }) => {
   const isLoggedIn = user?.id ? true : false; // Todo: set this value if user is logged in
   const pathname = usePathname();
-
-  console.log("pathname: ", pathname);
-
   const [isOpen, setIsOpen] = useState(false);
 
   const pages = [
@@ -51,7 +45,7 @@ const Navbar: FC<HeaderProps> = ({ user }) => {
 
             <button
               onClick={() => setIsOpen((prev) => !prev)}
-              className="rounded-xl bg-neutral-950 p-1 transition-transform hover:scale-105 active:scale-95"
+              className="rounded-xl bg-neutral-950 p-1 transition-transform hover:scale-105 active:scale-95 md:hidden"
             >
               {isOpen ? (
                 <XMarkIcon className="h-6 w-6 text-neutral-100" />
@@ -60,36 +54,7 @@ const Navbar: FC<HeaderProps> = ({ user }) => {
               )}
             </button>
           </div>
-          <div
-            className={`${
-              isOpen ? "translate-y-0" : "-translate-y-full"
-            } absolute left-0 right-0 top-16 z-10 rounded-b-2xl border-b-2 border-neutral-950 bg-neutral-800 transition-transform`}
-          >
-            <div className="px-4 pb-4">
-              <div className="grid gap-2 border-y border-neutral-600 py-2">
-                {pages.map(({ href, name }, index) => (
-                  <Link key={index} href={href}>
-                    <div
-                      className={`rounded-xl px-4 py-2 text-base font-semibold text-neutral-100 ${pathname.includes(href) ? "bg-neutral-900" : "hover:bg-neutral-700"}`}
-                    >
-                      {name}
-                    </div>
-                  </Link>
-                ))}
-              </div>
-              <div className="flex items-center justify-between pl-4 pr-2 pt-2">
-                <Button size="sm" className="max-w-fit">
-                  Logout
-                </Button>
-                <Link
-                  href="/profile"
-                  className="rounded-xl bg-neutral-950 p-1.5"
-                >
-                  <UserCircleIcon className="h-6 w-6 text-neutral-100" />
-                </Link>
-              </div>
-            </div>
-          </div>
+          <MobileNavMenu isOpen={isOpen} pages={pages} pathname={pathname} />
         </>
       ) : (
         <div className="flex w-full items-center justify-between">
