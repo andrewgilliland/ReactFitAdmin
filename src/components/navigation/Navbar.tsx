@@ -4,9 +4,14 @@ import Button from "../Button";
 import { usePathname } from "next/navigation";
 import { FC, useState } from "react";
 import { User } from "@supabase/supabase-js";
-import { Bars3BottomLeftIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import {
+  Bars3BottomLeftIcon,
+  UserCircleIcon,
+  XMarkIcon,
+} from "@heroicons/react/24/outline";
 import Logo from "../Logo";
 import MobileNavMenu from "./MobileNavMenu";
+import DesktopNavMenu from "./DesktopNavMenu";
 
 type HeaderProps = {
   user: User | null;
@@ -39,9 +44,20 @@ const Navbar: FC<HeaderProps> = ({ user }) => {
           <div
             className={`relative z-20 flex w-full items-center justify-between bg-neutral-800 px-6 py-4 md:px-[10%] ${isOpen ? "rounded-b-none" : "rounded-b-2xl"}`}
           >
-            <Link href="/">
-              <Logo />
-            </Link>
+            <div className="flex items-center">
+              <Link href="/">
+                <Logo />
+              </Link>
+
+              <DesktopNavMenu pages={pages} pathname={pathname} />
+            </div>
+
+            <div className="hidden gap-4 md:flex">
+              <Button size="sm">Logout</Button>
+              <Link href="/profile" className="rounded-xl bg-neutral-950 p-1.5">
+                <UserCircleIcon className="h-6 w-6 text-neutral-100" />
+              </Link>
+            </div>
 
             <button
               onClick={() => setIsOpen((prev) => !prev)}
