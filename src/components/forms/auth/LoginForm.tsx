@@ -6,7 +6,7 @@ import { signIn, signup } from "@/lib/actions";
 import { FormState } from "@/types";
 import Link from "next/link";
 
-const SignInForm = () => {
+const LoginForm = () => {
   //   const initialFormState = {
   //     success: false,
   //     message: "",
@@ -16,12 +16,12 @@ const SignInForm = () => {
 
   return (
     <form
-      className="border-2 border-neutral-800 rounded-xl px-6 pt-8 pb-28 mx-auto max-w-sm"
+      className="mx-auto max-w-sm rounded-xl border-2 border-neutral-800 px-6 pb-28 pt-8"
       action={signIn}
     >
       <div className="">
-        <h1 className="font-bold text-neutral-100 text-xl">Sign In</h1>
-        <p className="text-neutral-400 text-sm">
+        <h1 className="text-xl font-bold text-neutral-100">Login</h1>
+        <p className="text-sm text-neutral-400">
           Enter your email below to sign in to your account
         </p>
       </div>
@@ -30,15 +30,15 @@ const SignInForm = () => {
         <Input className="mt-4" name="password" type="password" />
         <Link
           href="forgot-password"
-          className="text-neutral-400 text-sm underline mt-2"
+          className="mt-2 text-sm text-neutral-400 underline"
         >
           Forgot your password
         </Link>
         <Button className="mt-6" type="submit">
-          Sign In
+          Login
         </Button>
 
-        <div className="flex justify-center text-neutral-400 text-sm mt-4">
+        <div className="mt-4 flex justify-center text-sm text-neutral-400">
           {`Don't have an account? `}
           <span className="ml-2">
             <Link href="signup" className="text-neutral-200 underline">
@@ -64,4 +64,4 @@ const SignInForm = () => {
   );
 };
 
-export default SignInForm;
+export default LoginForm;

@@ -73,18 +73,22 @@ const Navbar: FC<HeaderProps> = ({ user }) => {
           <MobileNavMenu isOpen={isOpen} pages={pages} pathname={pathname} />
         </>
       ) : (
-        <div className="flex w-full items-center justify-between">
+        <div
+          className={`relative z-20 flex w-full items-center justify-between bg-neutral-800 px-6 py-4 md:px-[10%] ${isOpen ? "rounded-b-none" : "rounded-b-2xl"}`}
+        >
           <Link href="/">
             <Logo />
           </Link>
           <div className="flex gap-4">
-            {!pathname.includes("signin") ? (
-              <Link href="/signin">
-                <Button size="sm">Login</Button>
-              </Link>
-            ) : (
-              <></>
-            )}
+            <Link href="/signup">
+              <Button size="sm">Sign Up</Button>
+            </Link>
+
+            <Link href="/login">
+              <Button size="sm" theme="neutral">
+                Login
+              </Button>
+            </Link>
           </div>
         </div>
       )}
