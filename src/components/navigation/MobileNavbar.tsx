@@ -1,13 +1,13 @@
-"use client";
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import Link from "next/link";
 import { Bars3BottomLeftIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import Logo from "../Logo";
 import MobileNavMenu from "./MobileNavMenu";
+import { Page } from "@/types";
 
 type MobileNavbarProps = {
   isLoggedIn: boolean;
-  pages: { name: string; href: string }[];
+  pages: Page[];
   pathname: string;
 };
 
@@ -17,6 +17,10 @@ const MobileNavbar: FC<MobileNavbarProps> = ({
   pathname,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
+
+  useEffect(() => {
+    setIsOpen(false);
+  }, [pathname]);
 
   return (
     <>
