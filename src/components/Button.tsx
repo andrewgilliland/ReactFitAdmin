@@ -32,7 +32,7 @@ const Button: FC<ButtonProps> = ({
     <button
       onClick={onClick}
       type={type}
-      className={`font-semibold border-2 rounded-xl w-full transition duration-500 ${className} ${sizes[size]} ${themes[theme]}`}
+      className={`font-semibold border-2 rounded-xl w-full transition duration-500 cursor-grab active:cursor-grabbing ${className} ${sizes[size]} ${themes[theme]}`}
     >
       {children}
     </button>
