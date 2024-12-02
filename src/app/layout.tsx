@@ -29,7 +29,7 @@ const RootLayout: FC<RootLayoutProps> = async ({ children }) => {
     <html lang="en">
       <Provider>
         <body
-          className={`${workSans.className} bg-black text-white min-h-screen`}
+          className={`${workSans.className} min-h-screen bg-black text-white`}
         >
           <Header user={user} />
           <div className="m-4 md:mt-16">{children}</div>
