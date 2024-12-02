@@ -70,7 +70,12 @@ const Navbar: FC<HeaderProps> = ({ user }) => {
               )}
             </button>
           </div>
-          <MobileNavMenu isOpen={isOpen} pages={pages} pathname={pathname} />
+          <MobileNavMenu
+            isOpen={isOpen}
+            isLoggedIn={isLoggedIn}
+            pages={pages}
+            pathname={pathname}
+          />
         </>
       ) : (
         <div
