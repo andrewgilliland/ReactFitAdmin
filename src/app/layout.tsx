@@ -30,9 +30,9 @@ const RootLayout: FC<RootLayoutProps> = async ({ children }) => {
           className={`${workSans.className} min-h-screen bg-black text-white`}
         >
           <Navbar user={user} />
-          <div className="md:mt-16">{children}</div>
-          <footer className="mt-12 h-64 bg-neutral-800 p-4">
-            <div>Footer coming soon!</div>
+          <div className="">{children}</div>
+          <footer className="h-40 rounded-t-2xl bg-neutral-800 p-4">
+            <div className="">Footer coming soon!</div>
           </footer>
         </body>
       </Provider>
