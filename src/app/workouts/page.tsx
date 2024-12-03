@@ -80,10 +80,10 @@ const WorkoutsPage = async () => {
 
   return (
     <main className="mx-auto">
-      <div className="md:w-1/2 lg:w-2/5 mx-auto">
-        <h1 className="font-semibold text-xl md:text-3xl">Workouts</h1>
+      <div className="mx-auto md:w-1/2 lg:w-2/5">
+        <h1 className="text-xl font-semibold md:text-3xl">Workouts</h1>
 
-        <section className="bg-neutral-800 rounded-xl mt-6 p-4">
+        <section className="mt-6 rounded-xl bg-neutral-800 p-4">
           <div className="grid gap-4">
             {workouts.map((workout, index) => (
               <WorkoutCard workout={workout} key={index} />

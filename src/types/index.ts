@@ -10,3 +10,4 @@ export * from "./Set";
 export * from "./Superset";
 export * from "./Workout";
 export * from "./WorkoutExercise";
+export * from "./Page";

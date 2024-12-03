@@ -1,12 +1,10 @@
 import { FC, ReactNode } from "react";
 import type { Metadata } from "next";
-import { Inter, Work_Sans } from "next/font/google";
+import { Work_Sans } from "next/font/google";
 import Provider from "./Provider";
 import "@/styles/globals.css";
-import Header from "@/components/Header";
+import Navbar from "@/components/navigation/Navbar";
 import { getUser } from "@/lib/actions";
-
-// const inter = Inter({ subsets: ["latin"] });
 
 const workSans = Work_Sans({
   subsets: ["latin"],
@@ -29,10 +27,13 @@ const RootLayout: FC<RootLayoutProps> = async ({ children }) => {
     <html lang="en">
       <Provider>
         <body
-          className={`${workSans.className} bg-black text-white min-h-screen`}
+          className={`${workSans.className} min-h-screen bg-black text-white`}
         >
-          <Header user={user} />
-          <div className="m-4 md:mt-16">{children}</div>
+          <Navbar user={user} />
+          <div className="">{children}</div>
+          <footer className="h-40 rounded-t-2xl bg-neutral-800 p-4">
+            <div className="">Footer coming soon!</div>
+          </footer>
         </body>
       </Provider>
     </html>

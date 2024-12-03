@@ -29,7 +29,7 @@ const CardWrapper: FC<CardWrapperProps> = ({
               {name}
             </h2>
             <div className="grid grid-rows-[0fr] group-hover:grid-rows-[1fr] transition-all duration-500">
-              <div className="text-gray-600 overflow-hidden mt-2 opacity-0 group-hover:opacity-100 transition duration-1000">
+              <div className="text-gray-600 overflow-hidden mt-2">
                 {children}
               </div>
             </div>
