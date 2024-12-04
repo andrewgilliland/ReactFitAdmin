@@ -4,7 +4,7 @@ import Image from "next/image";
 
 const HomePage = () => (
   <main className="flex flex-col">
-    <section className="flex flex-col justify-between md:flex-row">
+    <section className="flex flex-col justify-between md:h-screen md:flex-row">
       <div className="mx-4 md:my-20 md:max-w-md lg:mx-auto">
         <div className="mt-24 md:mt-0">
           <h1 className="text-pretty text-5xl font-semibold tracking-tight text-neutral-100 md:mt-10 lg:text-7xl">
