@@ -19,7 +19,7 @@ const DesktopNavbar: FC<DesktopNavbarProps> = ({
 }) => {
   return (
     <div
-      className={`relative z-20 hidden w-full items-center justify-between rounded-b-2xl bg-neutral-800 px-6 py-4 md:flex md:px-[10%]`}
+      className={`relative z-20 hidden w-full items-center justify-between rounded-b-2xl bg-neutral-800 px-6 py-4 shadow-xl md:flex md:px-[10%]`}
     >
       <div className="flex items-center">
         <Link href="/">

@@ -17,13 +17,13 @@ const ProfilePage = async () => {
             {image ? (
               <Image
                 src="/gym-back-1.jpg"
-                width={1920}
+                width={10880}
                 height={1080}
                 alt="A blonde woman working out at the gym"
-                className="h-full rounded-full object-cover"
+                className="h-full w-full rounded-full object-cover"
               />
             ) : (
-              <UserCircleIcon className="h-full stroke-1 text-neutral-100" />
+              <UserCircleIcon className="h-full w-full stroke-1 text-neutral-100" />
             )}
           </div>
           <div className="grid gap-4 p-4 text-sm text-neutral-100">
