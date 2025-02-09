@@ -4,7 +4,7 @@ const LoginPage = async () => {
   return (
     <main>
       <div className="flex items-center justify-center">
-        <LoginForm />
+        <LoginForm className="mt-24" />
       </div>
     </main>
   );

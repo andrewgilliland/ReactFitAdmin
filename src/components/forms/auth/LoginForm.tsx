@@ -5,8 +5,13 @@ import Input from "@/components/Input";
 import { signIn, signup } from "@/lib/actions";
 import { FormState } from "@/types";
 import Link from "next/link";
+import { FC } from "react";
 
-const LoginForm = () => {
+type LoginFormProps = {
+  className?: string;
+};
+
+const LoginForm: FC<LoginFormProps> = ({ className }) => {
   //   const initialFormState = {
   //     success: false,
   //     message: "",
@@ -14,9 +19,20 @@ const LoginForm = () => {
   //   } as FormState;
   //   const [formState, formAction] = useFormState(signIn, initialFormState);
 
+  const defaultUser = {
+    email:
+      process.env.NODE_ENV === "development"
+        ? process.env.NEXT_PUBLIC_DEFAULT_USER_EMAIL
+        : "",
+    password:
+      process.env.NODE_ENV === "development"
+        ? process.env.NEXT_PUBLIC_DEFAULT_USER_PASSWORD
+        : "",
+  };
+
   return (
     <form
-      className="mx-auto max-w-sm rounded-xl border-2 border-neutral-800 px-6 pb-28 pt-8"
+      className={`mx-auto max-w-sm rounded-xl border-2 border-neutral-800 px-6 pb-28 pt-8 ${className}`}
       action={signIn}
     >
       <div className="">
@@ -26,8 +42,13 @@ const LoginForm = () => {
         </p>
       </div>
       <div className="mt-12">
-        <Input name="email" type="email" />
-        <Input className="mt-4" name="password" type="password" />
+        <Input name="email" type="email" value={defaultUser.email} />
+        <Input
+          className="mt-4"
+          name="password"
+          type="password"
+          value={defaultUser.password}
+        />
         <Link
           href="forgot-password"
           className="mt-2 text-sm text-neutral-400 underline"
