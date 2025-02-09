@@ -79,7 +79,7 @@ const WorkoutsPage = async () => {
   ];
 
   return (
-    <main className="mx-auto">
+    <div className="mx-auto">
       <div className="mx-auto md:w-1/2 lg:w-2/5">
         <h1 className="text-xl font-semibold md:text-3xl">Workouts</h1>
 
@@ -91,7 +91,7 @@ const WorkoutsPage = async () => {
           </div>
         </section>
       </div>
-    </main>
+    </div>
   );
 };
 
