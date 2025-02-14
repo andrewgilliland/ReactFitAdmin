@@ -16,18 +16,18 @@ const ExercisesPage: FC<ExecisesPageProps> = async ({ searchParams }) => {
 
   return (
     <section className="min-h-screen">
-      <div className="md:w-1/2 lg:w-2/5 mx-auto">
+      <div className="mx-auto lg:w-2/5">
         <div className="flex justify-between">
           <SearchInput className="mb-10" name="exercises" />
-          <div className="text-gray-400 font-semibold">
+          <div className="font-semibold text-gray-400">
             {exercises.length} Exercises
           </div>
         </div>
-        <section className="bg-neutral-800 rounded-xl mt-6 p-4">
+        <section className="mt-6 rounded-xl bg-neutral-800 p-4">
           <div className="grid gap-4">
             {exercises.map(
               (exercise, index) =>
-                exercise && <ExerciseCard exercise={exercise} key={index} />
+                exercise && <ExerciseCard exercise={exercise} key={index} />,
             )}
           </div>
         </section>

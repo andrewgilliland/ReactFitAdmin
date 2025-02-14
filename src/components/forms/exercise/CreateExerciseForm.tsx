@@ -24,14 +24,14 @@ const CreateExerciseForm = () => {
   } as FormState;
   const [formState, formAction] = useFormState(
     createExercise,
-    initialFormState
+    initialFormState,
   );
 
   // Todo: Clear form with success state
   // Todo: Better UI for success and error state
 
   return (
-    <form action={formAction} className="flex flex-col">
+    <form action={formAction} className="flex max-w-sm flex-col">
       <Input name="name" />
       <Select name="difficulty" options={difficulty} className="mt-3" />
       <Select name="equipment" options={equipment} className="mt-3" />
@@ -51,12 +51,12 @@ const CreateExerciseForm = () => {
       {/* <SubmitButton /> */}
       <Button className="mt-4">Create</Button>
       {formState.success && (
-        <div className="flex justify-center text-emerald-400 border-2 border-emerald-400 rounded mt-4 p-6">
+        <div className="mt-4 flex justify-center rounded border-2 border-emerald-400 p-6 text-emerald-400">
           <div className="capitalize">{formState.message}</div>
         </div>
       )}
       {!formState.success && formState.errors && (
-        <div className="flex justify-center text-red-400 border-2 border-red-400 rounded mt-4 p-6">
+        <div className="mt-4 flex justify-center rounded border-2 border-red-400 p-6 text-red-400">
           <div className="capitalize">{formState.errors.name}</div>
         </div>
       )}
