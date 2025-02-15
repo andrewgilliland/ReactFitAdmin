@@ -6,7 +6,7 @@ export const equipment = [
   "barbell",
   "cables",
   "machine",
-  "ezBar",
+  "ez bar",
   "kettlebell",
   "trx",
   "other",
