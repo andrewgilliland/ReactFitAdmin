@@ -25,8 +25,8 @@ const CreateWorkoutForm: FC<CreateExerciseFormProps> = ({ exercises }) => {
       <Select name="difficulty" options={difficulty} className="mt-3" />
 
       <div className="mt-6">
-        <div className="text-sm text-gray-500">Exercises</div>
-        <div className="border-2 border-pink-400 rounded mt-1 p-4">
+        <div className="text-sm text-neutral-500">Exercises</div>
+        <div className="mt-1 rounded-lg bg-neutral-900 p-4">
           {rounds.map((round, index) => {
             const exerciseIndex = index + 1;
             switch (round) {
@@ -46,7 +46,7 @@ const CreateWorkoutForm: FC<CreateExerciseFormProps> = ({ exercises }) => {
                 );
             }
           })}
-          <div className="flex gap-4 mt-4">
+          <div className="mt-4 flex gap-4">
             <Button
               onClick={(event) => {
                 event?.preventDefault();

@@ -16,7 +16,7 @@ const ExercisesPage: FC<ExecisesPageProps> = async ({ searchParams }) => {
 
   return (
     <section className="min-h-screen">
-      <div className="mx-auto lg:w-2/5">
+      <div className="mx-auto">
         <div className="flex justify-between">
           <SearchInput className="mb-10" name="exercises" />
           <div className="font-semibold text-gray-400">

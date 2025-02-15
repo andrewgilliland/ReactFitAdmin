@@ -13,7 +13,6 @@ import Input from "@/components/Input";
 import Select from "@/components/Select";
 import CheckboxGroup from "../CheckboxGroup";
 import { createExercise } from "@/lib/actions";
-import SubmitButton from "../SubmitButton";
 import Button from "@/components/Button";
 
 const CreateExerciseForm = () => {
@@ -48,7 +47,6 @@ const CreateExerciseForm = () => {
         options={muscleGroups}
         className="mt-3"
       />
-      {/* <SubmitButton /> */}
       <Button className="mt-4">Create</Button>
       {formState.success && (
         <div className="mt-4 flex justify-center rounded border-2 border-emerald-400 p-6 text-emerald-400">

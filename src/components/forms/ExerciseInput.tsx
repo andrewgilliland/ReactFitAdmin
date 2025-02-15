@@ -28,14 +28,13 @@ const ExerciseInput: FC<ExerciseInputProps> = ({
 
   return (
     <div className="mt-4">
-      <div className="text-sm text-gray-500">{`Exercise ${exerciseIndex}`}</div>
-      <div className="border-2 border-yellow-400 rounded mt-1 p-4">
+      <div className="mt-1 rounded-lg bg-black p-4">
         {/** Hidden input name needed for formatExercise function in workout server action */}
         <input type="hidden" name="exercise" />
-        <label className="flex flex-col capitalize text-sm text-gray-500">
-          {"Exercise"}
+        <label className="flex flex-col text-sm capitalize text-neutral-500">
+          {`Exercise ${exerciseIndex}`}
           <select
-            className="bg-black border-2 border-pink-400 text-white rounded mt-1 px-2 py-1"
+            className="mt-1 rounded-lg border-2 border-orange-600 bg-black px-2 py-1 text-neutral-200"
             name={selectName}
             value={exerciseId}
             onChange={(e) => setExerciseId(e.target.value)}
@@ -49,8 +48,8 @@ const ExerciseInput: FC<ExerciseInputProps> = ({
           </select>
         </label>
         <div className="mt-4">
-          <div className="text-sm text-gray-500">Sets</div>
-          <div className="border-2 border-pink-400 rounded mt-1 p-4">
+          <div className="text-sm text-neutral-500">Sets</div>
+          <div className="mt-1 rounded-xl bg-neutral-900 p-4">
             {new Array(setCount).fill(null).map((_, index) => (
               <SetInput
                 className={`${index ? "mt-3" : ""}`}
