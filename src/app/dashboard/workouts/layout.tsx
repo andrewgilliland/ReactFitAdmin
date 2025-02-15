@@ -9,8 +9,8 @@ type WorkoutLayoutProps = {
 const WorkoutLayout: FC<WorkoutLayoutProps> = ({ children }) => {
   return (
     <div className="flex flex-col">
-      <div className="flex flex-col md:flex-row justify-between items-center">
-        <h1 className="font-semibold text-xl">Workouts</h1>
+      <div className="flex flex-col items-center justify-between md:flex-row">
+        <h1 className="text-xl font-semibold">Workouts</h1>
         <div className="flex">
           <Link href="/dashboard/workouts">
             <Button>All Workouts</Button>
@@ -20,7 +20,7 @@ const WorkoutLayout: FC<WorkoutLayoutProps> = ({ children }) => {
           </Link>
         </div>
       </div>
-      <div className="bg-black border-2 border-cyan-500 rounded mt-10 p-4 md:p-12">
+      <div className="mt-10 rounded-xl border-2 border-neutral-800 bg-black p-4 md:p-12">
         {children}
       </div>
     </div>
