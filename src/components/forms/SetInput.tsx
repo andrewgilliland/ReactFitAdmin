@@ -28,12 +28,14 @@ const SetInput: FC<SetInputProps> = ({
 
   return (
     <div className={className}>
-      <div className="mt-1 flex items-start rounded-xl bg-neutral-950 p-4">
+      <div className="mt-1 items-start rounded-xl bg-neutral-950 p-4">
         <div className="text-sm text-neutral-500">{`Set ${setIndex}`}</div>
-        <div className="ml-4 flex flex-col gap-2 md:flex-row">
+        <div className="flex flex-col gap-2 sm:flex-row">
           <fieldset>
-            <legend className="text-sm text-neutral-500">Set Type</legend>
-            <div className="mt-1 max-w-min rounded-lg bg-orange-600 p-1 font-semibold text-black">
+            <legend className="text-sm font-medium text-neutral-500">
+              Type
+            </legend>
+            <div className="mt-1 max-w-min rounded-lg bg-orange-600 p-1.5 font-semibold text-black">
               {setTypes.map((type, index) => (
                 <label
                   key={type}
@@ -59,7 +61,7 @@ const SetInput: FC<SetInputProps> = ({
             label={setType}
             name={`${setIdentifier}-${setType}`}
             type="number"
-            className="w-12"
+            className="w-14"
           />
         </div>
       </div>
