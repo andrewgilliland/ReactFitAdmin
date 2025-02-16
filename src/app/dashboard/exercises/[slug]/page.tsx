@@ -11,11 +11,19 @@ const ExercisePage: FC<ExercisePageProps> = async ({ params }) => {
 
   return (
     <div className="min-h-96">
-      <div className="flex justify-between items-center">
-        <h2 className="font-semibold text-xl capitalize">{exercise.name}</h2>
-        <div className="text-sm text-gray-400">{`ID: ${exercise.id}`}</div>
-      </div>
-      {exercise && <UpdateExerciseForm exercise={exercise} />}
+      {exercise ? (
+        <>
+          <div className="flex items-center justify-between">
+            <h2 className="text-xl font-semibold capitalize">
+              {exercise.name}
+            </h2>
+            <div className="text-sm text-gray-400">{`ID: ${exercise.id}`}</div>
+          </div>
+          <UpdateExerciseForm exercise={exercise} />
+        </>
+      ) : (
+        <div>Error fetching exercise</div>
+      )}
     </div>
   );
 };

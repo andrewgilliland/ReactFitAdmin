@@ -24,7 +24,7 @@ import { createClient } from "@/lib/utils/supabase/server";
 // const apiEndpoint = `${BASE_URL}/exercises`;
 
 const getExercises = async (
-  searchQuery?: string
+  searchQuery?: string,
 ): Promise<(Exercise | undefined)[]> => {
   const supabase = createClient();
   const { data, error } = await supabase.from("exercises").select("*");
@@ -53,8 +53,13 @@ const getExerciseById = async (id: string): Promise<Exercise | undefined> => {
       .match({ id })
       .single();
 
+    if (error) {
+      console.error("Error fetching exercise: ", error);
+      return undefined;
+    }
+
     const validatedExercise = exerciseSchema.parse(
-      snakeCaseToCamelCase(exercise)
+      snakeCaseToCamelCase(exercise),
     );
 
     return validatedExercise;
@@ -65,7 +70,7 @@ const getExerciseById = async (id: string): Promise<Exercise | undefined> => {
 
 const createExercise = async (
   prevState: FormState,
-  formData: FormData
+  formData: FormData,
 ): Promise<FormState> => {
   const supabase = createClient();
   const inputExercise: Exercise = {
@@ -78,7 +83,7 @@ const createExercise = async (
     targetMuscleGroup: formData.get("targetMuscleGroup") as MuscleGroup,
     secondaryMuscles: getSelectedCheckboxesFromFormData(
       formData,
-      "secondaryMuscles"
+      "secondaryMuscles",
     ),
   };
 
@@ -114,7 +119,7 @@ const createExercise = async (
 
 const updateExercise = async (
   prevState: FormState,
-  formData: FormData
+  formData: FormData,
 ): Promise<FormState> => {
   const supabase = createClient();
   const id = formData.get("id") as string;
@@ -128,7 +133,7 @@ const updateExercise = async (
     targetMuscleGroup: formData.get("targetMuscleGroup") as MuscleGroup,
     secondaryMuscles: getSelectedCheckboxesFromFormData(
       formData,
-      "secondaryMuscles"
+      "secondaryMuscles",
     ),
   };
 
