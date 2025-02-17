@@ -9,7 +9,7 @@ type WorkoutLayoutProps = {
 const WorkoutLayout: FC<WorkoutLayoutProps> = ({ children }) => {
   return (
     <div className="mx-auto my-24 flex max-w-lg flex-col">
-      <div className="flex flex-col items-center justify-between md:flex-row">
+      <div className="flex items-center justify-between">
         <div className="flex">
           <Link href="/workouts">
             <Button theme="secondary">All Workouts</Button>
