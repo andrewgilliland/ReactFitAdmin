@@ -15,7 +15,7 @@ const ExercisesPage: FC<ExecisesPageProps> = async ({ searchParams }) => {
   const exercises = (await getExercises(search)) as Exercise[];
 
   return (
-    <section className="min-h-screen">
+    <div className="min-h-screen">
       <div className="mx-auto">
         <div className="flex justify-between">
           <SearchInput className="mb-10" name="exercises" />
@@ -32,7 +32,7 @@ const ExercisesPage: FC<ExecisesPageProps> = async ({ searchParams }) => {
           </div>
         </section>
       </div>
-    </section>
+    </div>
   );
 };
 

@@ -1,7 +1,11 @@
 import WorkoutCard from "@/components/cards/WorkoutCard";
+import SearchInput from "@/components/forms/SearchInput";
+import { getWorkouts } from "@/lib/actions";
 
 const WorkoutsPage = async () => {
-  const workouts = [
+  const workouts = await getWorkouts();
+
+  const workoutsTwo = [
     {
       name: "Beginner Strength",
       difficulty: "beginner",
@@ -79,18 +83,20 @@ const WorkoutsPage = async () => {
   ];
 
   return (
-    <div className="mx-auto">
-      <div className="mx-auto md:w-1/2 lg:w-2/5">
-        <h1 className="text-xl font-semibold md:text-3xl">Workouts</h1>
-
-        <section className="mt-6 rounded-xl bg-neutral-800 p-4">
-          <div className="grid gap-4">
-            {workouts.map((workout, index) => (
-              <WorkoutCard workout={workout} key={index} />
-            ))}
-          </div>
-        </section>
+    <div className="min-h-screen">
+      <div className="flex justify-between">
+        <SearchInput className="mb-10" name="workouts" />
+        <div className="font-semibold text-gray-400">
+          {workouts.length} Workouts
+        </div>
       </div>
+      <section className="mt-6 rounded-xl bg-neutral-800 p-4">
+        <div className="grid gap-4">
+          {workoutsTwo.map((workout, index) => (
+            <WorkoutCard workout={workout} key={index} />
+          ))}
+        </div>
+      </section>
     </div>
   );
 };
