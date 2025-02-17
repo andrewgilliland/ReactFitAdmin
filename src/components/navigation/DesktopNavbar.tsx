@@ -5,6 +5,7 @@ import { UserCircleIcon } from "@heroicons/react/24/outline";
 import Logo from "../Logo";
 import DesktopNavMenu from "./DesktopNavMenu";
 import { Page } from "@/types";
+import { logout } from "@/lib/actions";
 
 type DesktopNavbarProps = {
   isLoggedIn: boolean;
@@ -32,7 +33,9 @@ const DesktopNavbar: FC<DesktopNavbarProps> = ({
       <div className="flex gap-4">
         {isLoggedIn ? (
           <>
-            <Button size="sm">Logout</Button>
+            <Button size="sm" onClick={() => logout()}>
+              Logout
+            </Button>
             <Link href="/profile" className="rounded-xl bg-neutral-950 p-1.5">
               <UserCircleIcon className="h-6 w-6 text-neutral-100" />
             </Link>

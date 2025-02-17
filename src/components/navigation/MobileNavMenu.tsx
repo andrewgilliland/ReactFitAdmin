@@ -2,6 +2,7 @@ import Link from "next/link";
 import Button from "../Button";
 import { UserCircleIcon } from "@heroicons/react/24/outline";
 import { FC } from "react";
+import { logout } from "@/lib/actions";
 
 type MobileNavMenuProps = {
   isOpen: boolean;
@@ -37,7 +38,7 @@ const MobileNavMenu: FC<MobileNavMenuProps> = ({
               ))}
             </div>
             <div className="flex items-center justify-between pl-4 pr-2 pt-2">
-              <Button size="sm" className="max-w-fit">
+              <Button size="sm" className="max-w-fit" onClick={() => logout()}>
                 Logout
               </Button>
               <Link href="/profile" className="rounded-xl bg-neutral-950 p-1.5">

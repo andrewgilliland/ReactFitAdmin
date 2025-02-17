@@ -2,7 +2,7 @@
 import { useFormState } from "react-dom";
 import Button from "@/components/Button";
 import Input from "@/components/Input";
-import { signIn, signup } from "@/lib/actions";
+import { signIn } from "@/lib/actions";
 import { FormState } from "@/types";
 import Link from "next/link";
 import { FC } from "react";
@@ -19,15 +19,13 @@ const LoginForm: FC<LoginFormProps> = ({ className }) => {
   //   } as FormState;
   //   const [formState, formAction] = useFormState(signIn, initialFormState);
 
+  const isDevelopment = process.env.NODE_ENV === "development";
+
   const defaultUser = {
-    email:
-      process.env.NODE_ENV === "development"
-        ? process.env.NEXT_PUBLIC_DEFAULT_USER_EMAIL
-        : "",
-    password:
-      process.env.NODE_ENV === "development"
-        ? process.env.NEXT_PUBLIC_DEFAULT_USER_PASSWORD
-        : "",
+    email: isDevelopment ? process.env.NEXT_PUBLIC_DEFAULT_USER_EMAIL : "",
+    password: isDevelopment
+      ? process.env.NEXT_PUBLIC_DEFAULT_USER_PASSWORD
+      : "",
   };
 
   return (

@@ -35,7 +35,7 @@ const signIn = async (formData: FormData) => {
   }
 
   revalidatePath("/", "layout");
-  redirect("/dashboard");
+  redirect("/profile");
 };
 
 const signup = async (prevState: FormState, formData: FormData) => {
@@ -59,7 +59,7 @@ const signup = async (prevState: FormState, formData: FormData) => {
   }
 
   revalidatePath("/", "layout");
-  // redirect("/dashboard");
+  redirect("/profile");
   return {
     success: true,
     message: `User: ${data.email} created!`,
