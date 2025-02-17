@@ -1,15 +1,12 @@
 import CreateWorkoutForm from "@/components/forms/workout/CreateWorkoutForm";
-import { getExercises } from "@/lib/actions";
 
 const CreateExercisePage = async () => {
-  const exercises = await getExercises();
-
   return (
     <div className="flex flex-col">
-      <div className="flex flex-row justify-between items-center">
-        <h1 className="font-semibold text-xl">Create Workout</h1>
+      <div className="flex flex-row items-center justify-between">
+        <h1 className="text-xl font-semibold">Create Workout</h1>
       </div>
-      <CreateWorkoutForm exercises={exercises} />
+      <CreateWorkoutForm />
     </div>
   );
 };

@@ -1,6 +1,6 @@
 "use client";
 import { FC, useState } from "react";
-import { Exercise, difficulty } from "@/types";
+import { difficulty } from "@/types";
 import { createWorkout } from "@/lib/actions";
 import Input from "../../Input";
 import Select from "../../Select";
@@ -9,11 +9,9 @@ import SubmitButton from "../SubmitButton";
 import ExerciseInput from "../ExerciseInput";
 import SupersetInput from "../SupersetInput";
 
-type CreateExerciseFormProps = {
-  exercises: Exercise[];
-};
+type CreateExerciseFormProps = {};
 
-const CreateWorkoutForm: FC<CreateExerciseFormProps> = ({ exercises }) => {
+const CreateWorkoutForm: FC<CreateExerciseFormProps> = () => {
   const [rounds, setRounds] = useState<("straightSet" | "superset")[]>([
     "straightSet",
   ]);
@@ -50,7 +48,7 @@ const CreateWorkoutForm: FC<CreateExerciseFormProps> = ({ exercises }) => {
             <Button
               onClick={(event) => {
                 event?.preventDefault();
-                setRounds([...rounds, "straightSet"]);
+                // setRounds([...rounds, "straightSet"]);
               }}
             >
               Add Exercise

@@ -7,7 +7,7 @@ import { ExerciseContext } from "@/app/Provider";
 
 type ExerciseInputProps = {
   exerciseIndex: number;
-  value?: string;
+  value?: number;
   sets?: Set[];
 };
 
@@ -37,7 +37,7 @@ const ExerciseInput: FC<ExerciseInputProps> = ({
             className="mt-1 rounded-lg border-2 border-orange-600 bg-black px-2 py-1 text-neutral-200"
             name={selectName}
             value={exerciseId}
-            onChange={(e) => setExerciseId(e.target.value)}
+            onChange={(e) => setExerciseId(Number(e.target.value))}
           >
             {exercises &&
               exercises.map(({ id, name }) => (
