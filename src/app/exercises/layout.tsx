@@ -9,13 +9,13 @@ type ExerciseLayoutProps = {
 const ExerciseLayout: FC<ExerciseLayoutProps> = ({ children }) => {
   // Todo: Make common layout component for exercises, workouts, and programs
   return (
-    <div className="mx-auto flex max-w-lg flex-col">
+    <div className="mx-auto my-24 flex max-w-lg flex-col">
       <div className="flex flex-row items-center justify-between">
         <div className="flex">
-          <Link href="/dashboard/exercises">
+          <Link href="/exercises">
             <Button theme="secondary">All Exercises</Button>
           </Link>
-          <Link className="ml-2" href="/dashboard/exercises/create">
+          <Link className="ml-2" href="/exercises/create">
             <Button>Create Exercise</Button>
           </Link>
         </div>

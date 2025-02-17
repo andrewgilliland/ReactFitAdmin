@@ -14,14 +14,11 @@ import {
   exerciseSchema,
 } from "@/types";
 import {
-  BASE_URL,
   camelCaseToSnakeCase,
   getSelectedCheckboxesFromFormData,
   snakeCaseToCamelCase,
 } from "../utils";
 import { createClient } from "@/lib/utils/supabase/server";
-
-// const apiEndpoint = `${BASE_URL}/exercises`;
 
 const getExercises = async (
   searchQuery?: string,
@@ -39,7 +36,7 @@ const getExercises = async (
     }
   });
 
-  revalidatePath("/dashboard/exercises");
+  revalidatePath("/exercises");
   return validatedExercises;
 };
 
@@ -98,7 +95,7 @@ const createExercise = async (
 
     // Todo: use response to validate if exercise was created of not
 
-    revalidatePath("/dashboard/exercises");
+    revalidatePath("/exercises");
 
     return {
       success: true,
@@ -151,7 +148,7 @@ const updateExercise = async (
   // Todo: schema validation
   // Todo: server error
 
-  revalidatePath("/dashboard/exercises/[slug]", "page");
+  revalidatePath("/exercises/[slug]", "page");
   return {
     success: true,
     message: `${dataFormatExercise.name} updated!`,
@@ -168,7 +165,7 @@ const deleteExercise = async (id: string) => {
     .match({ id });
 
   if (status === 204) {
-    redirect("/dashboard/exercises");
+    redirect("/exercises");
   }
 };
 

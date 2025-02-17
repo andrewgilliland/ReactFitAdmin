@@ -15,20 +15,16 @@ const SearchInput: FC<SearchInputProps> = ({ name, className }) => {
   const router = useRouter();
 
   useEffect(() => {
-    router.push(
-      searchQuery
-        ? `/dashboard/${name}?search=${searchQuery}`
-        : `/dashboard/${name}`
-    );
+    router.push(searchQuery ? `/${name}?search=${searchQuery}` : `/${name}`);
   }, [searchQuery, router, name]);
 
   return (
     <label
-      className={`flex items-center capitalize text-sm text-gray-500 ${className}`}
+      className={`flex items-center text-sm capitalize text-neutral-500 ${className}`}
     >
-      <MagnifyingGlassIcon className="h-6 w-6 fill-pink-400 mr-3" />
+      <MagnifyingGlassIcon className="mr-3 h-6 w-6 fill-orange-600" />
       <input
-        className={`bg-black px-2 py-1 placeholder:text-gray-600 focus:outline-none`}
+        className={`bg-black px-2 py-1 placeholder:text-neutral-600 focus:outline-none`}
         type="search"
         name={name}
         autoComplete="on"
